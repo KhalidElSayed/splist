@@ -22,6 +22,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.theccertservice.splist.ListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.theccertservice.splist.FeedActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.theccertservice.splist.FriendsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.theccertservice.splist.PickUpActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
