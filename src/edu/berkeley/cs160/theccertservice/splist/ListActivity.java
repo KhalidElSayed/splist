@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class ListActivity extends Activity {
+public class ListActivity extends Activity implements View.OnClickListener {
     private ListView myList;
 //    private MyAdapter myAdapter;
     private Button shareButton;
@@ -17,7 +17,10 @@ public class ListActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
+		
 		shareButton = (Button) findViewById(R.id.calculate);
+		
+		shareButton.setOnClickListener(this);
 		
 		
 //        myList = (ListView) findViewById(R.id.MyList);

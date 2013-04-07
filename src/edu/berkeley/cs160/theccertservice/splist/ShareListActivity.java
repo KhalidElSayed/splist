@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +20,6 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 	private String msgString;
 	private Dialog currentDialog;
 	private AtomicBoolean dialogIsVisible = new AtomicBoolean();
-	AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 	/** Called when the activity is first created. */
 	@Override
