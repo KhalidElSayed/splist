@@ -11,6 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -41,7 +44,7 @@ public class ListActivity extends Activity {
 //        myList.setAdapter(myAdapter);
 
 	}
-	
+
 	public void showCreateListDialog(View v) {
 	    DialogFragment newFragment = new CreateListDialog();
 	    newFragment.show(getFragmentManager(), "createList");
@@ -85,6 +88,16 @@ public class ListActivity extends Activity {
 		public void done() {
 			this.dismiss();
 		}
+	}
+
+	public void onClick(View view) {
+	    switch (view.getId()) {
+	    case R.id.calculate:
+	    	Intent myIntent = new Intent(view.getContext(), ShareListActivity.class);
+	        startActivity(myIntent);
+			break;
+	    }
+
 	}
 	
 	public class ChooseListListener extends Activity implements OnItemSelectedListener {

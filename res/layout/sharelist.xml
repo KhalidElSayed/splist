@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <EditText
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="158dp"
+            android:layout_x="76dp"
+            android:layout_y="84dp"
+            android:ems="10"
+            android:inputType="textMultiLine" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="79dp"
+            android:layout_y="305dp"
+            android:text="@string/sharewithfriends" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="306dp"
+            android:layout_height="wrap_content"
+            android:layout_x="19dp"
+            android:layout_y="26dp"
+            android:text="@string/typemsg"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </AbsoluteLayout>
