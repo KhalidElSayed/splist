@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 public class ShareListActivity extends Activity implements View.OnClickListener {
@@ -19,6 +21,7 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 	private String msgString;
 	private Dialog currentDialog;
 	private AtomicBoolean dialogIsVisible = new AtomicBoolean();
+	AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 	/** Called when the activity is first created. */
 	@Override
@@ -29,20 +32,23 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 		msg = (EditText) findViewById(R.id.msg);
 		shareButton = (Button) findViewById(R.id.share);
 		msgString = "";
-		
 	}
+	
+	public String getMessage() {
+		return msgString;
+	}
+	
 	
 	public void onClick(View view) {
 	    switch (view.getId()) {
 	    case R.id.share:
 			msgString = msg.getText().toString();
-			Intent myIntent = new Intent(view.getContext(), ListActivity.class);
-            startActivity(myIntent);
+			showDialog();
 			break;
 	    }
 
 	}
-/*	
+
 	public void showDialog() {
 		currentDialog = new Dialog(this);
 		currentDialog.setContentView(R.layout.share_msg_dialog);
@@ -61,14 +67,17 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 	private OnClickListener yesButtListener = new OnClickListener()
 	{
 		@Override
-		public void onClick(View v) {
-			//send message to friends
-			
+		public void onClick(View v) {			
 			dialogIsVisible.set(false);
 			currentDialog.dismiss();
 			currentDialog = null;
 			
+			//share with friends
+			
 			//go to list screen
+			Intent myIntent = new Intent(v.getContext(), ListActivity.class);
+            startActivity(myIntent);
+
 		}
 	};
 	
@@ -79,8 +88,9 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 			dialogIsVisible.set(false);
 			currentDialog.dismiss();
 			currentDialog = null;
+			Intent myIntent = new Intent(v.getContext(), ShareListActivity.class);
+            startActivity(myIntent);
 		}
 	};
-*/
 	
 }
