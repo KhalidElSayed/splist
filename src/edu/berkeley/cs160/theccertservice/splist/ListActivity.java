@@ -104,7 +104,7 @@ public class ListActivity extends Activity {
 		
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-			
+			String chosenList = ((Spinner) parent).getSelectedItem().toString();
 		}
 		
 		@Override
