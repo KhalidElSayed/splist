@@ -21,10 +21,11 @@ implements TimePickerDialog.OnTimeSetListener {
 
 		// Create a new instance of TimePickerDialog and return it
 		return new TimePickerDialog(getActivity(), this, hour, minute,
-				DateFormat.is24HourFormat(getActivity()));
+				false);
 	}
 
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		// Do something with the time chosen by the user
+		PickUpActivity parentAct = (PickUpActivity) getActivity();
+        parentAct.onFinishAddPickUpTime(hourOfDay, minute);
 	}
 }

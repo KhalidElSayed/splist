@@ -12,5 +12,7 @@
     <string name="items_title">Items:</string>
     <string name="share_title">Share</string>
     <string name="share_checkbox">Share?</string>
+    <string name="pickupMessageTitle">Pick-Up Message</string>
+    <string name="pickupDefaultText">The items that you requested to split should be available to pickup at the date, time, and location specified.</string>
 
 </resources>

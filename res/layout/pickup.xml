@@ -35,18 +35,19 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonPickUpAlert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/pickupButtonText" />
+        android:text="@string/pickupButtonText"
+        android:onClick="showPickUpDialog" />
 
     <ListView
         android:id="@+id/pickupTimeListView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/buttonPickUpAlert"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button2" >
 
@@ -82,7 +83,7 @@
         android:layout_alignTop="@+id/textView2"
         android:layout_toRightOf="@+id/textView2"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="textPostalAddress" />
 
     <EditText
         android:id="@+id/editText2"
@@ -92,7 +93,7 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/TextView02"
         android:ems="10"
-        android:inputType="textPostalAddress" >
+        android:inputType="date" >
 
         <requestFocus />
     </EditText>
