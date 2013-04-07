@@ -51,6 +51,14 @@
         android:layout_toRightOf="@+id/editText1"
         android:layout_marginLeft="15dp"
         android:onClick="onCheckboxClicked"/>
+    
+    <ListView 
+        android:id="@+id/MyList" 
+        android:layout_height="360dp"
+        android:layout_width="fill_parent" 
+        android:layout_below="@+id/editText1"
+        android:descendantFocusability="beforeDescendants">
+    </ListView>
 
 	<Button
 	    android:id="@+id/calculate"
