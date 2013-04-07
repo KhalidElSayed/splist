@@ -14,30 +14,35 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int TextView01=0x7f070009;
-        public static final int TextView02=0x7f07000b;
-        public static final int button1=0x7f07000d;
-        public static final int button2=0x7f07000f;
-        public static final int calculate=0x7f070007;
-        public static final int checkbox_share=0x7f070006;
-        public static final int editText1=0x7f070005;
-        public static final int editText2=0x7f07000c;
-        public static final int editText3=0x7f07000a;
+        public static final int MyList=0x7f070008;
+        public static final int TextView01=0x7f07000c;
+        public static final int TextView02=0x7f07000e;
+        public static final int button2=0x7f070012;
+        public static final int buttonPickUpAlert=0x7f070010;
+        public static final int calculate=0x7f07000a;
+        public static final int checkbox_share=0x7f070003;
+        public static final int editText1=0x7f070009;
+        public static final int editText2=0x7f07000f;
+        public static final int editText3=0x7f07000d;
+        public static final int editTextPickUpMsg=0x7f070007;
+        public static final int item_name=0x7f070002;
         public static final int linearLayout1=0x7f070000;
-        public static final int lists=0x7f070002;
-        public static final int menu_settings=0x7f070010;
-        public static final int pickupTimeListView=0x7f07000e;
-        public static final int spinner1=0x7f070008;
-        public static final int textView1=0x7f070001;
-        public static final int textView2=0x7f070003;
-        public static final int textView3=0x7f070004;
+        public static final int lists=0x7f070004;
+        public static final int menu_settings=0x7f070013;
+        public static final int pickupTimeListView=0x7f070011;
+        public static final int spinner1=0x7f07000b;
+        public static final int textView2=0x7f070005;
+        public static final int textView3=0x7f070006;
+        public static final int textViewPickUpMsg=0x7f070001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int feed=0x7f030001;
         public static final int friends=0x7f030002;
-        public static final int list=0x7f030003;
-        public static final int pickup=0x7f030004;
+        public static final int item=0x7f030003;
+        public static final int list=0x7f030004;
+        public static final int pickup=0x7f030005;
+        public static final int pickup_dialog=0x7f030006;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
@@ -50,7 +55,9 @@ public final class R {
         public static final int menu_settings=0x7f040002;
         public static final int pickupButtonText=0x7f040006;
         public static final int pickupDate=0x7f040005;
+        public static final int pickupDefaultText=0x7f04000c;
         public static final int pickupLocation=0x7f040003;
+        public static final int pickupMessageTitle=0x7f04000b;
         public static final int pickupTime=0x7f040004;
         public static final int share_checkbox=0x7f04000a;
         public static final int share_title=0x7f040009;
