@@ -4,17 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class ListActivity extends Activity {
     private ListView myList;
 //    private MyAdapter myAdapter;
+    private Button shareButton;
     
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
+		shareButton = (Button) findViewById(R.id.calculate);
+		
 		
 //        myList = (ListView) findViewById(R.id.MyList);
 //        myList.setItemsCanFocus(true);
