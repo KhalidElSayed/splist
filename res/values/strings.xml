@@ -4,5 +4,9 @@
     <string name="app_name">Splist</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="pickupLocation">Location:</string>
+    <string name="pickupTime">Time:</string>
+    <string name="pickupDate">Date:</string>
+    <string name="pickupButtonText">Alert for Pick-up</string>
 
 </resources>
