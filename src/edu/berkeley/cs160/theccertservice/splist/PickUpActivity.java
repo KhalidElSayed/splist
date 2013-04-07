@@ -20,8 +20,8 @@ public class PickUpActivity extends Activity {
 	    newFragment.show(getFragmentManager(), "timePicker");
 	}
 	
-	public void showPickUpDialog(View v) {
-	    DialogFragment newFragment = new PickUpDialog();
-	    newFragment.show(getFragmentManager(), "PickUpMsg");
-	}
+//	public void showPickUpDialog(View v) {
+//	    DialogFragment newFragment = new PickUpDialog();
+//	    newFragment.show(getFragmentManager(), "PickUpMsg");
+//	}
 }

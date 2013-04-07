@@ -11,6 +11,10 @@ public class MainActivity extends TabActivity {
 	
 	TabHost mTabHost;
 	
+	//The selectable lists for the user someone put the global var here!
+	
+	
+	
     /** Called when the activity is first created. */  
 	@Override  
     public void onCreate(Bundle savedInstanceState) {  
