@@ -14,5 +14,9 @@
     <string name="share_checkbox">Share?</string>
     <string name="pickupMessageTitle">Pick-Up Message</string>
     <string name="pickupDefaultText">The items that you requested to split should be available to pickup at the date, time, and location specified.</string>
-
+    <string name="sharewithfriends">Share List With Friends</string>
+	<string name="typemsg">Type a message below to your friends about your lists</string>
+	<string name="confirmMessage">Are you sure you want to send this message?</string>
+	<string name="cancel">Cancel</string>
+	<string name="yes">Yes</string>
 </resources>
