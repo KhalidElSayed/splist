@@ -21,7 +21,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ListActivity extends Activity implements View.OnClickListener {
     private ListView myList;
-    private ArrayList<String> sharedLists = new ArrayList<String>();
+    private static ArrayList<String> sharedLists = new ArrayList<String>();
     Spinner currentList;
     ArrayAdapter<String> arrayAdapter;
 //    private MyAdapter myAdapter;
@@ -33,7 +33,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
 		
-		shareButton = (Button) findViewById(R.id.calculate);
+		shareButton = (Button) findViewById(R.id.share_with_others);
 		
 		shareButton.setOnClickListener(this);
 		
@@ -100,7 +100,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 
 	public void onClick(View view) {
 	    switch (view.getId()) {
-	    case R.id.calculate:
+	    case R.id.share_with_others:
 	    	Intent myIntent = new Intent(view.getContext(), ShareListActivity.class);
 	        startActivity(myIntent);
 			break;
@@ -118,5 +118,9 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		@Override
 		public void onNothingSelected(AdapterView<?> parent) {
 		}
+	}
+	
+	public static ArrayList<String> getLists(){
+		return sharedLists;
 	}
 }
