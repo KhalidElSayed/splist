@@ -19,4 +19,7 @@
 	<string name="confirmMessage">Are you sure you want to send this message?</string>
 	<string name="cancel">Cancel</string>
 	<string name="yes">Yes</string>
+	<string name="shareDefaultText">Hey! I am going shopping and wanted to see if you were interested in splitting any of these items? Take a look and let me know. Thanks!</string>
+	<string name="defaultLocation">My Place</string>
+	<string name="defaultDate">4-7-2013</string>
 </resources>

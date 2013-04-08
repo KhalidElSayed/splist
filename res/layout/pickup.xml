@@ -83,7 +83,8 @@
         android:layout_alignTop="@+id/textView2"
         android:layout_toRightOf="@+id/textView2"
         android:ems="10"
-        android:inputType="textPostalAddress" />
+        android:inputType="textPostalAddress"
+        android:text="@string/defaultLocation" />
 
     <EditText
         android:id="@+id/editText2"
@@ -93,7 +94,8 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/TextView02"
         android:ems="10"
-        android:inputType="date" >
+        android:inputType="date"
+        android:text="@string/defaultDate" >
 
         <requestFocus />
     </EditText>

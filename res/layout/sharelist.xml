@@ -1,34 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+        
+    <EditText
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="@string/shareDefaultText" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="124dp"
-            android:layout_y="60dp"
-            android:orientation="vertical" >
-        </LinearLayout>
+        <requestFocus />
+    </EditText>
 
-        <Button
-            android:id="@+id/shareButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="56dp"
-            android:layout_y="186dp"
-            android:text="@string/sharewithfriends" />
-
-        <EditText
-            android:id="@+id/msg"
-            android:layout_width="wrap_content"
-            android:layout_height="158dp"
-            android:layout_x="53dp"
-            android:layout_y="14dp"
-            android:ems="10"
-            android:inputType="textMultiLine" >
-
-            <requestFocus />
-        </EditText>
-
-    </AbsoluteLayout>
+    <Button
+        android:id="@+id/shareButt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/msg"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sharewithfriends" />
+    
+</RelativeLayout>
