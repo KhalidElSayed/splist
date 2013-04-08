@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -29,6 +31,8 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 		setContentView(R.layout.sharelist);
 		msg = (EditText) findViewById(R.id.msg);
 		shareButton = (Button) findViewById(R.id.share);
+		
+		shareButton.setOnClickListener(this);
 		msgString = "";
 	}
 	
@@ -41,12 +45,18 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 	    switch (view.getId()) {
 	    case R.id.share:
 			msgString = msg.getText().toString();
-			showDialog();
+			Context context = getApplicationContext();
+			CharSequence text = "Your message has been sent!";
+			int duration = Toast.LENGTH_SHORT;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
 			break;
 	    }
 
 	}
 
+/*
 	public void showDialog() {
 		currentDialog = new Dialog(this);
 		currentDialog.setContentView(R.layout.share_msg_dialog);
@@ -90,5 +100,5 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
             startActivity(myIntent);
 		}
 	};
-	
+*/	
 }

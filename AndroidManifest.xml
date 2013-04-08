@@ -14,6 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:theme="@android:style/Theme.Holo"
             android:name="edu.berkeley.cs160.theccertservice.splist.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -23,22 +24,27 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@android:style/Theme.Holo"
             android:name="edu.berkeley.cs160.theccertservice.splist.ListActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:theme="@android:style/Theme.Holo"
             android:name="edu.berkeley.cs160.theccertservice.splist.FeedActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:theme="@android:style/Theme.Holo"
             android:name="edu.berkeley.cs160.theccertservice.splist.FriendsActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:theme="@android:style/Theme.Holo"
             android:name="edu.berkeley.cs160.theccertservice.splist.PickUpActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:theme="@android:style/Theme.Holo"
             android:name="edu.berkeley.cs160.theccertservice.splist.ShareListActivity"
             android:label="@string/app_name" >
         </activity>
