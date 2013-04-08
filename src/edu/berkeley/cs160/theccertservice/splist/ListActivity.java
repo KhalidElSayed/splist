@@ -20,7 +20,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ListActivity extends Activity {
     private ListView myList;
-    private ArrayList<String> sharedLists = new ArrayList<String>();
+    private static ArrayList<String> sharedLists = new ArrayList<String>();
     Spinner currentList;
     ArrayAdapter<String> arrayAdapter;
 //    private MyAdapter myAdapter;
@@ -92,7 +92,7 @@ public class ListActivity extends Activity {
 
 	public void onClick(View view) {
 	    switch (view.getId()) {
-	    case R.id.calculate:
+	    case R.id.share_with_others:
 	    	Intent myIntent = new Intent(view.getContext(), ShareListActivity.class);
 	        startActivity(myIntent);
 			break;
@@ -110,5 +110,9 @@ public class ListActivity extends Activity {
 		@Override
 		public void onNothingSelected(AdapterView<?> parent) {
 		}
+	}
+	
+	public static ArrayList<String> getLists(){
+		return sharedLists;
 	}
 }

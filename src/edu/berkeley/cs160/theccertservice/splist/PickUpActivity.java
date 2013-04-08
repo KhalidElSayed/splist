@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.berkeley.cs160.theccertservice.splist.ListActivity.ChooseListListener;
+
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
@@ -13,12 +15,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class PickUpActivity extends Activity {
 
 	ArrayList<myTime> pickupTimes = new ArrayList<myTime>();
 	boolean hackyFlag = false;
+	Spinner currentList;
+	ArrayAdapter<String> arrayAdapter;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -28,7 +34,10 @@ public class PickUpActivity extends Activity {
 		
 		updateTimesList();
 		
-		
+		currentList = (Spinner) findViewById(R.id.spinner1);
+		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ListActivity.getLists());
+		currentList.setAdapter(arrayAdapter);
+		currentList.setOnItemSelectedListener(new ChooseListListener());
 
 	}
 	
@@ -70,15 +79,15 @@ public class PickUpActivity extends Activity {
 	      public void onItemClick(AdapterView<?> parent, final View view,
 	          int position, long id) {
 	        final myTime item = (myTime) parent.getItemAtPosition(position);
-	        view.animate().setDuration(2000).alpha(0)
-	            .withEndAction(new Runnable() {
-	              @Override
-	              public void run() {
-	                pickupTimes.remove(item);
-	                adapter.notifyDataSetChanged();
-	                view.setAlpha(1);
-	              }         
-	            });
+//	        view.animate().setDuration(2000).alpha(0)
+//	            .withEndAction(new Runnable() {
+//	              @Override
+//	              public void run() {
+//	                pickupTimes.remove(item);
+//	                adapter.notifyDataSetChanged();
+//	                view.setAlpha(1);
+//	              }         
+//	            });
 	      }
 
 	    });
@@ -140,6 +149,17 @@ public class PickUpActivity extends Activity {
 		}
 		
 	}
-	
+
+	public class ChooseListListener extends Activity implements OnItemSelectedListener {
+		
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+			String chosenList = ((Spinner) parent).getSelectedItem().toString();
+		}
+		
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+		}
+	}
 	
 }
