@@ -3,21 +3,32 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <EditText
-            android:id="@+id/msg"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="158dp"
-            android:layout_x="52dp"
-            android:layout_y="85dp"
-            android:ems="10"
-            android:inputType="textMultiLine" />
+            android:layout_height="wrap_content"
+            android:layout_x="124dp"
+            android:layout_y="60dp"
+            android:orientation="vertical" >
+        </LinearLayout>
 
         <Button
             android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="53dp"
-            android:layout_y="287dp"
+            android:layout_x="56dp"
+            android:layout_y="186dp"
             android:text="@string/sharewithfriends" />
+
+        <EditText
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="158dp"
+            android:layout_x="53dp"
+            android:layout_y="14dp"
+            android:ems="10"
+            android:inputType="textMultiLine" >
+
+            <requestFocus />
+        </EditText>
 
     </AbsoluteLayout>
