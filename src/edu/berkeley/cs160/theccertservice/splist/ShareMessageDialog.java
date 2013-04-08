@@ -21,7 +21,7 @@ public class ShareMessageDialog extends DialogFragment {
 				Bundle savedInstanceState) {
 			View view = inflater.inflate(R.layout.sharelist, container);
 			mEditText = (EditText) view.findViewById(R.id.msg);
-			Button done = (Button) view.findViewById(R.id.share);
+			Button done = (Button) view.findViewById(R.id.shareButt);
 			done.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	ListActivity parentAct = (ListActivity) getActivity();

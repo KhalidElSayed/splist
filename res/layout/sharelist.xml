@@ -12,7 +12,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/share"
+            android:id="@+id/shareButt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_x="56dp"
