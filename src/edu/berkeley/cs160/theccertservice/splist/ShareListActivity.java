@@ -5,8 +5,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +19,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+/*
 public class ShareListActivity extends Activity implements View.OnClickListener {
 	private EditText msg;
 	private Button shareButton;
@@ -24,7 +28,8 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 	private AtomicBoolean dialogIsVisible = new AtomicBoolean();
 
 	/** Called when the activity is first created. */
-	@Override
+	// @Override
+/*
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		currentDialog = new Dialog(this);
@@ -55,6 +60,9 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
 	    }
 
 	}
+	
+*/
+
 
 /*
 	public void showDialog() {
@@ -100,5 +108,5 @@ public class ShareListActivity extends Activity implements View.OnClickListener 
             startActivity(myIntent);
 		}
 	};
-*/	
-}
+*/
+//}

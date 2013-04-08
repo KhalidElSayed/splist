@@ -1,6 +1,7 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -101,8 +103,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	public void onClick(View view) {
 	    switch (view.getId()) {
 	    case R.id.share_with_others:
-	    	Intent myIntent = new Intent(view.getContext(), ShareListActivity.class);
-	        startActivity(myIntent);
+	    	showShareMessageDialog(view);
 			break;
 	    }
 
@@ -123,4 +124,13 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	public static ArrayList<String> getLists(){
 		return sharedLists;
 	}
+	
+	public void showShareMessageDialog(View v) {
+	    DialogFragment newFragment = new ShareMessageDialog();
+	    newFragment.show(getFragmentManager(), "shareMessage");
+	}
+	
+    public void onFinishShareMessageDialog(String inputText) {
+        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+    }
 }
