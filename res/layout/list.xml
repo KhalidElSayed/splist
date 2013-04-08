@@ -59,8 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item1"
         android:layout_toRightOf="@+id/item1"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
     
     <EditText
         android:id="@+id/item2"
@@ -77,8 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item2"
         android:layout_toRightOf="@+id/item2"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
 
     <EditText
         android:id="@+id/item3"
@@ -95,8 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item3"
         android:layout_toRightOf="@+id/item3"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
     
     <EditText
         android:id="@+id/item4"
@@ -113,8 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item4"
         android:layout_toRightOf="@+id/item4"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
     
     <EditText
         android:id="@+id/item5"
@@ -131,8 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item5"
         android:layout_toRightOf="@+id/item5"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
 
     <EditText
         android:id="@+id/item6"
@@ -149,8 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item6"
         android:layout_toRightOf="@+id/item6"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
 
     <EditText
         android:id="@+id/item7"
@@ -167,8 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item7"
         android:layout_toRightOf="@+id/item7"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
 
     <EditText
         android:id="@+id/item8"
@@ -185,8 +178,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item8"
         android:layout_toRightOf="@+id/item8"
-        android:layout_marginLeft="15dp"
-        android:onClick="onCheckboxClicked"/>
+        android:layout_marginLeft="15dp"/>
 
 	<Button
 	    android:id="@+id/share_with_others"

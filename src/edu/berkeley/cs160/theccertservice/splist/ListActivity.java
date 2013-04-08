@@ -33,7 +33,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
 		
-		shareButton = (Button) findViewById(R.id.calculate);
+		shareButton = (Button) findViewById(R.id.share_with_others);
 		
 		shareButton.setOnClickListener(this);
 		
