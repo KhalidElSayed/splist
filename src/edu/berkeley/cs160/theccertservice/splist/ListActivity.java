@@ -26,7 +26,6 @@ public class ListActivity extends Activity implements View.OnClickListener {
     private static ArrayList<String> sharedLists = new ArrayList<String>();
     Spinner currentList;
     ArrayAdapter<String> arrayAdapter;
-//    private MyAdapter myAdapter;
     private Button shareButton;
     
 	/** Called when the activity is first created. */
@@ -36,23 +35,16 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		setContentView(R.layout.list);
 		
 		shareButton = (Button) findViewById(R.id.share_with_others);
-		
 		shareButton.setOnClickListener(this);
-		
-		
 
-		if(sharedLists.size() == 0){
-			showCreateListDialog(null);
-		}
 		currentList = (Spinner) findViewById(R.id.lists);
 		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		currentList.setAdapter(arrayAdapter);
 		currentList.setOnItemSelectedListener(new ChooseListListener());
-//        myList = (ListView) findViewById(R.id.MyList);
-//        myList.setItemsCanFocus(true);
-//        myAdapter = new MyAdapter();
-//        myList.setAdapter(myAdapter);
-
+		
+		if(sharedLists.size() == 0){
+			showCreateListDialog(null);
+		}
 	}
 
 	public void showCreateListDialog(View v) {
@@ -62,6 +54,8 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	
 	public void onFinishCreateList(String listName){
 		sharedLists.add(listName);
+		arrayAdapter.notifyDataSetChanged();
+//		currentList.setAdapter(arrayAdapter);
 	}
 	
 	public class CreateListDialog extends DialogFragment {
