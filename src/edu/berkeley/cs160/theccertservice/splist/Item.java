@@ -4,11 +4,13 @@ public class Item {
 	String _name;
 	Boolean _shared;
 	Integer _numPeopleSharing;
+	Double _price;
 	
 	public Item(String name) {
 		_name = name;
 		_shared = false;
 		_numPeopleSharing = 0;
+		_price = 0;
 	}
 	
 	public String getName() {
@@ -29,5 +31,13 @@ public class Item {
 	
 	public Integer getNumPeopleSharing() {
 		return _numPeopleSharing;
+	}
+	
+	public void setPrice(String _name) {
+		this._price = _price;
+	}
+	
+	public Double getPrice() {
+		return _price;
 	}
 }
