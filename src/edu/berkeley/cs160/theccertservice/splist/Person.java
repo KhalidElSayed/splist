@@ -11,13 +11,13 @@ public class Person {
 	Integer _phoneNumber;
 	String _email;
 	
-	public Person(String name, Integer phoneNum) {
+	public Person(String name, String email) {
 		_name = name;
 		_myLists = new ArrayList<ShoppingList>();
 		_listsSharedWithMe = new ArrayList<ShoppingList>();
 		_myFriends = new ArrayList<Person>();
-		_phoneNumber = phoneNum;
-		_email = "";
+		_phoneNumber = 0;
+		_email = email;
 	}
 	
 	public String getName() {
@@ -45,7 +45,7 @@ public class Person {
 	}
 	
 	public void setEmail(String email) {
-		this._email = email;
+		_email = email;
 	}
 	
 	public String getEmail() {

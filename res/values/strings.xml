@@ -22,4 +22,9 @@
 	<string name="shareDefaultText">Hey! I am going shopping and wanted to see if you were interested in splitting any of these items? Take a look and let me know. Thanks!</string>
 	<string name="defaultLocation">My Place</string>
 	<string name="defaultDate">4-7-2013</string>
+	<string name="amount_owed">Amount Owed:</string>
+	<string name="$">$</string>
+	<string name="0.00">0.00</string>
+	<string name="calculate_title">Calculate</string>
+	
 </resources>
