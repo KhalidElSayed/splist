@@ -1,5 +1,7 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
+import java.util.ArrayList;
+
 public class Item {
 	String _name;
 	Boolean _shared;
@@ -11,9 +13,8 @@ public class Item {
 	public Item(String name) {
 		_name = name;
 		_shared = false;
-		_numPeopleSharing = 0;
-		_price = 0;
-		//ArrayList<Person> _peopleSharing;
+		_price = 0.0;
+		ArrayList<Person> _peopleSharing = new ArrayList<Person>();
 	}
 	
 	public String getName() {
@@ -33,11 +34,11 @@ public class Item {
 	}
 	
 	public Integer getNumPeopleSharing() {
-		return _numPeopleSharing;
+		return _peopleSharing.size() + 1;
 	}
 	
-	public void setPrice(String _name) {
-		this._price = _price;
+	public void setPrice(Double price) {
+		this._price = price;
 	}
 	
 	public Double getPrice() {
