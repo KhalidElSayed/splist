@@ -81,8 +81,7 @@ public class CalcBillActivity extends Activity {
 		    		ShoppingList curList = ShoppingList.getShoppingList(chosenList);
 					MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
 	    		}
-
-			break;
+	    		break;
 	    }
 	}
 	

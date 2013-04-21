@@ -6,11 +6,12 @@ import java.util.HashMap;
 public class ShoppingList {
 	
 	String _name;
-	ArrayList<Item> _items = new ArrayList<Item>();
+	ArrayList<Item> _items;
 	static HashMap<String, ShoppingList> hm = new HashMap<String, ShoppingList>();
 	
 	public ShoppingList(String name) {
 		_name = name;
+		_items = new ArrayList<Item>();
 		hm.put(name, this);
 	}
 	
