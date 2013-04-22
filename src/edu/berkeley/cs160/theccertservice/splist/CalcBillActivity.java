@@ -11,20 +11,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class CalcBillActivity extends Activity {
+public class CalcBillActivity extends ListActivity {
 	
 
 	private TextView MoneyOwed;
 	private Button calcButton;
 	private Spinner currentList;
-	private static ArrayList<String> sharedLists = new ArrayList<String>();
     ArrayAdapter<String> arrayAdapter;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> listItems = new ArrayList<String>();
+    static ArrayList<String> sharedLists = ListActivity.getLists();
+    
     String chosenList = "";
+    
     
     // NEED TO IMPLEMENT HOW TO SET THE CURRENT USER.
     private Person currentUser;
@@ -35,9 +40,22 @@ public class CalcBillActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calcbill);
-		MoneyOwed = (TextView) findViewById(R.id.money_owed);
 		
-		currentList = (Spinner) findViewById(R.id.lists);
+	    View header = getLayoutInflater().inflate(R.layout.calcbill_header, null);
+	    View footer = getLayoutInflater().inflate(R.layout.calcbill_footer, null);
+	    ListView listView = (ListView) findViewById(R.id.listView1);
+	    listView.addHeaderView(header);
+	    listView.addFooterView(footer);
+
+	    
+	    adapter=new ArrayAdapter<String>(this,
+	    		android.R.layout.simple_list_item_1, listItems);
+	    listView.setAdapter(adapter);
+		
+		
+		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
+		
+		currentList = (Spinner) header.findViewById(R.id.lists);
 		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		currentList.setAdapter(arrayAdapter);
 		currentList.setOnItemSelectedListener(new ChooseListListener());
@@ -54,10 +72,15 @@ public class CalcBillActivity extends Activity {
 				
 				//how to account for current user
 				if (pplSharing.get(j).equals(currentUser) ) {
+					String itemName = curItem.getName();
 					double itemPrice = curItem.getPrice();
 					double numPplSharing = curItem.getNumPeopleSharing();
 					double priceFrac = roundTwoDecimalPlaces(itemPrice / numPplSharing);
+					String priceFracStr = Double.toString(priceFrac);
 					owed = owed + priceFrac;
+					String nameAndPrice = itemName + " costs " + priceFracStr;
+					listItems.add(nameAndPrice);
+					adapter.notifyDataSetChanged();
 				}
 			}
 
@@ -66,13 +89,11 @@ public class CalcBillActivity extends Activity {
 	}
 	
 	public double roundTwoDecimalPlaces(double d) {
-        DecimalFormat twoPlaces = new DecimalFormat("#.##");
+        DecimalFormat twoPlaces = new DecimalFormat("##.##");
         return Double.valueOf(twoPlaces.format(d));
 	}
 	
 	public void onClick(View view) {
-		double totalBill;
-		double people;
 	    switch (view.getId()) {
 	    	case R.id.calculate:
 	    		if (chosenList.isEmpty()) {
@@ -97,8 +118,5 @@ public class CalcBillActivity extends Activity {
 		}
 	}
 	
-	public static ArrayList<String> getLists(){
-		return sharedLists;
-	}
 	
 }
