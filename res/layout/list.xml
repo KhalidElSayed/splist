@@ -40,13 +40,13 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
-        android:layout_marginLeft="250dp"
+        android:layout_marginLeft="210dp"
         android:layout_marginTop="40dp"
         android:text="@string/share_checkbox" />
 
     <EditText
-        android:id="@+id/item1"
-        android:layout_width="290dp"
+        android:id="@+id/item"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:ems="10"
@@ -54,132 +54,35 @@
         android:hint="Item Name" />
 
     <CheckBox
-        android:id="@+id/checkbox_share1"
+        android:id="@+id/checkbox_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item1"
-        android:layout_toRightOf="@+id/item1"
+        android:layout_alignBottom="@+id/item"
+        android:layout_toRightOf="@+id/item"
         android:layout_marginLeft="15dp"/>
     
-    <EditText
-        android:id="@+id/item2"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item1"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Item Name" />
-
-    <CheckBox
-        android:id="@+id/checkbox_share2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item2"
-        android:layout_toRightOf="@+id/item2"
-        android:layout_marginLeft="15dp"/>
-
-    <EditText
-        android:id="@+id/item3"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item2"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Item Name" />
-
-    <CheckBox
-        android:id="@+id/checkbox_share3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item3"
-        android:layout_toRightOf="@+id/item3"
-        android:layout_marginLeft="15dp"/>
-    
-    <EditText
-        android:id="@+id/item4"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item3"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Item Name" />
-
-    <CheckBox
-        android:id="@+id/checkbox_share4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item4"
-        android:layout_toRightOf="@+id/item4"
-        android:layout_marginLeft="15dp"/>
-    
-    <EditText
-        android:id="@+id/item5"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item4"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Item Name" />
-
-    <CheckBox
-        android:id="@+id/checkbox_share5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item5"
-        android:layout_toRightOf="@+id/item5"
-        android:layout_marginLeft="15dp"/>
-
-    <EditText
-        android:id="@+id/item6"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item5"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Item Name" />
-
-    <CheckBox
-        android:id="@+id/checkbox_share6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item6"
-        android:layout_toRightOf="@+id/item6"
-        android:layout_marginLeft="15dp"/>
-
-    <EditText
-        android:id="@+id/item7"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item6"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Item Name" />
-
-    <CheckBox
-        android:id="@+id/checkbox_share7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item7"
-        android:layout_toRightOf="@+id/item7"
-        android:layout_marginLeft="15dp"/>
-
-    <EditText
-        android:id="@+id/item8"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item7"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Item Name" />
-
-    <CheckBox
-        android:id="@+id/checkbox_share8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item8"
-        android:layout_toRightOf="@+id/item8"
-        android:layout_marginLeft="15dp"/>
-
+	<Button
+	    android:id="@+id/add_item"
+	    android:layout_width="60dp"
+	    android:layout_height="40dp"
+	    android:layout_alignBottom="@+id/item"
+	    android:layout_toRightOf="@+id/checkbox_share"
+	    android:onClick="addItem"
+	    android:text="Add" />
+	
+	<ScrollView
+	    android:id="@+android:id/scroll"
+	    android:layout_width="fill_parent"
+	    android:layout_height="330dp"
+	    android:layout_below="@+id/item">
+		<ListView
+		    android:id="@+android:id/item_list"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+			android:layout_below="@+id/item" >
+		</ListView>
+	</ScrollView>
+	
 	<Button
 	    android:id="@+id/share_with_others"
 	    android:layout_width="210dp"
