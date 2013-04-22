@@ -86,7 +86,7 @@
 	    android:layout_alignBottom="@+id/item_cost"
 	    android:layout_toRightOf="@+id/item_cost"
 	    android:layout_marginLeft="35dp"
-	    android:onClick="addItem"
+	    android:onClick="addItemToList"
 	    android:text="Add Item" />
 
     <ListView

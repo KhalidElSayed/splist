@@ -46,11 +46,14 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		
 		shareButton = (Button) findViewById(R.id.share_with_others);
 		shareButton.setOnClickListener(this);
-
+		
 		spinnerList = (Spinner) findViewById(R.id.lists);
+		sharedLists = ShoppingList.allListNames();
 		listsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		spinnerList.setAdapter(listsAdapter);
 		spinnerList.setOnItemSelectedListener(new ChooseListListener());
+		
+		updateItemsList();
 	}
 	
 	public void showCreateListDialog(View v) {
@@ -64,8 +67,8 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	
 	public void onFinishCreateList(String listName){
 		sharedLists.add(listName);
+		new ShoppingList(listName, "bob");
 		listsAdapter.notifyDataSetChanged();
-//		spinnerList.setAdapter(listsAdapter);
 	}
 	
 	public Dialog deleteDialog(){
@@ -75,6 +78,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
     		public void onClick(DialogInterface dialog, int which) {
     			String chosenList = spinnerList.getSelectedItem().toString();
     			sharedLists.remove(chosenList);
+    			//need to remove list from real list
     			listsAdapter.notifyDataSetChanged();
     		}
         });
@@ -136,6 +140,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			String chosenList = ((Spinner) parent).getSelectedItem().toString();
+			updateItemsList();
 		}
 		
 		@Override
@@ -156,8 +161,11 @@ public class ListActivity extends Activity implements View.OnClickListener {
         Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
     }
     
-    public void addItem(){
-    	EditText nameView = (EditText) findViewById(R.id.list_name);
+    public void addItemToList(View v){
+    	if(currentItems == null){
+    		return;
+    	}
+    	EditText nameView = (EditText) findViewById(R.id.item);
     	CheckBox checkView = (CheckBox) findViewById(R.id.checkbox_share);
     	EditText costView = (EditText) findViewById(R.id.item_cost);
     	
@@ -177,9 +185,17 @@ public class ListActivity extends Activity implements View.OnClickListener {
     	nameView.setText("", TextView.BufferType.EDITABLE);
     	checkView.setChecked(false);
     	costView.setText("", TextView.BufferType.EDITABLE);
+    	
+    	updateItemsList();
     }
     
-	private void updateTimesList() {
+	private void updateItemsList() {
+		if(spinnerList.getSelectedItem() != null){
+			currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
+		}
+		if(currentItems == null){
+			return;
+		}
 		ListView listview = (ListView) findViewById(R.id.item_list);
 		itemsArray = currentItems.getItems();
 		itemsAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, itemsArray);

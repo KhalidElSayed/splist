@@ -53,4 +53,9 @@ public class ShoppingList {
 	public static ShoppingList getShoppingList(String name) {
 		return hm.get(name);
 	}
+	
+	public static ArrayList<String> allListNames(){
+		ArrayList<String> list = new ArrayList(hm.keySet());
+		return list;
+	}
 }
