@@ -55,7 +55,9 @@ public class CalcBillActivity extends ListActivity {
 		
 		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 		
-		currentList = (Spinner) header.findViewById(R.id.lists);
+		currentList = (Spinner) header.findViewById(R.id.spinner1);
+		
+		// maybe sharedlists needs to be changed to Person.getListsSharedWithMe();
 		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		currentList.setAdapter(arrayAdapter);
 		currentList.setOnItemSelectedListener(new ChooseListListener());
@@ -89,10 +91,9 @@ public class CalcBillActivity extends ListActivity {
 	}
 	
 	public double roundTwoDecimalPlaces(double d) {
-        DecimalFormat twoPlaces = new DecimalFormat("#.##");
+        DecimalFormat twoPlaces = new DecimalFormat("##.##");
         return Double.valueOf(twoPlaces.format(d));
 	}
-	
 	public void onClick(View view) {
 	    switch (view.getId()) {
 	    	case R.id.calculate:
