@@ -39,7 +39,7 @@
         android:layout_alignBaseline="@+id/dollarSign"
         android:layout_alignBottom="@+id/dollarSign"
         android:layout_toRightOf="@+id/dollarSign"
-        android:text="@string/0.00"
+        android:text="@string/zero"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
