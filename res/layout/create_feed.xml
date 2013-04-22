@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/feedFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="21dp"
+        android:textStyle="bold"
+        android:text="From: " />
+
+    <TextView
+        android:id="@+id/feedName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/feedFrom"
+        android:layout_alignBottom="@+id/feedFrom"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/feedFrom"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/feedItemV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedFrom"
+        android:layout_marginTop="19dp"
+        android:textStyle="bold"
+        android:text="Item:" />
+
+    <TextView
+        android:id="@+id/feedItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/feedItemV"
+        android:layout_alignBottom="@+id/feedItemV"
+        android:layout_alignLeft="@+id/feedName"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedItemV"
+        android:layout_marginTop="23dp"
+        android:textStyle="bold"
+        android:text="Item Description: " />
+
+    <TextView
+        android:id="@+id/feedDiscription"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:text="Hi This is Eric, I have 10 ponds of Potatoes want to share with people.The price is $0.5 per pound." />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedDiscription"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:text="Send Message: " />
+
+    <EditText
+        android:id="@+id/feedMessage"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:ems="10" 
+        android:lines="5" >
+    </EditText>
+
+    <Button
+        android:id="@+id/feedSend"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedMessage"
+        android:text="Send" />
+
+    <Button
+        android:id="@+id/feedCancel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/feedMessage"
+        android:layout_below="@+id/feedMessage"
+        android:text="Cancel" />
+
+</RelativeLayout>

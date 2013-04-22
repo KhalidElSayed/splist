@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Item {
 	String _name;
 	Boolean _shared;
-	Integer _numPeopleSharing;
+	int _numPeopleSharing;
 	Double _price;
 	ArrayList<Person> _peopleSharing;
 	ShoppingList _list;
@@ -33,15 +33,15 @@ public class Item {
 		this._shared = _shared;
 	}
 	
-	public Integer getNumPeopleSharing() {
-		return _peopleSharing.size() + 1;
+	public double getNumPeopleSharing() {
+		return (double) _peopleSharing.size() + 1;
 	}
 	
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this._price = price;
 	}
 	
-	public Double getPrice() {
+	public double getPrice() {
 		return _price;
 	}
 	
