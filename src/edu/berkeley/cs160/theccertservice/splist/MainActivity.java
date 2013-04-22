@@ -1,51 +1,91 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;  
-import android.widget.TabHost;  
-import android.widget.TabHost.TabSpec;  
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
   
 
-public class MainActivity extends TabActivity {  
-	
-	TabHost mTabHost;
-	
-	//The selectable lists for the user someone put the global var here!
-	
-	
+public class MainActivity extends Activity{  
+	public static final String SETTING_INFO = "MyPrefsFile";
+	private EditText username;
+	private EditText password;
+	private Button logIn;
+	private TextView signUp;
+	private TextView noMatch;
+	private String user = "g";
+	private String pass = "123";
+	SharedPreferences settings;
 	
     /** Called when the activity is first created. */  
 	@Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.activity_main);  
-        mTabHost = getTabHost();
         
-        TabSpec listSpec = mTabHost.newTabSpec("List");
-        listSpec.setIndicator("List", null);
-        Intent listIntent = new Intent(this, ListActivity.class);
-        listSpec.setContent(listIntent);
+        username = (EditText)findViewById(R.id.username);
+        password = (EditText)findViewById(R.id.password);
+        logIn = (Button)findViewById(R.id.logIn);
+        signUp = (TextView)findViewById(R.id.signUp);
+        noMatch = (TextView)findViewById(R.id.noMatch);
         
-        TabSpec feedSpec = mTabHost.newTabSpec("Feed");
-        feedSpec.setIndicator("Feed", null);
-        Intent feedIntent = new Intent(this, FeedActivity.class);
-        feedSpec.setContent(feedIntent);
+        settings = getSharedPreferences(SETTING_INFO, 0);
+        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
+        if(hasLoggedIn)
+        {
+            //Go directly to main activity
+        	Intent intent = new Intent(MainActivity.this, TabHostActivity.class);
+			startActivity(intent);
+        }
         
-        TabSpec friendsSpec = mTabHost.newTabSpec("Friends");
-        friendsSpec.setIndicator("Friends", null);
-        Intent friendsIntent = new Intent(this, FriendsActivity.class);
-        friendsSpec.setContent(friendsIntent);
+        logIn.setOnClickListener(new OnClickListener(){
+        	//////
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				if((username.getText().toString().equals(user)) && (password.getText().toString().equals(pass))){
+					ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+					dialog.setMessage("Getting your data... Please wait...");
+					dialog.show();
+					
+					settings = getSharedPreferences(SETTING_INFO, 0);  
+				    SharedPreferences.Editor editor = settings.edit();
+				    editor.putBoolean("hasLoggedIn", true);
+				    editor.commit();
+				    
+					Intent intent = new Intent(MainActivity.this, TabHostActivity.class);
+					startActivity(intent);
+
+				}
+				else{
+					noMatch.setText("Inccorect username OR password!");
+					noMatch.setTextColor(Color.RED);
+				}
+			}
+        	
+        });
         
-        TabSpec pickUpSpec = mTabHost.newTabSpec("Pick Up");
-        pickUpSpec.setIndicator("Pick Up", null);
-        Intent pickUpIntent = new Intent(this, PickUpActivity.class);
-        pickUpSpec.setContent(pickUpIntent);
-        
-        mTabHost.addTab(listSpec);
-        mTabHost.addTab(feedSpec);
-        mTabHost.addTab(friendsSpec);
-        mTabHost.addTab(pickUpSpec);
-        mTabHost.setCurrentTab(0);
+        signUp.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+				dialog.setMessage("Please wait...");
+				dialog.show();
+				Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+				startActivity(intent);
+			}
+        	
+        });
     }  
 }  
