@@ -89,7 +89,7 @@ public class CalcBillActivity extends ListActivity {
 	}
 	
 	public double roundTwoDecimalPlaces(double d) {
-        DecimalFormat twoPlaces = new DecimalFormat("#.##");
+        DecimalFormat twoPlaces = new DecimalFormat("##.##");
         return Double.valueOf(twoPlaces.format(d));
 	}
 	
