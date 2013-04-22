@@ -14,21 +14,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 import android.graphics.PorterDuff;
 
 public class ListActivity extends Activity implements View.OnClickListener {
     private ListView myList;
     private static ArrayList<String> sharedLists = new ArrayList<String>();
-    Spinner currentList;
-    ArrayAdapter<String> arrayAdapter;
+    Spinner spinnerList;
+    ShoppingList currentItems;
+    ArrayList<Item> itemsArray;
+    ArrayAdapter<String> listsAdapter;
+    ArrayAdapter<Item> itemsAdapter;
     private Button shareButton;
     
 	/** Called when the activity is first created. */
@@ -41,11 +46,14 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		
 		shareButton = (Button) findViewById(R.id.share_with_others);
 		shareButton.setOnClickListener(this);
-
-		currentList = (Spinner) findViewById(R.id.lists);
-		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
-		currentList.setAdapter(arrayAdapter);
-		currentList.setOnItemSelectedListener(new ChooseListListener());
+		
+		spinnerList = (Spinner) findViewById(R.id.lists);
+		sharedLists = ShoppingList.allListNames();
+		listsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
+		spinnerList.setAdapter(listsAdapter);
+		spinnerList.setOnItemSelectedListener(new ChooseListListener());
+		
+		updateItemsList();
 	}
 	
 	public void showCreateListDialog(View v) {
@@ -59,8 +67,8 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	
 	public void onFinishCreateList(String listName){
 		sharedLists.add(listName);
-		arrayAdapter.notifyDataSetChanged();
-//		currentList.setAdapter(arrayAdapter);
+		new ShoppingList(listName, "bob");
+		listsAdapter.notifyDataSetChanged();
 	}
 	
 	public Dialog deleteDialog(){
@@ -68,9 +76,10 @@ public class ListActivity extends Activity implements View.OnClickListener {
         builder.setTitle("Are you sure you want to delete this list?");
     	builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
     		public void onClick(DialogInterface dialog, int which) {
-    			String chosenList = currentList.getSelectedItem().toString();
+    			String chosenList = spinnerList.getSelectedItem().toString();
     			sharedLists.remove(chosenList);
-    			arrayAdapter.notifyDataSetChanged();
+    			//need to remove list from real list
+    			listsAdapter.notifyDataSetChanged();
     		}
         });
     	builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -131,6 +140,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			String chosenList = ((Spinner) parent).getSelectedItem().toString();
+			updateItemsList();
 		}
 		
 		@Override
@@ -150,4 +160,63 @@ public class ListActivity extends Activity implements View.OnClickListener {
     public void onFinishShareMessageDialog(String inputText) {
         Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
     }
+    
+    public void addItemToList(View v){
+    	if(currentItems == null){
+    		return;
+    	}
+    	EditText nameView = (EditText) findViewById(R.id.item);
+    	CheckBox checkView = (CheckBox) findViewById(R.id.checkbox_share);
+    	EditText costView = (EditText) findViewById(R.id.item_cost);
+    	
+    	String itemName = nameView.getText().toString();
+    	Boolean isChecked = checkView.isChecked();
+    	String costInput = costView.getText().toString();
+    	Double itemCost;
+    	if (costInput == null || costInput.isEmpty()){
+    		itemCost = 0.0;
+    	}else{
+    		itemCost = Double.parseDouble(costInput);
+    	}
+    	Item newItem = new Item(itemName, isChecked, itemCost);
+    	currentItems.addItem(newItem);
+    	
+    	//clear edit texts and checkbox
+    	nameView.setText("", TextView.BufferType.EDITABLE);
+    	checkView.setChecked(false);
+    	costView.setText("", TextView.BufferType.EDITABLE);
+    	
+    	updateItemsList();
+    }
+    
+	private void updateItemsList() {
+		if(spinnerList.getSelectedItem() != null){
+			currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
+		}
+		if(currentItems == null){
+			return;
+		}
+		ListView listview = (ListView) findViewById(R.id.item_list);
+		itemsArray = currentItems.getItems();
+		itemsAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, itemsArray);
+		listview.setAdapter(itemsAdapter);
+
+	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+	      @Override
+	      public void onItemClick(AdapterView<?> parent, final View view,
+	          int position, long id) {
+	        final Item item = (Item) parent.getItemAtPosition(position);
+	        view.animate().setDuration(2000).alpha(0)
+	            .withEndAction(new Runnable() {
+	              @Override
+	              public void run() {
+	                itemsArray.remove(item);
+	                itemsAdapter.notifyDataSetChanged();
+	                view.setAlpha(1);
+	              }         
+	            });
+	      }
+	    });
+	}
 }

@@ -17,6 +17,13 @@ public class Item {
 		_peopleSharing = new ArrayList<Person>();
 	}
 	
+	public Item(String name, Boolean shared, Double price) {
+		_name = name;
+		_shared = shared;
+		_price = price;
+		ArrayList<Person> _peopleSharing = new ArrayList<Person>();
+	}
+	
 	public String getName() {
 		return _name;
 	}
@@ -47,5 +54,9 @@ public class Item {
 	
 	public ArrayList<Person> getPeopleSharing() {
 		return _peopleSharing;
+	}
+	
+	public String toString(){
+		return getName();
 	}
 }

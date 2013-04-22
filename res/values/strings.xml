@@ -9,7 +9,7 @@
     <string name="pickupDate">Date:</string>
     <string name="pickupButtonText">Alert for Pick-up</string>
     <string name="list_title">List: </string>
-    <string name="items_title">Items:</string>
+    <string name="items_title">New Item</string>
     <string name="share_title">Share</string>
     <string name="share_checkbox">Share?</string>
     <string name="pickupMessageTitle">Pick-Up Message</string>

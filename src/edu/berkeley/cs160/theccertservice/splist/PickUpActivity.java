@@ -79,15 +79,15 @@ public class PickUpActivity extends Activity {
 	      public void onItemClick(AdapterView<?> parent, final View view,
 	          int position, long id) {
 	        final myTime item = (myTime) parent.getItemAtPosition(position);
-//	        view.animate().setDuration(2000).alpha(0)
-//	            .withEndAction(new Runnable() {
-//	              @Override
-//	              public void run() {
-//	                pickupTimes.remove(item);
-//	                adapter.notifyDataSetChanged();
-//	                view.setAlpha(1);
-//	              }         
-//	            });
+	        view.animate().setDuration(2000).alpha(0)
+	            .withEndAction(new Runnable() {
+	              @Override
+	              public void run() {
+	                pickupTimes.remove(item);
+	                adapter.notifyDataSetChanged();
+	                view.setAlpha(1);
+	              }         
+	            });
 	      }
 
 	    });
