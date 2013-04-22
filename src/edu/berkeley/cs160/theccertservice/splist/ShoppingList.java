@@ -6,13 +6,24 @@ import java.util.HashMap;
 public class ShoppingList {
 	
 	String _name;
+	String _owner;
 	ArrayList<Item> _items;
 	static HashMap<String, ShoppingList> hm = new HashMap<String, ShoppingList>();
 	
-	public ShoppingList(String name) {
+	public ShoppingList(String name, String owner) {
 		_name = name;
+		_owner = owner;
 		_items = new ArrayList<Item>();
 		hm.put(name, this);
+		
+	}
+	
+	public void setOwner(String _owner) {
+		this._owner = _owner;
+	}
+	
+	public String getOwner() {
+		return _owner;
 	}
 	
 	public void addItem(Item item) {
