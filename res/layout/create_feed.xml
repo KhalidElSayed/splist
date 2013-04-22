@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
         android:layout_alignBottom="@+id/textView4"
-        android:layout_toRightOf="@+id/textView4"
+        android:layout_alignLeft="@+id/feedItem"
         android:text="TextView" />
 
     <Button
