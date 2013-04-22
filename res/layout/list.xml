@@ -46,9 +46,10 @@
 
     <EditText
         android:id="@+id/item"
-        android:layout_width="250dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
+        android:layout_marginLeft="30dp"
         android:ems="10"
         android:inputType="text"
         android:hint="Item Name" />
@@ -61,28 +62,41 @@
         android:layout_toRightOf="@+id/item"
         android:layout_marginLeft="15dp"/>
     
+    <TextView
+        android:id="@+id/cost_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="35dp"
+        android:text="Cost:" />
+    <EditText
+        android:id="@+id/item_cost"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cost_title"
+        android:layout_toRightOf="@+id/cost_title"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="Cost" />
 	<Button
 	    android:id="@+id/add_item"
-	    android:layout_width="60dp"
+	    android:layout_width="120dp"
 	    android:layout_height="40dp"
-	    android:layout_alignBottom="@+id/item"
-	    android:layout_toRightOf="@+id/checkbox_share"
+	    android:layout_alignBottom="@+id/item_cost"
+	    android:layout_toRightOf="@+id/item_cost"
+	    android:layout_marginLeft="35dp"
 	    android:onClick="addItem"
-	    android:text="Add" />
-	
-	<ScrollView
-	    android:id="@+android:id/scroll"
-	    android:layout_width="fill_parent"
-	    android:layout_height="330dp"
-	    android:layout_below="@+id/item">
-		<ListView
-		    android:id="@+android:id/item_list"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-			android:layout_below="@+id/item" >
-		</ListView>
-	</ScrollView>
-	
+	    android:text="Add Item" />
+
+    <ListView
+        android:id="@+id/item_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cost_title"
+        android:layout_alignParentLeft="true">
+    </ListView>
+    
 	<Button
 	    android:id="@+id/share_with_others"
 	    android:layout_width="210dp"
