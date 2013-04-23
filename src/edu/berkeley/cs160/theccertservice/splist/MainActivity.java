@@ -22,8 +22,8 @@ public class MainActivity extends Activity{
 	private Button logIn;
 	private TextView signUp;
 	private TextView noMatch;
-	private String user = "g";
-	private String pass = "123";
+	static String user = "g";
+	static String pass = "123";
 	SharedPreferences settings;
 	
     /** Called when the activity is first created. */  

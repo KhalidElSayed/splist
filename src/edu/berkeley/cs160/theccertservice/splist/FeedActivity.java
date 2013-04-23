@@ -123,15 +123,15 @@ public class FeedActivity extends Activity {
 			if (groupPosition == 0) {
 				view = inflater.inflate(R.layout.create_feed_pick_up, container);
 				feedItemP = (TextView) view.findViewById(R.id.feedItemP);
-				feedItemP.setText(FeedAdapter.childList[groupPosition][childPosition]);
+				feedItemP.setText(FeedAdapter.itemsFriendsWillSplit.get(childPosition).toString());
 				feedItemP.setTextColor(Color.RED);
 				
 				feedPriceP = (TextView) view.findViewById(R.id.feedPriceP);
-				feedPriceP.setText(FeedAdapter.feedPrice1[childPosition]);
+				feedPriceP.setText(String.valueOf(FeedAdapter.itemsFriendsWillSplit.get(childPosition).getPrice()));
 				feedPriceP.setTextColor(Color.RED);
 				
 				numPeopleSharingP = (TextView) view.findViewById(R.id.numPeopleSharingP);
-				numPeopleSharingP.setText(FeedAdapter.feedNumber1[childPosition]);
+				numPeopleSharingP.setText(FeedAdapter.itemsFriendsWillSplit.get(childPosition)._numPeopleSharing);
 				numPeopleSharingP.setTextColor(Color.RED);
 				
 				feedSendP = (Button) view.findViewById(R.id.feedSendP);
@@ -155,19 +155,19 @@ public class FeedActivity extends Activity {
 			if (groupPosition == 1) {
 				view = inflater.inflate(R.layout.create_feed_wait, container);
 				feedItemW = (TextView) view.findViewById(R.id.feedItemW);
-				feedItemW.setText(FeedAdapter.childList[groupPosition][childPosition]);
+				feedItemW.setText(FeedAdapter.itemsIWillSplit.get(childPosition).toString());
 				feedItemW.setTextColor(Color.RED);
 				
 				feedPriceW = (TextView) view.findViewById(R.id.feedPriceW);
-				feedPriceW.setText(FeedAdapter.feedPrice2[childPosition]);
+				feedPriceW.setText(String.valueOf(FeedAdapter.itemsIWillSplit.get(childPosition).getPrice()));
 				feedPriceW.setTextColor(Color.RED);
 				
 				numPeopleSharingW = (TextView) view.findViewById(R.id.numPeopleSharingW);
-				numPeopleSharingW.setText(FeedAdapter.feedNumber2[childPosition]);
+				numPeopleSharingW.setText(FeedAdapter.itemsIWillSplit.get(childPosition)._numPeopleSharing);
 				numPeopleSharingW.setTextColor(Color.RED);
 				
 				feedNameW = (TextView) view.findViewById(R.id.feedNameW);
-				feedNameW.setText(FeedAdapter.feedName2[childPosition]);
+				feedNameW.setText(FeedAdapter.itemsIWillSplit.get(childPosition)._list._owner);
 				feedNameW.setTextColor(Color.RED);
 				
 				feedResponse = (TextView) view.findViewById(R.id.feedResponse);
@@ -183,23 +183,23 @@ public class FeedActivity extends Activity {
 			if (groupPosition == 2) {
 				view = inflater.inflate(R.layout.create_feed, container);
 				feedName = (TextView) view.findViewById(R.id.feedName);
-				feedName.setText(FeedAdapter.sharedItems.get(childPosition)._list
+				feedName.setText(FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._list
 						.getOwner());
-				feedName.setText(FeedAdapter.sharedItems.get(childPosition)._list.getOwner());
+				feedName.setText(FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._list.getOwner());
 				feedName.setTextColor(Color.RED);
 
 				feedItem = (TextView) view.findViewById(R.id.feedItem);
-				feedItem.setText(FeedAdapter.sharedItems.get(childPosition).getName());
+				feedItem.setText(FeedAdapter.itemsFriendsWantToSplit.get(childPosition).getName());
 				feedItem.setTextColor(Color.RED);
 
 				feedPrice = (TextView) view.findViewById(R.id.feedPrice);
-				Double price = FeedAdapter.sharedItems.get(childPosition).getPrice();
+				Double price = FeedAdapter.itemsFriendsWantToSplit.get(childPosition).getPrice();
 				feedPrice.setText("$" + String.valueOf(price));
 				feedPrice.setTextColor(Color.RED);
 
 				numPeopleSharing = (TextView) view
 						.findViewById(R.id.numPeopleSharing);
-				Integer number = FeedAdapter.sharedItems.get(childPosition)._numPeopleSharing;
+				Integer number = FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._numPeopleSharing;
 				numPeopleSharing.setText(String.valueOf(number));
 				numPeopleSharing.setTextColor(Color.RED);
 

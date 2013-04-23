@@ -56,6 +56,7 @@ public class Item {
 		return _peopleSharing;
 	}
 	
+	@Override
 	public String toString(){
 		return getName();
 	}

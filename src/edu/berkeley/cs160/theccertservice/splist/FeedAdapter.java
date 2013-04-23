@@ -12,83 +12,49 @@ import android.widget.TextView;
 public class FeedAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
-	static ArrayList<Item> sharedItems = new ArrayList<Item>();
-	String[] feed1= {"milk", "apple", "banana", "spam", "instant noodle"};
-	String[] feed2= {"paper towel", "cookies", "bagels", "choolate bars"};
-	String[] feed3;
-	static String[] parentList={"Items Friends have agreed to split", "Items you agreed to split", "Items Friends would like to split"};
-	static String[][] childList;
+	static String[] parentList = {"Items Friends have agreed to spilt", 
+								  "Items you agreed to split", 
+								  "Items Friends would like to split" };
+	static ArrayList<Item> itemsFriendsWillSplit = new ArrayList<Item>();
+	static ArrayList<Item> itemsIWillSplit = new ArrayList<Item>();
+	static ArrayList<Item> itemsFriendsWantToSplit = new ArrayList<Item>();
 	
-	static String[] feedPrice1={"$9.99", "$5.89", "$6.59", "$3.45", "$2.99"};
-	static String[] feedNumber1={"2", "4", "2", "3", "2"};
-	
-	static String[] feedName2={"Jack", "Carey", "Aline","Fox"};
-	static String[] feedPrice2={"$3.99", "$2.39", "$1.59", "$8.45"};
-	static String[] feedNumber2={"4", "2", "3", "3"};
-
 	public FeedAdapter(Context context) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
-		initialFeeds();
+		initialFriendItems();
 	}
+	
+	
 
-	private void initialFeeds() {
+	private void initialFriendItems() {
 		Item potato = new Item("potato");
 		potato._numPeopleSharing = 2;
 		potato._price = 10.00;
 		ShoppingList pol = new ShoppingList("Potato List", "Eric");
 		potato._list = pol;
-		sharedItems.add(potato);
+		itemsFriendsWantToSplit.add(potato);
 
 		Item paper = new Item("Toilet Paper");
 		paper._numPeopleSharing = 3;
 		paper._price = 18.99;
 		ShoppingList pal = new ShoppingList("Toilet Paper List", "Joyce");
 		paper._list = pal;
-		sharedItems.add(paper);
+		itemsFriendsWantToSplit.add(paper);
 
 		Item coca = new Item("Coca Cola");
 		coca._numPeopleSharing = 4;
 		coca._price = 5.99;
 		ShoppingList col = new ShoppingList("Coca Cola List", "Brian");
 		coca._list = col;
-		sharedItems.add(coca);
+		itemsFriendsWantToSplit.add(coca);
 
 		Item chips = new Item("Chips");
 		chips._numPeopleSharing = 2;
 		chips._price = 2.99;
 		ShoppingList chl = new ShoppingList("Chips List", "Yuliang");
 		chips._list = chl;
-		sharedItems.add(chips);
-			
-		feed3 = new String[sharedItems.size()];
-		for(int i =0; i<sharedItems.size(); i++){
-			feed3[i]= sharedItems.get(i).getName() +" ("+sharedItems.get(i)._list.getOwner()+")";
-		}
-		
-		childList = new String[3][];
-		childList[0] = new String[feed1.length];
-		childList[1] = new String[feed2.length];
-		childList[2] = new String[sharedItems.size()];
-		for(int i=0 ; i<childList.length ; i++) {
-			if(i==0){
-				for (int j = 0; j < childList[i].length; j++) {
-					childList[i][j]= feed1[j];
-				}
-			}
-			if(i==1){
-				for (int j = 0; j < childList[i].length; j++) {
-					childList[i][j]= feed2[j];
-				}
-			}
-			if(i==2){
-				for (int j = 0; j < childList[i].length; j++) {
-					childList[i][j]= feed3[j];
-				}
-			}
-			
-		}
-		
+		itemsFriendsWantToSplit.add(chips);	
 	}
 
 	@Override
@@ -108,16 +74,30 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 			ViewGroup arg4) {
 		// TODO Auto-generated method stub
 		TextView tv = new TextView(context);
-		tv.setText(childList[groupPosition][childPosition]);
+		
+		switch (groupPosition) {
+			case 0: tv.setText(itemsFriendsWillSplit.get(childPosition).toString());
+					break;
+			case 1: tv.setText(itemsIWillSplit.get(childPosition).toString());
+					break;
+			case 2: tv.setText(itemsFriendsWantToSplit.get(childPosition).toString());
+			  		break;
+		}
+		
 		tv.setPadding(80, 10, 10, 10);
-		tv.setTextSize(22);
+		tv.setTextSize(16);
 		return tv;
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		// TODO Auto-generated method stub
-		return childList[groupPosition].length;
+		switch (groupPosition) {
+			case 0: return itemsFriendsWillSplit.size();
+			case 1: return itemsIWillSplit.size();
+			case 2: return itemsFriendsWantToSplit.size();		  		
+		}
+		return -1;
 	}
 
 	@Override
@@ -144,7 +124,7 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		TextView tv = new TextView(context);
 		tv.setText(parentList[groupPosition]);
 		tv.setPadding(50, 10, 10, 10);
-		tv.setTextSize(28);
+		tv.setTextSize(20);
 		tv.setTextColor(Color.CYAN);
 		return tv;
 	}

@@ -37,15 +37,15 @@ public class TabHostActivity extends TabActivity {
         Intent friendsIntent = new Intent(this, FriendsActivity.class);
         friendsSpec.setContent(friendsIntent);
         
-        TabSpec pickUpSpec = mTabHost.newTabSpec("Pick Up");
+/*        TabSpec pickUpSpec = mTabHost.newTabSpec("Pick Up");
         pickUpSpec.setIndicator("Pick Up", null);
         Intent pickUpIntent = new Intent(this, PickUpActivity.class);
-        pickUpSpec.setContent(pickUpIntent);
+        pickUpSpec.setContent(pickUpIntent);*/
         
         mTabHost.addTab(listSpec);
         mTabHost.addTab(feedSpec);
         mTabHost.addTab(friendsSpec);
-        mTabHost.addTab(pickUpSpec);
+       // mTabHost.addTab(pickUpSpec);
         mTabHost.setCurrentTab(0);
     }  
 }  

@@ -1,6 +1,7 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
 import java.util.ArrayList;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -163,7 +164,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
     
     public void addItemToList(View v){
     	if(currentItems == null){
-    		return;
+    	    return;
     	}
     	EditText nameView = (EditText) findViewById(R.id.item);
     	CheckBox checkView = (CheckBox) findViewById(R.id.checkbox_share);
