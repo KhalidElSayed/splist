@@ -2,7 +2,9 @@ package edu.berkeley.cs160.theccertservice.splist;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 
 public class FriendsActivity extends Activity {
 
@@ -18,6 +20,7 @@ public class FriendsActivity extends Activity {
 	private void displayFeeds(){
 		exv = (ExpandableListView)findViewById(R.id.expandableListView2);
 		exv.setAdapter(new FriendAdapter(this));
-		
+
+
 	}
 }

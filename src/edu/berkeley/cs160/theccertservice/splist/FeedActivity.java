@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -209,11 +210,16 @@ public class FeedActivity extends Activity {
 				feedSend.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Item item = FeedAdapter.itemsFriendsWantToSplit.get(childPosition);
-						FeedAdapter.itemsFriendsWantToSplit.remove(item);
-						FeedAdapter.itemsIWillSplit.add(item);
-						Toast.makeText(v.getContext(),
-								"Your Message has been sent! You are now responsible for paying for your share of " + item._name,
-								Toast.LENGTH_SHORT).show();
+						if(!FeedAdapter.itemsIWillSplit.contains(item)){
+							FeedAdapter.itemsIWillSplit.add(item);
+							Toast.makeText(v.getContext(),
+									"Your Message has been sent! You are now responsible for paying for your share of " + item._name,
+									Toast.LENGTH_SHORT).show();
+						}
+						//FeedAdapter.itemsIWillSplit.add(item);
+						//FeedAdapter.itemsFriendsWantToSplit.remove(item);
+
+
 						done();
 					}
 				});
