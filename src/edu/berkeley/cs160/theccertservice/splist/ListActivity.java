@@ -201,6 +201,8 @@ public class ListActivity extends Activity implements View.OnClickListener {
 			currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
 		}
 		if(currentItems == null){
+		    DialogFragment newFragment = new CreateListDialog();
+		    newFragment.show(getFragmentManager(), "createList");
 			return;
 		}
 		ListView listview = (ListView) findViewById(R.id.item_list);
