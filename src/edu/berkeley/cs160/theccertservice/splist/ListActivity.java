@@ -159,7 +159,13 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	}
 	
     public void onFinishShareMessageDialog(String inputText) {
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+    	currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
+    	for (Item item : currentItems._items) {
+    		if (item._shared && !FeedAdapter.itemsFriendsWillSplit.contains(item))
+    			FeedAdapter.itemsFriendsWillSplit.add(item);
+    	}
+    	
+        Toast.makeText(this, "Message Sent!", Toast.LENGTH_SHORT).show();
     }
     
     public void addItemToList(View v){

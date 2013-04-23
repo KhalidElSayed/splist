@@ -208,11 +208,11 @@ public class FeedActivity extends Activity {
 
 				feedSend.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						// ListActivity parentAct = (ListActivity)
-						// getActivity();
-						// parentAct.onFinishCreateList(mEditText.getText().toString());
+						Item item = FeedAdapter.itemsFriendsWantToSplit.get(childPosition);
+						FeedAdapter.itemsFriendsWantToSplit.remove(item);
+						FeedAdapter.itemsIWillSplit.add(item);
 						Toast.makeText(v.getContext(),
-								"Your Message has been sent",
+								"Your Message has been sent! You are now responsible for paying for your share of " + item._name,
 								Toast.LENGTH_SHORT).show();
 						done();
 					}
