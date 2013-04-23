@@ -204,24 +204,16 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 	      @Override
-	      public void onItemClick(AdapterView<?> parent, final View view,
-	          int position, long id) {
-	        final Item item = (Item) parent.getItemAtPosition(position);
-	        view.animate().setDuration(2000).alpha(0)
-	            .withEndAction(new Runnable() {
-	              @Override
-	              public void run() {
-	                itemsArray.remove(item);
-	                itemsAdapter.notifyDataSetChanged();
-	                view.setAlpha(1);
-	              }         
-	            });
+	      public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+	    	  Item item = (Item) parent.getItemAtPosition(position);
+	          showEditItemDialog(item, itemsAdapter);
+	          view.setAlpha(1);
 	      }
 	    });
 	}
 	
-	public void showEditItemDialog(){
-	    DialogFragment newFragment = new ShareMessageDialog();
+	public void showEditItemDialog(Item item, ArrayAdapter adapter){
+	    DialogFragment newFragment = new EditItem(item, adapter);
 	    newFragment.show(getFragmentManager(), "editItem");
 	}
 }
