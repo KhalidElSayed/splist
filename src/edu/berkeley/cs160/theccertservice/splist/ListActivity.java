@@ -219,4 +219,9 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	      }
 	    });
 	}
+	
+	public void showEditItemDialog(){
+	    DialogFragment newFragment = new ShareMessageDialog();
+	    newFragment.show(getFragmentManager(), "editItem");
+	}
 }
