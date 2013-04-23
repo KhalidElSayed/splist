@@ -202,7 +202,6 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		listview.setAdapter(itemsAdapter);
 
 	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 	      @Override
 	      public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 	    	  Item item = (Item) parent.getItemAtPosition(position);
@@ -210,6 +209,23 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	          view.setAlpha(1);
 	      }
 	    });
+	    
+	    listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, long id) {
+				        final Item item = (Item) parent.getItemAtPosition(position);
+				        view.animate().setDuration(2000).alpha(0)
+				            .withEndAction(new Runnable() {
+				              @Override
+				              public void run() {
+				                itemsArray.remove(item);
+				                itemsAdapter.notifyDataSetChanged();
+				                view.setAlpha(1);
+				              }         
+				            });
+						return false;
+					}
+		});
 	}
 	
 	public void showEditItemDialog(Item item, ArrayAdapter adapter){
