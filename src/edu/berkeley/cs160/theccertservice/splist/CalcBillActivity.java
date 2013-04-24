@@ -66,7 +66,7 @@ public class CalcBillActivity extends ListActivity {
 
 		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		currentList.setAdapter(arrayAdapter);
-		//currentList.setOnItemSelectedListener(new ChooseListListener());
+		currentList.setOnItemSelectedListener(new ChooseListListener());
 
 	}
 	
@@ -115,6 +115,9 @@ public class CalcBillActivity extends ListActivity {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			chosenList = ((Spinner) parent).getSelectedItem().toString();
+    		ShoppingList curList = ShoppingList.getShoppingList(chosenList); // list of shared items for that shopping list
+    		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
+			MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
 
 		}
 		

@@ -31,7 +31,9 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		Item potato = new Item("potato");
 		potato._numPeopleSharing = 2;
 		potato._price = 10.00;
+		potato._peopleSharing.add("Joe");
 		ShoppingList pol = new ShoppingList("Potato List", "Eric");
+		pol.addItem(potato);
 		potato._list = pol;
 		itemsFriendsWantToSplit.add(potato);
 
@@ -39,6 +41,7 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		paper._numPeopleSharing = 3;
 		paper._price = 18.99;
 		ShoppingList pal = new ShoppingList("Toilet Paper List", "Joyce");
+		pal.addItem(paper);
 		paper._list = pal;
 		itemsFriendsWantToSplit.add(paper);
 
@@ -46,6 +49,7 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		coca._numPeopleSharing = 4;
 		coca._price = 5.99;
 		ShoppingList col = new ShoppingList("Coca Cola List", "Brian");
+		col.addItem(coca);
 		coca._list = col;
 		itemsFriendsWantToSplit.add(coca);
 
@@ -53,6 +57,7 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		chips._numPeopleSharing = 2;
 		chips._price = 2.99;
 		ShoppingList chl = new ShoppingList("Chips List", "Yuliang");
+		chl.addItem(chips);
 		chips._list = chl;
 		itemsFriendsWantToSplit.add(chips);	
 	}

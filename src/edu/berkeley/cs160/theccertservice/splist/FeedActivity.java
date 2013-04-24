@@ -211,6 +211,7 @@ public class FeedActivity extends Activity {
 					public void onClick(View v) {
 						Item item = FeedAdapter.itemsFriendsWantToSplit.get(childPosition);
 						if(!FeedAdapter.itemsIWillSplit.contains(item)){
+							item._peopleSharing.add(MainActivity.user);
 							FeedAdapter.itemsIWillSplit.add(item);
 							Toast.makeText(v.getContext(),
 									"Your Message has been sent! You are now responsible for paying for your share of " + item._name,
