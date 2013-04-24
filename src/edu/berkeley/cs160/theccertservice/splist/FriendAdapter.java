@@ -17,13 +17,26 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 	static String[] parentList = { "Friend Requests", "Friends" };
 	static String[][] childList = { { "Apollo", "Chantre", "Ghirshman", "Huni" },
 			{ "Jack", "Carey", "Aline", "Fox" } };
-
+	
+	static ArrayList<String> friendsRequest = new ArrayList<String>();
+	static ArrayList<String> friends = new ArrayList<String>();
+	
+	
 	
 	LayoutInflater inflater;
 
 	public FriendAdapter(Context context) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
+		friendsRequest.add("Apollo");
+		friendsRequest.add("Chantre");
+		friendsRequest.add("Ghirshman");
+		friendsRequest.add("Huni");
+		
+		friends.add("Jack");
+		friends.add("Carey");
+		friends.add("Aline");
+		friends.add("Fox");
 
 	}
 
@@ -53,15 +66,15 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 		    // tv.setText("hello");
 		     //return v;
 			TextView tv = new TextView(context);
-			tv.setText("You got a friend request from " + '"'+ childList[groupPosition][childPosition]+ '"');
+			tv.setText("You got a friend request from " + '"'+ friendsRequest.get(childPosition)+ '"');
 			tv.setPadding(80, 10, 10, 10);
-			tv.setTextSize(22);
+			tv.setTextSize(16);
 			return tv;
 		}else{
 			TextView tv = new TextView(context);
-			tv.setText(childList[groupPosition][childPosition]);
+			tv.setText(friends.get(childPosition));
 			tv.setPadding(80, 10, 10, 10);
-			tv.setTextSize(22);
+			tv.setTextSize(16);
 			return tv;
 		}
 
@@ -71,7 +84,11 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		// TODO Auto-generated method stub
-		return childList[groupPosition].length;
+		if(groupPosition==0){
+			return friendsRequest.size();
+		}else{
+			return friends.size();
+		}
 	}
 
 	@Override
@@ -99,7 +116,7 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 		TextView tv = new TextView(context);
 		tv.setText(parentList[groupPosition]);
 		tv.setPadding(50, 10, 10, 10);
-		tv.setTextSize(28);
+		tv.setTextSize(20);
 		tv.setTextColor(Color.CYAN);
 		return tv;
 	}
