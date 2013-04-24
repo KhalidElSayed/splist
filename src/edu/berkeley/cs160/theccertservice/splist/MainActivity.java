@@ -50,7 +50,10 @@ public class MainActivity extends Activity{
         logIn.setOnClickListener(new OnClickListener(){
         	//////
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View arg0) { 
+				
+				
+				
 				// TODO Auto-generated method stub
 				if((username.getText().toString().equals(user)) && (password.getText().toString().equals(pass))){
 					ProgressDialog dialog = new ProgressDialog(MainActivity.this);

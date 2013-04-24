@@ -73,6 +73,8 @@ public class CalcBillActivity extends ListActivity {
 	public Double calculateOwed(ShoppingList lst) {
 		double owed = 0.0;
 		
+		listItems.clear();
+		
 		for (Item i : lst.getItems()) {
 			ArrayList<String> pplSharing = i.getPeopleSharing();
 			if (pplSharing.contains(MainActivity.user)) {

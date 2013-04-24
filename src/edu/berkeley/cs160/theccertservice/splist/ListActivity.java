@@ -168,10 +168,12 @@ public class ListActivity extends Activity implements View.OnClickListener {
         Toast.makeText(this, "Message Sent!", Toast.LENGTH_SHORT).show();
     }
     
+    
     public void addItemToList(View v){
     	if(currentItems == null){
     	    return;
     	}
+    
     	EditText nameView = (EditText) findViewById(R.id.item);
     	CheckBox checkView = (CheckBox) findViewById(R.id.checkbox_share);
     	EditText costView = (EditText) findViewById(R.id.item_cost);
@@ -187,6 +189,8 @@ public class ListActivity extends Activity implements View.OnClickListener {
     	}
     	Item newItem = new Item(itemName, isChecked, itemCost);
     	currentItems.addItem(newItem);
+    	
+    	
     	
     	//clear edit texts and checkbox
     	nameView.setText("", TextView.BufferType.EDITABLE);
