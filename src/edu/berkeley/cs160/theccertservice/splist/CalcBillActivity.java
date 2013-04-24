@@ -102,7 +102,8 @@ public class CalcBillActivity extends ListActivity {
 	    		if (chosenList.isEmpty()) {
 	    	        Toast.makeText(this, "Please select a list.", Toast.LENGTH_LONG).show();
 	    		} else {
-		    		ShoppingList curList = ShoppingList.getShoppingList(chosenList);
+	    			// how curList is obtained possibly needs to be changed
+		    		ShoppingList curList = ShoppingList.getShoppingList(chosenList); // list of shared items for that shopping list
 					MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
 	    		}
 	    		break;

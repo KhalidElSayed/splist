@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:text="Name:" />
+    
+    <EditText
+        android:id="@+id/item"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/name_title"
+        android:layout_alignBottom="@+id/name_title"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Item Name" />
+    
+    <TextView
+        android:id="@+id/cost_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item"
+        android:layout_marginTop="20dp"
+        android:text="Cost:" />
+    <EditText
+        android:id="@+id/item_cost"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cost_title"
+        android:layout_toRightOf="@+id/cost_title"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="Cost" />
+    
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item_cost"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/share_checkbox" />
+
+    <CheckBox
+        android:id="@+id/checkbox_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"/>
+    
+	<Button
+	    android:id="@+id/add_item"
+	    android:layout_width="145dp"
+	    android:layout_height="40dp"
+	    android:layout_below="@+id/cost_title"
+	    android:onClick="addItemToList"
+	    android:text="Save Item" />
+	
+	<Button
+	    android:id="@+id/cancel_item"
+	    android:layout_width="145dp"
+	    android:layout_height="40dp"
+        android:layout_alignBottom="@+id/add_item"
+        android:layout_toRightOf="@+id/add_item"
+	    android:onClick="done"
+	    android:text="Cancel" />
+</RelativeLayout>

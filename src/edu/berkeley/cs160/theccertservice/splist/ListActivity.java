@@ -1,6 +1,7 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
 import java.util.ArrayList;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -158,12 +159,18 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	}
 	
     public void onFinishShareMessageDialog(String inputText) {
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+    	currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
+    	for (Item item : currentItems._items) {
+    		if (item._shared && !FeedAdapter.itemsFriendsWillSplit.contains(item))
+    			FeedAdapter.itemsFriendsWillSplit.add(item);
+    	}
+    	
+        Toast.makeText(this, "Message Sent!", Toast.LENGTH_SHORT).show();
     }
     
     public void addItemToList(View v){
     	if(currentItems == null){
-    		return;
+    	    return;
     	}
     	EditText nameView = (EditText) findViewById(R.id.item);
     	CheckBox checkView = (CheckBox) findViewById(R.id.checkbox_share);
@@ -194,6 +201,8 @@ public class ListActivity extends Activity implements View.OnClickListener {
 			currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
 		}
 		if(currentItems == null){
+		    DialogFragment newFragment = new CreateListDialog();
+		    newFragment.show(getFragmentManager(), "createList");
 			return;
 		}
 		ListView listview = (ListView) findViewById(R.id.item_list);
@@ -202,21 +211,34 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		listview.setAdapter(itemsAdapter);
 
 	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 	      @Override
-	      public void onItemClick(AdapterView<?> parent, final View view,
-	          int position, long id) {
-	        final Item item = (Item) parent.getItemAtPosition(position);
-	        view.animate().setDuration(2000).alpha(0)
-	            .withEndAction(new Runnable() {
-	              @Override
-	              public void run() {
-	                itemsArray.remove(item);
-	                itemsAdapter.notifyDataSetChanged();
-	                view.setAlpha(1);
-	              }         
-	            });
+	      public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+	    	  Item item = (Item) parent.getItemAtPosition(position);
+	          showEditItemDialog(item, itemsAdapter);
+	          view.setAlpha(1);
 	      }
 	    });
+	    
+	    listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, long id) {
+				        final Item item = (Item) parent.getItemAtPosition(position);
+				        view.animate().setDuration(2000).alpha(0)
+				            .withEndAction(new Runnable() {
+				              @Override
+				              public void run() {
+				                itemsArray.remove(item);
+				                itemsAdapter.notifyDataSetChanged();
+				                view.setAlpha(1);
+				              }         
+				            });
+						return false;
+					}
+		});
+	}
+	
+	public void showEditItemDialog(Item item, ArrayAdapter adapter){
+	    DialogFragment newFragment = new EditItem(item, adapter);
+	    newFragment.show(getFragmentManager(), "editItem");
 	}
 }

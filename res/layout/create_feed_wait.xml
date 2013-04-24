@@ -15,7 +15,7 @@
         android:text="From: " />
 
     <TextView
-        android:id="@+id/feedName"
+        android:id="@+id/feedNameW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView1"
@@ -33,12 +33,12 @@
         android:text="Item: " />
 
     <TextView
-        android:id="@+id/feedItem"
+        android:id="@+id/feedItemW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
-        android:layout_alignLeft="@+id/feedName"
+        android:layout_alignLeft="@+id/feedNameW"
         android:text="TextView" />
 
     <TextView
@@ -51,12 +51,12 @@
         android:text="Price: " />
 
     <TextView
-        android:id="@+id/feedPrice"
+        android:id="@+id/feedPriceW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_alignLeft="@+id/feedItem"
+        android:layout_alignLeft="@+id/feedItemW"
         android:text="TextView" />
 
     <TextView
@@ -69,30 +69,30 @@
         android:text="# of people sharing: " />
 
     <TextView
-        android:id="@+id/numPeopleSharing"
+        android:id="@+id/numPeopleSharingW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
         android:layout_alignBottom="@+id/textView4"
-        android:layout_alignLeft="@+id/feedItem"
+        android:layout_alignLeft="@+id/feedItemW"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/feedSend"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView4"
         android:layout_below="@+id/textView4"
-        android:layout_marginTop="18dp"
-        android:text="Share" />
+        android:layout_marginTop="20dp"
+        android:text="The response from the Item owner:" />
 
-    <Button
-        android:id="@+id/feedCancel"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/feedResponse"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/feedSend"
-        android:layout_alignBottom="@+id/feedSend"
-        android:layout_alignLeft="@+id/feedPrice"
-        android:text="Cancel" />
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="24dp"
+        android:text="TextView" />
 
 </RelativeLayout>

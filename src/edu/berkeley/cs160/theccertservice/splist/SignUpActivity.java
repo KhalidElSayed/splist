@@ -45,7 +45,11 @@ public class SignUpActivity extends Activity{
 					ProgressDialog dialog = new ProgressDialog(SignUpActivity.this);
 					dialog.setMessage("Getting your data... Please wait...");
 					dialog.show();
+					MainActivity.user=usernameSignup.getText().toString();
+					MainActivity.pass=password1.getText().toString();
+					
 					Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+					
 					startActivity(intent);
 				}
 				else{

@@ -18,114 +18,71 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class FeedActivity extends Activity {
 
-	////String[] items={"Potatoes (Eric)", "Toilet Paper (Joyce)", "Coca Cola (Brian)"}; 
-	//String[] items={"Potatoes", "Toilet Paper", "Coca Cola"}; 
-	//String[] names={"Eric", "Joyce", "Brian"}; 
-	ArrayList<Item> sharedItems = new ArrayList<Item>();
-	String[] feed;
+	ExpandableListView exv;
+	//ArrayList<Item> sharedItems = new ArrayList<Item>();
+	//String[] feed;
 	
-	Button logout;
-	SharedPreferences settings;
-	//
+	//Button logout;
+	//SharedPreferences settings;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feed);
-		//
-		logout = (Button)findViewById(R.id.logoutButton);
-		logout.setOnClickListener(new OnClickListener(){
+		
+		//logout = (Button)findViewById(R.id.logoutButton);
+		//logout.setOnClickListener(new OnClickListener(){
 
-			@Override
-			public void onClick(View arg0) {
+			//@Override
+			//public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				settings = getSharedPreferences(MainActivity.SETTING_INFO, 0);  
-			    SharedPreferences.Editor editor = settings.edit();
-			    editor.putBoolean("hasLoggedIn", false);
-			    editor.commit();
+				//settings = getSharedPreferences(MainActivity.SETTING_INFO, 0);  
+			   // SharedPreferences.Editor editor = settings.edit();
+			   // editor.putBoolean("hasLoggedIn", false);
+			    //editor.commit();
 			    
-				Intent intent = new Intent(FeedActivity.this, MainActivity.class);
-				startActivity(intent);
-			}
+				//Intent intent = new Intent(FeedActivity.this, MainActivity.class);
+				//startActivity(intent);
+			//}
         	
-        });
+       // });
 		
 		displayFeeds();
 		
 	}
 	
 	private void displayFeeds(){
-		//feed = new String[items.length];
-		//for(int i =0; i<items.length; i++){
-			//feed[i]= items[i]+" ("+names[i]+")";
-		//}
-		Item potato = new Item("potato");
-		potato._numPeopleSharing = 2;
-		potato._price = 10.00;
-		ShoppingList pol = new ShoppingList("Potato List", "Eric");
-		potato._list = pol;
-		sharedItems.add(potato);
-		
-		Item paper = new Item("Toilet Paper");
-		paper._numPeopleSharing = 3;
-		paper._price = 18.99;
-		ShoppingList pal = new ShoppingList("Toilet Paper List", "Joyce");
-		paper._list = pal;
-		sharedItems.add(paper);
-		
-		Item coca = new Item("Coca Cola");
-		coca._numPeopleSharing = 4;
-		coca._price = 5.99;
-		ShoppingList col = new ShoppingList("Coca Cola List", "Brian");
-		coca._list = col;
-		sharedItems.add(coca);
-		
-		Item chips = new Item("Chips");
-		chips._numPeopleSharing = 2;
-		chips._price = 2.99;
-		ShoppingList chl = new ShoppingList("Chips List", "Yuliang");
-		chips._list = chl;
-		sharedItems.add(chips);
-		
-		feed = new String[sharedItems.size()];
-		for(int i =0; i<sharedItems.size(); i++){
-			feed[i]= sharedItems.get(i).getName() +" ("+sharedItems.get(i)._list.getOwner()+")";
-		}
-		
-		ListView feedList = (ListView) findViewById(R.id.feedList);
-		ArrayAdapter <String> adapter = new ArrayAdapter <String> (
-			this,
-			android.R.layout.simple_list_item_1,
-			android.R.id.text1,
-			feed
-		);
-		
-		feedList.setAdapter(adapter);
-		
-		feedList.setOnItemClickListener(new OnItemClickListener () {
+
+		exv = (ExpandableListView)findViewById(R.id.expandableListView1);
+		exv.setAdapter(new FeedAdapter(this));
+		exv.setOnChildClickListener(new OnChildClickListener(){
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View v, int position,
-					long id) {
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
 				// TODO Auto-generated method stub
-				//Toast.makeText(v.getContext(), items[position], Toast.LENGTH_SHORT).show();
-				
-				showFeedDialog(position);
+				showFeedDialog(groupPosition, childPosition);
+				return false;
 			}
 			
 		});
+		
 	}
 	
-	public void showFeedDialog(int position) {
-	    DialogFragment newFragment = new CreateFeedDialog(position);
+	public void showFeedDialog(int groupPosition, int childPosition) {
+	    DialogFragment newFragment = new CreateFeedDialog(groupPosition, childPosition);
 	    newFragment.show(getFragmentManager(), "createFeedDialog");
 	}
 	
@@ -140,64 +97,140 @@ public class FeedActivity extends Activity {
 		Button feedSend;
 		Button feedCancel;
 		
-		int position;
-		public CreateFeedDialog(int position) {
+		private TextView feedItemP;
+		private TextView feedPriceP;
+		private TextView numPeopleSharingP;
+		Button feedSendP;
+		Button feedCancelP;
+		
+		private TextView feedNameW;
+		private TextView feedItemW;
+		private TextView feedPriceW;
+		private TextView numPeopleSharingW;
+		private TextView feedResponse;
+		
+		int groupPosition;
+		int childPosition;
+		public CreateFeedDialog(int groupPosition, int childPosition) {
 			// Empty constructor required for DialogFragment
-			this.position = position;
+			this.groupPosition = groupPosition;
+			this.childPosition = childPosition;
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View view = inflater.inflate(R.layout.create_feed, container);
-			//feedMessage = (EditText) view.findViewById(R.id.feedMessage);
-			//feedMessage.setBackgroundColor(Color.WHITE);
-			
-			//feedName = (TextView) view.findViewById(R.id.feedName);
-			//feedName.setText(names[position]);
-			//feedName.setTextColor(Color.RED);
-			
-			//feedItem = (TextView) view.findViewById(R.id.feedItem);
-			//feedItem.setText(items[position]);
-			//feedItem.setTextColor(Color.RED);
-			
-			feedName = (TextView) view.findViewById(R.id.feedName);
-			feedName.setText(sharedItems.get(position)._list.getOwner());
-			feedName.setTextColor(Color.RED);
-			
-			feedItem = (TextView) view.findViewById(R.id.feedItem);
-			feedItem.setText(sharedItems.get(position).getName());
-			feedItem.setTextColor(Color.RED);
-			
-			feedPrice = (TextView) view.findViewById(R.id.feedPrice);
-			Double price = sharedItems.get(position).getPrice();
-			feedPrice.setText("$"+String.valueOf(price));
-			feedPrice.setTextColor(Color.RED);
-			
-			numPeopleSharing = (TextView) view.findViewById(R.id.numPeopleSharing);
-			Integer number = sharedItems.get(position)._numPeopleSharing;
-			numPeopleSharing.setText(String.valueOf(number));
-			numPeopleSharing.setTextColor(Color.RED);
-			
-			feedSend = (Button) view.findViewById(R.id.feedSend);
-			feedCancel = (Button) view.findViewById(R.id.feedCancel);
-			
-			feedSend.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View v) {
-	            	//ListActivity parentAct = (ListActivity) getActivity();
-	                //parentAct.onFinishCreateList(mEditText.getText().toString());   
-	            	Toast.makeText(v.getContext(), "Your Message has been sent", Toast.LENGTH_SHORT).show();
-	                done();
-	            }
-	        });
-			
-			feedCancel.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					done();
-				}
-			});
-			//getDialog().setTitle("Create List");
+			View view=null;
+			if (groupPosition == 0) {
+				view = inflater.inflate(R.layout.create_feed_pick_up, container);
+				feedItemP = (TextView) view.findViewById(R.id.feedItemP);
+				feedItemP.setText(FeedAdapter.itemsFriendsWillSplit.get(childPosition).toString());
+				feedItemP.setTextColor(Color.RED);
+				
+				feedPriceP = (TextView) view.findViewById(R.id.feedPriceP);
+				feedPriceP.setText(String.valueOf(FeedAdapter.itemsFriendsWillSplit.get(childPosition).getPrice()));
+				feedPriceP.setTextColor(Color.RED);
+				
+				numPeopleSharingP = (TextView) view.findViewById(R.id.numPeopleSharingP);
+				numPeopleSharingP.setText(FeedAdapter.itemsFriendsWillSplit.get(childPosition)._numPeopleSharing);
+				numPeopleSharingP.setTextColor(Color.RED);
+				
+				feedSendP = (Button) view.findViewById(R.id.feedSendP);
+				feedCancelP = (Button) view.findViewById(R.id.feedCancelP);
 
+				feedSendP.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Toast.makeText(v.getContext(),
+								"Your Alert has been sent",
+								Toast.LENGTH_SHORT).show();
+						done();
+					}
+				});
+
+				feedCancelP.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						done();
+					}
+				});
+			}
+			if (groupPosition == 1) {
+				view = inflater.inflate(R.layout.create_feed_wait, container);
+				feedItemW = (TextView) view.findViewById(R.id.feedItemW);
+				feedItemW.setText(FeedAdapter.itemsIWillSplit.get(childPosition).toString());
+				feedItemW.setTextColor(Color.RED);
+				
+				feedPriceW = (TextView) view.findViewById(R.id.feedPriceW);
+				feedPriceW.setText(String.valueOf(FeedAdapter.itemsIWillSplit.get(childPosition).getPrice()));
+				feedPriceW.setTextColor(Color.RED);
+				
+				numPeopleSharingW = (TextView) view.findViewById(R.id.numPeopleSharingW);
+				numPeopleSharingW.setText(FeedAdapter.itemsIWillSplit.get(childPosition)._numPeopleSharing);
+				numPeopleSharingW.setTextColor(Color.RED);
+				
+				feedNameW = (TextView) view.findViewById(R.id.feedNameW);
+				feedNameW.setText(FeedAdapter.itemsIWillSplit.get(childPosition)._list._owner);
+				feedNameW.setTextColor(Color.RED);
+				
+				feedResponse = (TextView) view.findViewById(R.id.feedResponse);
+				feedResponse.setTextColor(Color.RED);
+				if(childPosition==0 ||childPosition==2){
+					feedResponse.setText("The owner has alerted you to pick up the item.");
+				}
+				else{
+					feedResponse.setText("No response!");
+				}
+				
+			}
+			if (groupPosition == 2) {
+				view = inflater.inflate(R.layout.create_feed, container);
+				feedName = (TextView) view.findViewById(R.id.feedName);
+				feedName.setText(FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._list
+						.getOwner());
+				feedName.setText(FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._list.getOwner());
+				feedName.setTextColor(Color.RED);
+
+				feedItem = (TextView) view.findViewById(R.id.feedItem);
+				feedItem.setText(FeedAdapter.itemsFriendsWantToSplit.get(childPosition).getName());
+				feedItem.setTextColor(Color.RED);
+
+				feedPrice = (TextView) view.findViewById(R.id.feedPrice);
+				Double price = FeedAdapter.itemsFriendsWantToSplit.get(childPosition).getPrice();
+				feedPrice.setText("$" + String.valueOf(price));
+				feedPrice.setTextColor(Color.RED);
+
+				numPeopleSharing = (TextView) view
+						.findViewById(R.id.numPeopleSharing);
+				Integer number = FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._numPeopleSharing;
+				numPeopleSharing.setText(String.valueOf(number));
+				numPeopleSharing.setTextColor(Color.RED);
+
+				feedSend = (Button) view.findViewById(R.id.feedSend);
+				feedCancel = (Button) view.findViewById(R.id.feedCancel);
+
+				feedSend.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Item item = FeedAdapter.itemsFriendsWantToSplit.get(childPosition);
+						if(!FeedAdapter.itemsIWillSplit.contains(item)){
+							FeedAdapter.itemsIWillSplit.add(item);
+							Toast.makeText(v.getContext(),
+									"Your Message has been sent! You are now responsible for paying for your share of " + item._name,
+									Toast.LENGTH_SHORT).show();
+						}
+						//FeedAdapter.itemsIWillSplit.add(item);
+						//FeedAdapter.itemsFriendsWantToSplit.remove(item);
+
+
+						done();
+					}
+				});
+
+				feedCancel.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						done();
+					}
+				});
+				// getDialog().setTitle("Create List");
+			}
 			return view;
 		}
 		
