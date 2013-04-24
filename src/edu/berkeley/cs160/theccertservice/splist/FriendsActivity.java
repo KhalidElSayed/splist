@@ -28,7 +28,10 @@ public class FriendsActivity extends Activity {
 				// TODO Auto-generated method stub
 				if(groupPosition==0){
 					String name = FriendAdapter.friendsRequest.get(childPosition);
-					FriendAdapter.friends.add(name);
+					if(!FriendAdapter.friends.contains(name)){
+						FriendAdapter.friends.add(name);
+					}
+					
 				}
 				return false;
 			}
