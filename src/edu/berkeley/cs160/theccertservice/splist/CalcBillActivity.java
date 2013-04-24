@@ -33,7 +33,6 @@ public class CalcBillActivity extends ListActivity {
     
     String chosenList = "";
     
-    
     // NEED TO IMPLEMENT HOW TO SET THE CURRENT USER.
     private Person currentUser;
 	
@@ -58,37 +57,35 @@ public class CalcBillActivity extends ListActivity {
 		
 		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 		
-		currentList = (Spinner) header.findViewById(R.id.spinner1);
+		sharedLists = new ArrayList<String>();
+		for (Item i : FeedAdapter.itemsIWillSplit) {
+			sharedLists.add(i._list._name);
+		}
 		
-		// maybe sharedlists needs to be changed to Person.getListsSharedWithMe();
+		currentList = (Spinner) header.findViewById(R.id.spinner1);
+
 		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		currentList.setAdapter(arrayAdapter);
-		currentList.setOnItemSelectedListener(new ChooseListListener());
+		//currentList.setOnItemSelectedListener(new ChooseListListener());
 
 	}
 	
 	public Double calculateOwed(ShoppingList lst) {
 		double owed = 0.0;
-		ArrayList<Item> items = lst.getItems();
-		for(int i = 0; i < lst.getSize(); i++) {
-			Item curItem = items.get(i);
-			for (int j = 0; i < curItem.getNumPeopleSharing(); i++) {
-				ArrayList<Person> pplSharing = curItem.getPeopleSharing();
-				
-				//how to account for current user
-				if (pplSharing.get(j).equals(currentUser) ) {
-					String itemName = curItem.getName();
-					double itemPrice = curItem.getPrice();
-					double numPplSharing = curItem.getNumPeopleSharing();
-					double priceFrac = roundTwoDecimalPlaces(itemPrice / numPplSharing);
-					String priceFracStr = Double.toString(priceFrac);
-					owed = owed + priceFrac;
-					String nameAndPrice = itemName + " costs " + priceFracStr;
-					listItems.add(nameAndPrice);
-					adapter.notifyDataSetChanged();
-				}
+		
+		for (Item i : lst.getItems()) {
+			ArrayList<String> pplSharing = i.getPeopleSharing();
+			if (pplSharing.contains(MainActivity.user)) {
+				String itemName = i.getName();
+				double itemPrice = i.getPrice();
+				double numPplSharing = i.getNumPeopleSharing();
+				double priceFrac = roundTwoDecimalPlaces(itemPrice / numPplSharing);
+				String priceFracStr = Double.toString(priceFrac);
+				owed = owed + priceFrac;
+				String nameAndPrice = itemName + " costs " + priceFracStr;
+				listItems.add(nameAndPrice);
+				adapter.notifyDataSetChanged();
 			}
-
 		}
 		return owed;
 	}
@@ -117,13 +114,12 @@ public class CalcBillActivity extends ListActivity {
 		
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-			 chosenList = ((Spinner) parent).getSelectedItem().toString();
+			chosenList = ((Spinner) parent).getSelectedItem().toString();
+
 		}
 		
 		@Override
 		public void onNothingSelected(AdapterView<?> parent) {
 		}
 	}
-	
-	
 }

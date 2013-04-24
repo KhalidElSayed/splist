@@ -7,14 +7,14 @@ public class Item {
 	Boolean _shared;
 	int _numPeopleSharing;
 	Double _price;
-	ArrayList<Person> _peopleSharing;
+	ArrayList<String> _peopleSharing;
 	ShoppingList _list;
 	
 	public Item(String name) {
 		_name = name;
 		_shared = false;
 		_price = 0.0;
-		_peopleSharing = new ArrayList<Person>();
+		_peopleSharing = new ArrayList<String>();
 	}
 	
 	public Item(String name, Boolean shared, Double price) {
@@ -52,7 +52,7 @@ public class Item {
 		return _price;
 	}
 	
-	public ArrayList<Person> getPeopleSharing() {
+	public ArrayList<String> getPeopleSharing() {
 		return _peopleSharing;
 	}
 	
