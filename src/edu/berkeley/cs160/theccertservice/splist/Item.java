@@ -14,7 +14,7 @@ public class Item {
 		_name = name;
 		_shared = false;
 		_price = 0.0;
-		ArrayList<Person> _peopleSharing = new ArrayList<Person>();
+		_peopleSharing = new ArrayList<String>();
 	}
 	
 	public Item(String name, Boolean shared, Double price) {

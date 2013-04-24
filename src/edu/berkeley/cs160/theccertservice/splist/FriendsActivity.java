@@ -20,7 +20,22 @@ public class FriendsActivity extends Activity {
 	private void displayFeeds(){
 		exv = (ExpandableListView)findViewById(R.id.expandableListView2);
 		exv.setAdapter(new FriendAdapter(this));
+		exv.setOnChildClickListener(new OnChildClickListener(){
 
-
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				// TODO Auto-generated method stub
+				if(groupPosition==0){
+					String name = FriendAdapter.friendsRequest.get(childPosition);
+					if(!FriendAdapter.friends.contains(name)){
+						FriendAdapter.friends.add(name);
+					}
+					
+				}
+				return false;
+			}
+			
+		});
 	}
 }
