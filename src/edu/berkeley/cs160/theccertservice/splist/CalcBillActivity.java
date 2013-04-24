@@ -28,6 +28,8 @@ public class CalcBillActivity extends ListActivity {
     ArrayAdapter<String> adapter;
     ArrayList<String> listItems = new ArrayList<String>();
     static ArrayList<String> sharedLists = ListActivity.getLists();
+    View header;
+    View footer;
     
     String chosenList = "";
     
@@ -42,8 +44,8 @@ public class CalcBillActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calcbill);
 		
-	    View header = getLayoutInflater().inflate(R.layout.calcbill_header, null);
-	    View footer = getLayoutInflater().inflate(R.layout.calcbill_footer, null);
+	    header = getLayoutInflater().inflate(R.layout.calcbill_header, null);
+	    footer = getLayoutInflater().inflate(R.layout.calcbill_footer, null);
 	    ListView listView = (ListView) findViewById(R.id.listView1);
 	    listView.addHeaderView(header);
 	    listView.addFooterView(footer);
@@ -104,6 +106,7 @@ public class CalcBillActivity extends ListActivity {
 	    		} else {
 	    			// how curList is obtained possibly needs to be changed
 		    		ShoppingList curList = ShoppingList.getShoppingList(chosenList); // list of shared items for that shopping list
+		    		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 					MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
 	    		}
 	    		break;
