@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import edu.berkeley.cs160.theccertservice.splist.PickUpActivity.ChooseListListener;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -94,6 +95,7 @@ public class CalcBillActivity extends ListActivity {
         DecimalFormat twoPlaces = new DecimalFormat("##.##");
         return Double.valueOf(twoPlaces.format(d));
 	}
+
 	public void onClick(View view) {
 	    switch (view.getId()) {
 	    	case R.id.calculate:
