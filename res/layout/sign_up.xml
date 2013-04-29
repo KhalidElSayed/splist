@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/usernameSignUp"
         android:layout_below="@+id/usernameSignUp"
-        android:text="password:" />
+        android:text="Password:" />
 
     <EditText
         android:id="@+id/password1"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/password1"
         android:layout_below="@+id/password1"
-        android:text="confirma password:" />
+        android:text="Confirm Password:" />
 
     <EditText
         android:id="@+id/password2"
@@ -45,14 +45,6 @@
         android:layout_alignLeft="@+id/textView4"
         android:layout_below="@+id/textView4"
         android:ems="10" />
-
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/password2"
-        android:layout_below="@+id/password2"
-        android:text="Sign Up" />
 
     <Button
         android:id="@+id/cancelButton"
@@ -72,12 +64,40 @@
         android:ems="10" />
 
     <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignTop="@+id/textView1"
+        android:text="Name:" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_below="@+id/TextView01"
+        android:ems="10"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="28dp"
-        android:text="username:" />
+        android:layout_alignLeft="@+id/usernameSignUp"
+        android:layout_below="@+id/editText1"
+        android:text="Email:" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/password2"
+        android:layout_below="@+id/password2"
+        android:layout_marginTop="32dp"
+        android:text="Sign Up" />
 
 </RelativeLayout>
