@@ -29,9 +29,14 @@ public class FriendsActivity extends Activity {
 				if(groupPosition==0){
 					String name = FriendAdapter.friendsRequest.get(childPosition);
 					if(!FriendAdapter.friends.contains(name)){
+						FriendAdapter.friendsRequest.remove(name);
 						FriendAdapter.friends.add(name);
+						
 					}
-					
+					exv.collapseGroup(groupPosition);  
+					exv.expandGroup(groupPosition);
+					exv.collapseGroup(groupPosition+1);  
+					exv.expandGroup(groupPosition+1);
 				}
 				return false;
 			}
