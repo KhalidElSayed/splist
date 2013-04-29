@@ -4,59 +4,42 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
 
-public class ServerRequest {
-	public ServerRequest() {
-		
+class JsonTask extends AsyncTask<Map, Void, JSONArray> {
+	
+	public String path;
+	
+	public JsonTask(String _path) {
+		this.path = _path;
 	}
-	public void getItems() {
-		
-	}
-	public void getSharedItems() {
-		
-	}
-	public void getFriends() {
-		
-	}
-	public void addFriend() {
-			
-	}
-	public void addItem() {
-		
-	}
-	public void editItem() {
+
+	@Override
+	protected JSONArray doInBackground(Map... arg0) {
+		HttpResponse resp = this.makeRequest(arg0[0] ,this.path);
+		if (resp != null) {
+			return processResp(resp);
+		}
+		return null;
 		
 	}
 	
-private JSONObject getJsonObjectFromMap(Map params) throws JSONException {
+	private JSONObject getJsonObjectFromMap(Map params) throws JSONException {
 
 		//all the passed parameters from the post request
 		//iterator used to loop through all the parameters
@@ -99,13 +82,12 @@ private JSONObject getJsonObjectFromMap(Map params) throws JSONException {
 		return holder;
 	}
 	private HttpResponse makeRequest(Map params, String path) {
-		String SERVER = "localhost:3000";
-
+		
 		//instantiates httpclient to make request
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 
 		//url with the post data
-		HttpPost httpost = new HttpPost(SERVER + path);
+		HttpPost httpost = new HttpPost(path);
 
 		//convert parameters into JSON object
 		JSONObject holder = null;
@@ -147,35 +129,30 @@ private JSONObject getJsonObjectFromMap(Map params) throws JSONException {
 
 	}
 	private JSONArray processResp (HttpResponse resp) {
-					BufferedReader reader = null;
-					try {
-						reader = new BufferedReader(new InputStreamReader(resp.getEntity().getContent(), "UTF-8"));
-					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
-					} catch (IllegalStateException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					String json = null;
-					try {
-						json = reader.readLine();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					JSONTokener tokener = new JSONTokener(json);
-					JSONArray finalResult = null;
-					try {
-						finalResult = new JSONArray(tokener);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-					return finalResult;
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new InputStreamReader(resp.getEntity().getContent(), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String json = null;
+		try {
+			json = reader.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		JSONTokener tokener = new JSONTokener(json);
+		JSONArray finalResult = null;
+		try {
+			finalResult = new JSONArray(tokener);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return finalResult;
 	}
+	
 }
-
-
-
-
-
-

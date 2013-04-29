@@ -1,5 +1,8 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,6 +22,11 @@ public class SignUpActivity extends Activity{
 	Button signUpButton;
 	Button cancelButton;
 	TextView showInfo;
+	
+	public void onUserCreation() {
+		Intent intent = new Intent(SignUpActivity.this, MainActivity.class);					
+		startActivity(intent);
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +53,20 @@ public class SignUpActivity extends Activity{
 					ProgressDialog dialog = new ProgressDialog(SignUpActivity.this);
 					dialog.setMessage("Getting your data... Please wait...");
 					dialog.show();
+					
+					HashMap<String,HashMap<String, String>> userData = new HashMap<String,HashMap<String, String>>();
+					HashMap<String, String> data = new HashMap<String, String>();
+					data.put("email", usernameSignup.getText().toString());
+					data.put("password", password1.getText().toString());
+					data.put("password_confirmation", password2.getText().toString());
+					data.put("name", "Eric");
+					userData.put("user", data);
+					MainActivity.server.createAccount(userData, SignUpActivity.this);
+					
 					MainActivity.user=usernameSignup.getText().toString();
-					MainActivity.pass=password1.getText().toString();
+					MainActivity.pass=password1.getText().toString();	
 					
-					Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
 					
-					startActivity(intent);
 				}
 				else{
 					showInfo.setText("two passwords are different!");
@@ -61,6 +77,8 @@ public class SignUpActivity extends Activity{
 			}
 			
 		});
+		
+		
 		
 		cancelButton.setOnClickListener(new OnClickListener(){
 

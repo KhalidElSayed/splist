@@ -3,7 +3,7 @@
     package="edu.berkeley.cs160.theccertservice.splist"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.INTERNET" />
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
