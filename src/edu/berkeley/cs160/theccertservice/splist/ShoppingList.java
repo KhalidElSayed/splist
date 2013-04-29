@@ -33,6 +33,10 @@ public class ShoppingList {
 	public Item deleteItem(int pos) {		
 		return _items.remove(pos);
 	}
+
+	public Item deleteItem(Item item){
+		return _items.remove(item);
+	}
 	
 	public String getName() {
 		return _name;
