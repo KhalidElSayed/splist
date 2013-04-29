@@ -21,6 +21,7 @@ public class Item {
 		_name = name;
 		_shared = shared;
 		_price = price;
+		//_numPeopleSharing = numPeopleSharing;
 		ArrayList<Person> _peopleSharing = new ArrayList<Person>();
 	}
 	
@@ -43,6 +44,7 @@ public class Item {
 	public double getNumPeopleSharing() {
 		return (double) _peopleSharing.size() + 1;
 	}
+	
 	
 	public void setPrice(double price) {
 		this._price = price;

@@ -231,7 +231,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 				            .withEndAction(new Runnable() {
 				              @Override
 				              public void run() {
-				                itemsArray.remove(item);
+				                currentItems.deleteItem(item);
 				                itemsAdapter.notifyDataSetChanged();
 				                view.setAlpha(1);
 				              }         
