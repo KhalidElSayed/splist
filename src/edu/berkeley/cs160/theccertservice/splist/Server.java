@@ -55,6 +55,7 @@ public class Server {
 		CreateAcct c = new CreateAcct("/users");
 		c.execute(p);
 	}
+	
 	public void login(Map p) {
 		class AcctLogin extends JsonTask {
 			public AcctLogin(String _path) {
@@ -71,22 +72,157 @@ public class Server {
 		c.execute(p);
 	}
 	
+	public void logout(Map p) {
+		class AcctLogout extends JsonTask {
+			public AcctLogout(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString());
+				//a.onUserCreation();
+			}
+		}
+		AcctLogout c = new AcctLogout("/tokens/delete");
+		c.execute(p);
+	}
+	
+	
 	public void getItems() {
+		class gItems extends JsonTask {
+			public gItems(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		gItems c = new gItems("/item/getItems");
+		c.execute();
 		
 	}
+	
 	public void getSharedItems() {
+		class gSharedItems extends JsonTask {
+			public gSharedItems(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		gSharedItems c = new gSharedItems("/item/getSharedItems");
+		c.execute();
 		
 	}
-	public void getFriends() {
+	
+	
+	public void getFriends(Map p) {
+		class gFriend extends JsonTask {
+			public gFriend(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		gFriend c = new gFriend("/user/getFriends");
+		c.execute(p);
 		
 	}
-	public void addFriend() {
-			
+	
+	
+	public void requestFriend(Map p) {
+		class rFriend extends JsonTask {
+			public rFriend(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		rFriend c = new rFriend("/user/makeFriendReq");
+		c.execute(p);
+				
 	}
-	public void addItem() {
+	
+	public void acceptFriend(Map p) {
+		class aFriend extends JsonTask {
+			public aFriend(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		aFriend c = new aFriend("/user/acceptFriendReq");
+		c.execute(p);
+				
+	}
+	
+	public void addItem(Map p) {
+		class aItem extends JsonTask {
+			public aItem(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		aItem c = new aItem("/item/add");
+		c.execute(p);
+	}
+	
+	public void editItem(Map p) {
+		class eItem extends JsonTask {
+			public eItem(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		eItem c = new eItem("/item/edit");
+		c.execute(p);
 		
 	}
-	public void editItem() {
+	
+	public void deleteItem(Map p) {
+		class dItem extends JsonTask {
+			public dItem(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONArray data) {
+				if (data != null)
+					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+				//a.onUserCreation();
+			}
+		}
+		dItem c = new dItem("/item/delete");
+		c.execute(p);
 		
 	}
 	
