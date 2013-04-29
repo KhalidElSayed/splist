@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -116,6 +118,8 @@ public class FeedActivity extends Activity {
 			this.groupPosition = groupPosition;
 			this.childPosition = childPosition;
 		}
+		
+		
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -213,6 +217,8 @@ public class FeedActivity extends Activity {
 						if(!FeedAdapter.itemsIWillSplit.contains(item)){
 							item._peopleSharing.add(MainActivity.user);
 							FeedAdapter.itemsIWillSplit.add(item);
+							ListAdapter b = exv.getAdapter();
+							Log.d("ListAdapter class: ",b.getClass().getSimpleName());
 							Toast.makeText(v.getContext(),
 									"Your Message has been sent! You are now responsible for paying for your share of " + item._name,
 									Toast.LENGTH_SHORT).show();
