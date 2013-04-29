@@ -34,7 +34,7 @@ public class ShoppingList {
 		return _items.remove(pos);
 	}
 
-	public Item deleteItem(Item item){
+	public boolean deleteItem(Item item){
 		return _items.remove(item);
 	}
 	
