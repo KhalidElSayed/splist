@@ -25,6 +25,7 @@ public class MainActivity extends Activity{
 	static String user = "g";
 	static String pass = "123";
 	SharedPreferences settings;
+	static Server server = new Server("http://agile-hamlet-9112.herokuapp.com");
 	
     /** Called when the activity is first created. */  
 	@Override  
