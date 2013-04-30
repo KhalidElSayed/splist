@@ -1,6 +1,8 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -187,6 +189,18 @@ public class ListActivity extends Activity implements View.OnClickListener {
     	}else{
     		itemCost = Double.parseDouble(costInput);
     	}
+    	
+    	HashMap<String,String> data = new HashMap<String, String>();
+    	data.put("auth_token", MainActivity.authToken);
+    	data.put("owner", MainActivity.userId);
+    	data.put("name", itemName);
+    	data.put("description", "");
+    	data.put("price", itemCost.toString());
+    	data.put("quantity", "1");
+    	data.put("shared", isChecked.toString());
+    	data.put("list", currentItems._name);
+    	MainActivity.server.addItem(data);
+    	
     	Item newItem = new Item(itemName, isChecked, itemCost);
     	currentItems.addItem(newItem);
     	

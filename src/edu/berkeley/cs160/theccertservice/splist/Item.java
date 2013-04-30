@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Item {
 	String _name;
 	Boolean _shared;
+	Boolean _shareAccepted;
 	int _numPeopleSharing;
 	Double _price;
 	ArrayList<String> _peopleSharing;

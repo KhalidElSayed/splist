@@ -15,13 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class SignUpActivity extends Activity{
-
-	EditText usernameSignup;
-	EditText password1;
-	EditText password2;
-	Button signUpButton;
-	Button cancelButton;
-	TextView showInfo;
 	
 	public void onUserCreation() {
 		Intent intent = new Intent(SignUpActivity.this, MainActivity.class);					
@@ -33,19 +26,20 @@ public class SignUpActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sign_up);
 		
-		usernameSignup = (EditText)findViewById(R.id.usernameSignUp);
-		password1 = (EditText)findViewById(R.id.password1);
-		password2 = (EditText)findViewById(R.id.password2);
-		signUpButton = (Button)findViewById(R.id.signUpButton);
-		cancelButton = (Button)findViewById(R.id.cancelButton);
-		showInfo = (TextView)findViewById(R.id.textView1);
+		final EditText userSignup = (EditText)findViewById(R.id.name);
+		final EditText emailSignup = (EditText)findViewById(R.id.email);
+		final EditText password1 = (EditText)findViewById(R.id.password1);
+		final EditText password2 = (EditText)findViewById(R.id.password2);
+		final Button signUpButton = (Button)findViewById(R.id.signUpButton);
+		final Button cancelButton = (Button)findViewById(R.id.cancelButton);
+		final TextView showInfo = (TextView)findViewById(R.id.textView1);
 		
 		signUpButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(usernameSignup.getText().toString().equals("")){
+				if(userSignup.getText().toString().equals("")){
 					showInfo.setText("username can't be empty");
 					showInfo.setTextColor(Color.RED);
 				}
@@ -56,17 +50,12 @@ public class SignUpActivity extends Activity{
 					
 					HashMap<String,HashMap<String, String>> userData = new HashMap<String,HashMap<String, String>>();
 					HashMap<String, String> data = new HashMap<String, String>();
-					data.put("email", usernameSignup.getText().toString());
+					data.put("email", emailSignup.getText().toString());
 					data.put("password", password1.getText().toString());
 					data.put("password_confirmation", password2.getText().toString());
-					data.put("name", "Eric");
+					data.put("name", userSignup.getText().toString());
 					userData.put("user", data);
-					MainActivity.server.createAccount(userData, SignUpActivity.this);
-					
-					MainActivity.user=usernameSignup.getText().toString();
-					MainActivity.pass=password1.getText().toString();	
-					
-					
+					MainActivity.server.createAccount(userData, SignUpActivity.this);				
 				}
 				else{
 					showInfo.setText("two passwords are different!");

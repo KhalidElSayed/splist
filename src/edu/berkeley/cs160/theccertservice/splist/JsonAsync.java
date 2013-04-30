@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ import org.json.JSONTokener;
 
 import android.os.AsyncTask;
 
-class JsonTask extends AsyncTask<Map, Void, JSONArray> {
+class JsonTask extends AsyncTask<Map, Void, JSONObject> {
 	
 	public String path;
 	
@@ -30,7 +31,7 @@ class JsonTask extends AsyncTask<Map, Void, JSONArray> {
 	}
 
 	@Override
-	protected JSONArray doInBackground(Map... arg0) {
+	protected JSONObject doInBackground(Map... arg0) {
 		HttpResponse resp = this.makeRequest(arg0[0] ,this.path);
 		if (resp != null) {
 			return processResp(resp);
@@ -40,47 +41,31 @@ class JsonTask extends AsyncTask<Map, Void, JSONArray> {
 	}
 	
 	private JSONObject getJsonObjectFromMap(Map params) throws JSONException {
-
-		//all the passed parameters from the post request
-		//iterator used to loop through all the parameters
-		//passed in the post request
 		Iterator iter = params.entrySet().iterator();
-
-		//Stores JSON
 		JSONObject holder = new JSONObject();
+		JSONObject data = new JSONObject();
 
-		//using the earlier example your first entry would get email
-		//and the inner while would get the value which would be 'foo@bar.com' 
-		//{ fan: { email : 'foo@bar.com' } }
-
-		//While there is another entry
 		while (iter.hasNext()) 
 		{
-			//gets an entry in the params
 			Map.Entry pairs = (Map.Entry)iter.next();
-
-			//creates a key for Map
 			String key = (String)pairs.getKey();
 
-			//Create a new map
-			Map m = (Map)pairs.getValue();   
-
-			//object for storing Json
-			JSONObject data = new JSONObject();
-
-			//gets the value
-			Iterator iter2 = m.entrySet().iterator();
-			while (iter2.hasNext()) 
-			{
-				Map.Entry pairs2 = (Map.Entry)iter2.next();
-				data.put((String)pairs2.getKey(), (String)pairs2.getValue());
+			//If there is a subMap then iterate over that
+			if (pairs.getValue().getClass() == HashMap.class) {
+				Map m = (Map)pairs.getValue();
+				Iterator iter2 = m.entrySet().iterator();
+				while (iter2.hasNext()) {
+					Map.Entry pairs2 = (Map.Entry)iter2.next();
+					data.put((String)pairs2.getKey(), (String)pairs2.getValue());
+					holder.put(key, data);
+				}
+			} else {
+				holder.put(key, (String)pairs.getValue());
 			}
-
-			//puts email and 'foo@bar.com'  together in map
-			holder.put(key, data);
 		}
 		return holder;
 	}
+	
 	private HttpResponse makeRequest(Map params, String path) {
 		
 		//instantiates httpclient to make request
@@ -114,9 +99,9 @@ class JsonTask extends AsyncTask<Map, Void, JSONArray> {
 		httpost.setHeader("Content-type", "application/json");
 
 		//Handles what is returned from the page 
-		ResponseHandler responseHandler = new BasicResponseHandler();
+
 		try {
-			return httpclient.execute(httpost, responseHandler);
+			return httpclient.execute(httpost);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,7 +113,7 @@ class JsonTask extends AsyncTask<Map, Void, JSONArray> {
 		return null;
 
 	}
-	private JSONArray processResp (HttpResponse resp) {
+	private JSONObject processResp (HttpResponse resp) {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new InputStreamReader(resp.getEntity().getContent(), "UTF-8"));
@@ -146,9 +131,9 @@ class JsonTask extends AsyncTask<Map, Void, JSONArray> {
 			e.printStackTrace();
 		}
 		JSONTokener tokener = new JSONTokener(json);
-		JSONArray finalResult = null;
+		JSONObject finalResult = null;
 		try {
-			finalResult = new JSONArray(tokener);
+			finalResult = new JSONObject(tokener);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

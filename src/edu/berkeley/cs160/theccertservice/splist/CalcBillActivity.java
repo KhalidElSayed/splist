@@ -76,8 +76,7 @@ public class CalcBillActivity extends ListActivity {
 		listItems.clear();
 		
 		for (Item i : lst.getItems()) {
-			ArrayList<String> pplSharing = i.getPeopleSharing();
-			if (pplSharing.contains(MainActivity.user)) {
+			if (i._shareAccepted) {
 				String itemName = i.getName();
 				double itemPrice = i.getPrice();
 				double numPplSharing = i.getNumPeopleSharing();

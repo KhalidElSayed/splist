@@ -24,13 +24,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -46,7 +47,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString());
 				a.onUserCreation();
@@ -56,29 +57,56 @@ public class Server {
 		c.execute(p);
 	}
 	
-	public void login(Map p) {
+	public void login(Map p, final MainActivity a) {
 		class AcctLogin extends JsonTask {
 			public AcctLogin(String _path) {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString());
-				//a.onUserCreation();
+					String token = null;
+					String id = null;
+					JSONObject items = null;
+					try {
+						token = (String) data.get("token");
+						id = String.valueOf(data.get("id"));
+					} catch (JSONException e) {
+						// The login request failed so we can do something here if needed
+						e.printStackTrace();
+					}
+					if (token != null) {
+					    SharedPreferences.Editor editor = MainActivity.settings.edit();
+					    editor.putString("token", token);
+					    editor.putString("id", id);
+					    editor.commit();
+					    MainActivity.authToken = token;
+					    MainActivity.userId = id;
+					    //Process Initial Shopping Lists
+					    try {
+							items = data.getJSONObject("items");
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}				    
+					    a.afterLoginAttempt(true);
+					    return;
+					}
+					a.afterLoginAttempt(false);
+				Log.d("Json data", "Request failed");					
 			}
 		}
 		AcctLogin c = new AcctLogin("/tokens/create");
 		c.execute(p);
 	}
-	
+
 	public void logout(Map p) {
 		class AcctLogout extends JsonTask {
 			public AcctLogout(String _path) {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString());
 				//a.onUserCreation();
@@ -95,7 +123,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
@@ -112,7 +140,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
@@ -130,7 +158,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
@@ -148,7 +176,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
@@ -165,7 +193,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
@@ -182,7 +210,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
@@ -198,7 +226,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
@@ -215,7 +243,7 @@ public class Server {
 				super(SERVER + _path);
 			}
 			@Override
-			public void onPostExecute(JSONArray data) {
+			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
 				//a.onUserCreation();
