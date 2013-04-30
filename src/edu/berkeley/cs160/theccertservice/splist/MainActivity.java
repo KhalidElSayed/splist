@@ -1,5 +1,7 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TabActivity;
@@ -22,9 +24,11 @@ public class MainActivity extends Activity{
 	private Button logIn;
 	private TextView signUp;
 	private TextView noMatch;
-	static String user = "g";
-	static String pass = "123";
-	SharedPreferences settings;
+
+	static SharedPreferences settings;
+	static String userId = null;
+	static String authToken = null;
+
 	static Server server = new Server("http://agile-hamlet-9112.herokuapp.com");
 	
     /** Called when the activity is first created. */  
@@ -40,8 +44,10 @@ public class MainActivity extends Activity{
         noMatch = (TextView)findViewById(R.id.noMatch);
         
         settings = getSharedPreferences(SETTING_INFO, 0);
-        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
-        if(hasLoggedIn)
+        MainActivity.authToken = settings.getString("token", null);
+        MainActivity.userId = settings.getString("id", null);
+        
+        if(MainActivity.authToken != null)
         {
             //Go directly to main activity
         	Intent intent = new Intent(MainActivity.this, TabHostActivity.class);
@@ -49,31 +55,20 @@ public class MainActivity extends Activity{
         }
         
         logIn.setOnClickListener(new OnClickListener(){
-        	//////
 			@Override
 			public void onClick(View arg0) { 
 				
+				ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+				
+				HashMap<String, String> p = new HashMap<String,String>();
+				p.put("email",username.getText().toString());
+				p.put("password", password.getText().toString());
+				MainActivity.server.login(p, MainActivity.this);
+								
+				dialog.setMessage("Getting your data... Please wait...");
+				dialog.show();
 				
 				
-				// TODO Auto-generated method stub
-				if((username.getText().toString().equals(user)) && (password.getText().toString().equals(pass))){
-					ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-					dialog.setMessage("Getting your data... Please wait...");
-					dialog.show();
-					
-					settings = getSharedPreferences(SETTING_INFO, 0);  
-				    SharedPreferences.Editor editor = settings.edit();
-				    editor.putBoolean("hasLoggedIn", true);
-				    editor.commit();
-				    
-					Intent intent = new Intent(MainActivity.this, TabHostActivity.class);
-					startActivity(intent);
-
-				}
-				else{
-					noMatch.setText("Inccorect username OR password!");
-					noMatch.setTextColor(Color.RED);
-				}
 			}
         	
         });
@@ -82,14 +77,23 @@ public class MainActivity extends Activity{
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				ProgressDialog dialog = new ProgressDialog(MainActivity.this);
 				dialog.setMessage("Please wait...");
 				dialog.show();
-				Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+				Intent intent = new Intent (MainActivity.this, SignUpActivity.class);
 				startActivity(intent);
 			}
         	
         });
-    }  
+    }
+	
+	public void afterLoginAttempt(boolean success) {
+		if (success) {
+			Intent intent = new Intent(MainActivity.this, TabHostActivity.class);
+			startActivity(intent);
+		} else {
+			noMatch.setText("Inccorect username OR password!");
+			noMatch.setTextColor(Color.RED);
+		}
+	}
 }  

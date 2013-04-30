@@ -18,8 +18,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/usernameSignUp"
-        android:layout_below="@+id/usernameSignUp"
+        android:layout_alignLeft="@+id/email"
+        android:layout_below="@+id/email"
         android:text="Password:" />
 
     <EditText
@@ -56,7 +56,7 @@
         android:text="Cancel" />
 
     <EditText
-        android:id="@+id/usernameSignUp"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
@@ -72,7 +72,7 @@
         android:text="Name:" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/TextView01"
@@ -87,8 +87,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/usernameSignUp"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/email"
+        android:layout_below="@+id/name"
         android:text="Email:" />
 
     <Button
