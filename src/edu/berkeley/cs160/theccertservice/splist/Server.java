@@ -117,7 +117,7 @@ public class Server {
 	}
 	
 	
-	public void getItems() {
+	public void getItems(Map p) {
 		class gItems extends JsonTask {
 			public gItems(String _path) {
 				super(SERVER + _path);
@@ -134,7 +134,7 @@ public class Server {
 		
 	}
 	
-	public void getSharedItems() {
+	public void getSharedItems(Map p) {
 		class gSharedItems extends JsonTask {
 			public gSharedItems(String _path) {
 				super(SERVER + _path);
@@ -147,7 +147,7 @@ public class Server {
 			}
 		}
 		gSharedItems c = new gSharedItems("/item/getSharedItems");
-		c.execute();
+		c.execute(p);
 		
 	}
 	

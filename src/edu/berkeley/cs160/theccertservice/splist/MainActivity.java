@@ -15,8 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-  
-
 public class MainActivity extends Activity{  
 	public static final String SETTING_INFO = "MyPrefsFile";
 	private EditText username;
@@ -64,11 +62,8 @@ public class MainActivity extends Activity{
 				MainActivity.server.login(p, MainActivity.this);
 								
 				dialog.setMessage("Getting your data... Please wait...");
-				dialog.show();
-				
-				
-			}
-        	
+				dialog.show();		
+			}       	
         });
         
         signUp.setOnClickListener(new OnClickListener(){
@@ -80,8 +75,7 @@ public class MainActivity extends Activity{
 				dialog.show();
 				Intent intent = new Intent (MainActivity.this, SignUpActivity.class);
 				startActivity(intent);
-			}
-        	
+			}    	
         });
     }
 	

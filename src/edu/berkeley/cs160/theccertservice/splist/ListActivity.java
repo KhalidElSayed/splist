@@ -2,6 +2,8 @@ package edu.berkeley.cs160.theccertservice.splist;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -55,6 +57,19 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		listsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		spinnerList.setAdapter(listsAdapter);
 		spinnerList.setOnItemSelectedListener(new ChooseListListener());
+		
+		final class repeatTask extends TimerTask{
+
+			@Override
+			public void run() {
+				HashMap<String, String> data = new HashMap<String, String>();
+				data.put("auth_token", MainActivity.authToken);
+				MainActivity.server.getSharedItems(data);
+				MainActivity.server.getFriends(data);			
+			}			
+		}
+		Timer t = new Timer(true);
+		t.scheduleAtFixedRate(new repeatTask(), 0, 3000);
 		
 		updateItemsList();
 	}
