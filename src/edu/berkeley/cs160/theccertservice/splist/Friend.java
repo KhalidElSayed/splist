@@ -14,6 +14,11 @@ public class Friend {
 		this.email = email;
 		this.id = id;
 		this.haveAcceptedRequest = haveAcceptedRequest;
+		Friend.allFriends.add(this);
+	}
+	
+	public void unfriend(Friend f) {
+		Friend.allFriends.remove(f);
 	}
 	
 	public String friendsAsJSONArrayString() {
