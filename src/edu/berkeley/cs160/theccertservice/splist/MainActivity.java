@@ -22,9 +22,11 @@ public class MainActivity extends Activity{
 	private Button logIn;
 	private TextView signUp;
 	private TextView noMatch;
+
 	static SharedPreferences settings;
 	static String userId = null;
 	static String authToken = null;
+
 	static Server server = new Server("http://agile-hamlet-9112.herokuapp.com");
 	
     /** Called when the activity is first created. */  

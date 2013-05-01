@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
 
-    <ExpandableListView
-        android:id="@+id/expandableListView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dp" >
-    </ExpandableListView>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal" >
+<EditText
+    android:id="@+id/friendEmail"
+    android:layout_width="194dp"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/AddFriend"
+    android:layout_alignParentLeft="true"
+    android:layout_toLeftOf="@+id/AddFriend"
+    android:ems="10"
+    android:hint="Friend's E-mail" >
 
-        <EditText
-            android:id="@+id/friendEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10" >
+    <requestFocus />
+</EditText>
 
-            <requestFocus />
-        </EditText>
+<ExpandableListView
+    android:id="@+id/expandableListView2"
+    android:layout_width="match_parent"
+    android:layout_height="286dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/AddFriend"
+    android:layout_marginTop="20dp"
+    android:layout_weight="0.79"
+    android:padding="2dp" >
 
-        <Button
-            android:id="@+id/AddFriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Friend" />
-    </LinearLayout>
+</ExpandableListView>
 
-</LinearLayout>
+<Button
+    android:id="@+id/AddFriend"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:text="Add Friend" />
+
+</RelativeLayout>
