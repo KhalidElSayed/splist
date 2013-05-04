@@ -6,14 +6,14 @@
 
 
 
-    <TextView
+     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/noMatch"
-        android:layout_below="@+id/noMatch"
-        android:layout_marginTop="23dp"
-        android:text="email:" />
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="60dp"
+        android:layout_toLeftOf="@+id/textView1"
+        android:text="Email:" />
 
 
     <EditText
@@ -82,14 +82,7 @@
         android:textSize="37sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="60dp"
-        android:layout_toLeftOf="@+id/textView1"
-        android:text="username:" />
+
 
     <TextView
         android:id="@+id/noMatch"
