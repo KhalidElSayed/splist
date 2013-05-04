@@ -297,14 +297,25 @@ public class ListActivity extends Activity implements SensorEventListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		sensorManager.registerListener(this, 
-				sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-				SensorManager.SENSOR_DELAY_NORMAL);
+		for (Sensor s : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
+			if (s.getType() == Sensor.TYPE_ACCELEROMETER) {
+				sensorManager.registerListener(this, 
+						sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+						SensorManager.SENSOR_DELAY_NORMAL);
+				return;
+			}
+		}
+		
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		sensorManager.unregisterListener(this);
+		for (Sensor s : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
+			if (s.getType() == Sensor.TYPE_ACCELEROMETER) {
+				sensorManager.unregisterListener(this);
+				return;
+			}
+		}
 	}
 }
