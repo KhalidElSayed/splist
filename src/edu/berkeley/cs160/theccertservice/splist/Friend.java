@@ -7,13 +7,15 @@ public class Friend {
 	public String email;
 	public int id;
 	public boolean haveAcceptedRequest;
+	public String asker;
 	public static ArrayList<Friend> allFriends = new ArrayList<Friend>();
 	
-	public Friend(String name, String email, int id, boolean haveAcceptedRequest) {
+	public Friend(String name, String email, int id, boolean haveAcceptedRequest, String asker) {
 		this.name = name;
 		this.email = email;
 		this.id = id;
 		this.haveAcceptedRequest = haveAcceptedRequest;
+		this.asker = asker;
 		Friend.allFriends.add(this);
 	}
 	

@@ -17,6 +17,10 @@ public class FriendsActivity extends Activity {
 		displayFeeds();
 	}
 	
+	public void friendRequest(View view) {
+		
+	}
+	
 	private void displayFeeds(){
 		exv = (ExpandableListView)findViewById(R.id.expandableListView2);
 		exv.setAdapter(new FriendAdapter(this));

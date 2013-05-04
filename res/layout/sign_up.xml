@@ -27,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/textView4"
@@ -43,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView4"
         android:layout_below="@+id/textView4"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/cancelButton"
@@ -60,7 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/TextView01"

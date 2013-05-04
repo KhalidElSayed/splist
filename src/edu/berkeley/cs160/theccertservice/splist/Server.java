@@ -236,10 +236,11 @@ public class Server {
 						}
 						if (f != null) {
 							try {
-								new Friend((String) f.get("name"), 
-										   (String) f.get("email"), 
+								new Friend( f.getString("name"), 
+										    f.getString("email"), 
 										    Integer.valueOf((String) f.get("id")), 
-										    Boolean.getBoolean((String) f.get("accepted")));
+										    Boolean.getBoolean((String) f.get("accepted")),
+										    f.getString("asker"));
 							} catch (NumberFormatException e) {
 								//It done go wrong
 								e.printStackTrace();

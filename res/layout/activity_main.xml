@@ -27,7 +27,7 @@
         android:layout_alignLeft="@+id/noMatch"
         android:layout_below="@+id/noMatch"
         android:layout_marginTop="23dp"
-        android:text="username:" />
+        android:text="email:" />
 
     <EditText
         android:id="@+id/username"
@@ -35,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="textWebEmailAddress" >
 
         <requestFocus />
     </EditText>
@@ -54,7 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/logIn"
@@ -78,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
         android:layout_alignBottom="@+id/textView4"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_toRightOf="@+id/textView4"
         android:text="Sign Up" />
 
 </RelativeLayout>
