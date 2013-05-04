@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:scaleType="center"
-        android:layout_alignParentTop="true" android:src="@drawable/orange50"/>
+        android:layout_alignParentTop="true" 
+        android:src="@drawable/orangesmaller50"/>
     
 
 
@@ -114,6 +115,7 @@
 	    android:layout_width="210dp"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
+	    android:onClick="showShareMessageDialog"
 	    android:text="@string/share_title" />
 	<Button
 	    android:id="@+id/delete_list"

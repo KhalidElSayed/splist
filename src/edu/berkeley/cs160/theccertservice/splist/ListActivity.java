@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.graphics.PorterDuff;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
-public class ListActivity extends Activity implements View.OnClickListener {
+public class ListActivity extends Activity implements SensorEventListener {
     private ListView myList;
     private static ArrayList<String> sharedLists = new ArrayList<String>();
     Spinner spinnerList;
@@ -40,6 +45,8 @@ public class ListActivity extends Activity implements View.OnClickListener {
     ArrayAdapter<String> listsAdapter;
     ArrayAdapter<Item> itemsAdapter;
     private Button shareButton;
+    private long lastUpdate = System.currentTimeMillis();
+    private SensorManager sensorManager;
     
 	/** Called when the activity is first created. */
 	@Override
@@ -48,9 +55,6 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		setContentView(R.layout.list);
 		Button button = (Button) findViewById(R.id.delete_list);
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
-		
-		shareButton = (Button) findViewById(R.id.share_with_others);
-		shareButton.setOnClickListener(this);
 		
 		spinnerList = (Spinner) findViewById(R.id.lists);
 		sharedLists = ShoppingList.allListNames();
@@ -70,6 +74,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		}
 		Timer t = new Timer(true);
 		t.scheduleAtFixedRate(new repeatTask(), 0, 30000);
+		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		
 		updateItemsList();
 	}
@@ -143,15 +148,6 @@ public class ListActivity extends Activity implements View.OnClickListener {
 			this.dismiss();
 		}
 	}
-
-	public void onClick(View view) {
-	    switch (view.getId()) {
-	    case R.id.share_with_others:
-	    	showShareMessageDialog(view);
-			break;
-	    }
-
-	}
 	
 	public class ChooseListListener extends Activity implements OnItemSelectedListener {
 		
@@ -170,7 +166,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 		return sharedLists;
 	}
 	
-	public void showShareMessageDialog(View v) {
+	public void showShareMessageDialog(View view) {
 	    DialogFragment newFragment = new ShareMessageDialog();
 	    newFragment.show(getFragmentManager(), "shareMessage");
 	}
@@ -273,5 +269,42 @@ public class ListActivity extends Activity implements View.OnClickListener {
 	public void showEditItemDialog(Item item, ArrayAdapter adapter){
 	    DialogFragment newFragment = new EditItem(item, adapter);
 	    newFragment.show(getFragmentManager(), "editItem");
+	}
+	
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+			float x = event.values[0];
+			float y = event.values[1];
+			float z = event.values[2];
+			float g = SensorManager.GRAVITY_EARTH;
+			float accelSqrt = (x * x + y * y + z * z) / (g * g);
+			long t = System.currentTimeMillis();
+			if (accelSqrt >= .0025) {
+				if (t -lastUpdate >= 200) {
+					lastUpdate = t;
+					Toast.makeText(this, "Speak to add item!", Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		sensorManager.registerListener(this, 
+				sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+				SensorManager.SENSOR_DELAY_NORMAL);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		sensorManager.unregisterListener(this);
 	}
 }
