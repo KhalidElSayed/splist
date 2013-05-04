@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;  
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,7 +41,12 @@ public class MainActivity extends Activity{
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         logIn = (Button)findViewById(R.id.logIn);
+        
         signUp = (TextView)findViewById(R.id.signUp);
+        SpannableString content = new SpannableString("Sign Up");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        signUp.setText(content);
+        
         noMatch = (TextView)findViewById(R.id.noMatch);
         
         settings = getSharedPreferences(SETTING_INFO, 0);
@@ -57,15 +64,15 @@ public class MainActivity extends Activity{
 			@Override
 			public void onClick(View arg0) { 
 				
-				ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+				//ProgressDialog dialog = new ProgressDialog(MainActivity.this);
 				
 				HashMap<String, String> p = new HashMap<String,String>();
 				p.put("email",username.getText().toString());
 				p.put("password", password.getText().toString());
 				MainActivity.server.login(p, MainActivity.this);
 								
-				dialog.setMessage("Getting your data... Please wait...");
-				dialog.show();		
+				//dialog.setMessage("Getting your data... Please wait...");
+				//dialog.show();		
 			}       	
         });
         
@@ -73,9 +80,9 @@ public class MainActivity extends Activity{
 
 			@Override
 			public void onClick(View arg0) {
-				ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-				dialog.setMessage("Please wait...");
-				dialog.show();
+				//ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+				//dialog.setMessage("Please wait...");
+				//dialog.show();
 				Intent intent = new Intent (MainActivity.this, SignUpActivity.class);
 				startActivity(intent);
 			}    	

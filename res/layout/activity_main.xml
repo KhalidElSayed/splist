@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -27,7 +28,14 @@
         android:layout_alignLeft="@+id/noMatch"
         android:layout_below="@+id/noMatch"
         android:layout_marginTop="23dp"
+<<<<<<< HEAD
         android:text="email:" />
+=======
+        android:text="username:" />
+=======
+
+>>>>>>> fix log in
+>>>>>>> fix log in
 
     <EditText
         android:id="@+id/username"
@@ -70,7 +78,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView3"
+        android:layout_alignLeft="@+id/password"
         android:layout_below="@+id/logIn"
         android:text="No Account? " />
 
@@ -80,7 +88,41 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
         android:layout_alignBottom="@+id/textView4"
+<<<<<<< HEAD
         android:layout_toRightOf="@+id/textView4"
+=======
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+>>>>>>> fix log in
         android:text="Sign Up" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
+        android:text="Splist"
+        android:textSize="37sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="60dp"
+        android:layout_toLeftOf="@+id/textView1"
+        android:text="username:" />
+
+    <TextView
+        android:id="@+id/noMatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_marginBottom="28dp"
+        android:text="" />
 
 </RelativeLayout>
