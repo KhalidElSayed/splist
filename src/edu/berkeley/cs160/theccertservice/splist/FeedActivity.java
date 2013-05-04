@@ -220,6 +220,7 @@ public class FeedActivity extends Activity {
 					public void onClick(View v) {
 						Item item = FeedAdapter.itemsFriendsWantToSplit.get(childPosition);
 						if(!FeedAdapter.itemsIWillSplit.contains(item)){
+
 							item._shareAccepted = true;
 							FeedAdapter.itemsIWillSplit.add(item);
 							FeedAdapter.itemsFriendsWantToSplit.remove(item);
