@@ -6,7 +6,6 @@
 
 
 
-<<<<<<< HEAD
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -14,17 +13,8 @@
         android:layout_alignLeft="@+id/noMatch"
         android:layout_below="@+id/noMatch"
         android:layout_marginTop="23dp"
-<<<<<<< HEAD
         android:text="email:" />
-=======
-        android:text="username:" />
-=======
 
->>>>>>> fix log in
->>>>>>> fix log in
-=======
-
->>>>>>> smal change
 
     <EditText
         android:id="@+id/username"
@@ -77,12 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
         android:layout_alignBottom="@+id/textView4"
-<<<<<<< HEAD
         android:layout_toRightOf="@+id/textView4"
-=======
-        android:layout_centerHorizontal="true"
         android:textStyle="bold"
->>>>>>> fix log in
         android:text="Sign Up" />
 
     <TextView

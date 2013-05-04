@@ -22,15 +22,6 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 	static ArrayList<String> friendsRequest = new ArrayList<String>();
 	static ArrayList<String> friends = new ArrayList<String>();
 	
-	for (Friend f : f.allFriends) {
-		if (f.haveAcceptedRequest) {
-			friends.add(f.name);
-		} else {
-			if (f.asker == "them")
-				friendsRequest.add(f.name);
-		}			
-	}
-	
 	LayoutInflater inflater;
 
 	public FriendAdapter(Context context) {
