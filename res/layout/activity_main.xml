@@ -4,23 +4,9 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+
+
 <<<<<<< HEAD
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="Splist" />
-
-    <TextView
-        android:id="@+id/noMatch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="5dp"
-        android:layout_toLeftOf="@+id/textView1"
-        android:text="" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -36,6 +22,9 @@
 
 >>>>>>> fix log in
 >>>>>>> fix log in
+=======
+
+>>>>>>> smal change
 
     <EditText
         android:id="@+id/username"
