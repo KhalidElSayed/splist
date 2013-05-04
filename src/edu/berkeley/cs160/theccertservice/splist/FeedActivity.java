@@ -138,7 +138,7 @@ public class FeedActivity extends Activity {
 				//System.out.println(FeedAdapter.itemsFriendsWillSplit.get(childPosition).getPrice());
 				
 				numPeopleSharingP = (TextView) view.findViewById(R.id.numPeopleSharingP);
-				numPeopleSharingP.setText(String.valueOf(FeedAdapter.itemsFriendsWillSplit.get(childPosition)._numPeopleSharing));
+				numPeopleSharingP.setText(String.valueOf(FeedAdapter.itemsFriendsWillSplit.get(childPosition).getNumPeopleSharing()));
 				numPeopleSharingP.setTextColor(Color.RED);
 				//System.out.println(FeedAdapter.itemsFriendsWillSplit.get(childPosition)._numPeopleSharing);
 				
@@ -173,7 +173,7 @@ public class FeedActivity extends Activity {
 				
 				numPeopleSharingW = (TextView) view.findViewById(R.id.numPeopleSharingW);
 				//numPeopleSharingW.setText(FeedAdapter.itemsIWillSplit.get(childPosition)._numPeopleSharing);
-				numPeopleSharingW.setText(String.valueOf(FeedAdapter.itemsIWillSplit.get(childPosition)._numPeopleSharing));
+				numPeopleSharingW.setText(String.valueOf(FeedAdapter.itemsIWillSplit.get(childPosition).getNumPeopleSharing()));
 				numPeopleSharingW.setTextColor(Color.RED);
 
 				feedNameW = (TextView) view.findViewById(R.id.feedNameW);
@@ -209,7 +209,7 @@ public class FeedActivity extends Activity {
 
 				numPeopleSharing = (TextView) view
 						.findViewById(R.id.numPeopleSharing);
-				Integer number = FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._numPeopleSharing;
+				Integer number = FeedAdapter.itemsFriendsWantToSplit.get(childPosition).getNumPeopleSharing();
 				numPeopleSharing.setText(String.valueOf(number));
 				numPeopleSharing.setTextColor(Color.RED);
 

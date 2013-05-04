@@ -125,8 +125,33 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
-				//a.onUserCreation();
+					Log.d("Json data getItems", data.toString());
+					JSONArray items = null;
+					ArrayList<ShoppingList> lists = new ArrayList<ShoppingList>();
+					try {
+						items = (JSONArray) data.get("items");
+						for (int i = 0; i < items.length(); i++) {
+							JSONObject item = (JSONObject) items.get(i);
+							Item sItem = new Item(item);
+							sItem._list.addItem(sItem);
+							if (!lists.contains(sItem._list))
+								lists.add(sItem._list);
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+	
+					ArrayList<Item> itemsFriendsWillSplit = new ArrayList<Item>();
+					for (ShoppingList l: lists) {
+						for (Item i : l.getItems()) {
+							if (i._shareAccepted) {
+								itemsFriendsWillSplit.add(i);
+							}
+						}
+					}
+					synchronized (FeedAdapter.itemsIWillSplit) {
+						FeedAdapter.itemsFriendsWillSplit = itemsFriendsWillSplit;
+					}
 			}
 		}
 		gItems c = new gItems("/item/getItems");
@@ -142,29 +167,39 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
-					Log.d("Json data", data.toString());
+					Log.d("Json data getSharedItems", data.toString());
 					JSONArray items = null;
 					ArrayList<ShoppingList> lists = new ArrayList<ShoppingList>();
 					try {
 						items = (JSONArray) data.get("items");
 						for (int i = 0; i < items.length(); i++) {
 							JSONObject item = (JSONObject) items.get(i);
-							boolean listFound = false;
 							Item sItem = new Item(item);
-							
-							for (ShoppingList l : lists) {
-								if (l._name == sItem.getName()) {
-									l.addItem(sItem);
-								}
-							}
-							if (!listFound) {
-								ShoppingList newList = new ShoppingList(sItem.getName(),item.getString("owner"));
-								newList.addItem(sItem);
-								lists.add(newList);
-							}
+							sItem._list.addItem(sItem);
+							if (!lists.contains(sItem._list))
+								lists.add(sItem._list);
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
+					}
+	
+					ArrayList<Item> itemsIWillSplit = new ArrayList<Item>();
+					ArrayList<Item> itemsFriendsWantToSplit = new ArrayList<Item>();
+					for (ShoppingList l: lists) {
+						for (Item i : l.getItems()) {
+							if (i._shareAccepted) {
+								itemsIWillSplit.add(i);
+							} else {
+								itemsFriendsWantToSplit.add(i);
+							}
+						}
+					}
+					
+					synchronized (FeedAdapter.itemsIWillSplit) {
+						FeedAdapter.itemsIWillSplit = itemsIWillSplit;
+					}
+					synchronized (FeedAdapter.itemsFriendsWantToSplit) {
+						FeedAdapter.itemsFriendsWantToSplit = itemsFriendsWantToSplit;
 					}
 				}
 			}

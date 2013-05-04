@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;

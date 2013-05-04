@@ -33,4 +33,13 @@ public class Friend {
 		}
 		return result + "]";
 	}
+	
+	public static Friend getFriend(int id) {
+		for (Friend f : allFriends) {
+			if (f.id == id) {
+				return f;
+			}
+		}
+		return null;
+	}
 }

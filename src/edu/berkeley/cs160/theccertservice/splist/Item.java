@@ -2,6 +2,7 @@ package edu.berkeley.cs160.theccertservice.splist;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,61 +12,73 @@ public class Item {
 	int _id;
 	String _name = null;
 	Boolean _shared;
-	Boolean _shareAccepted;
-	int _numPeopleSharing;
+	Boolean _shareAccepted; //When dealing with items that don't belong to you it lets you know if you have accepted
+							//When dealing with your own items, it lets you know if someone has accepted your offer
+	ArrayList<Integer> _peopleSharing;
+	ArrayList<Integer> _peopleInvitedToShare;
 	Double _price;
-	ArrayList<String> _peopleSharing;
 	ShoppingList _list;
 	
 	public Item(String name) {
 		_name = name;
 		_shared = false;
 		_price = 0.0;
-		_peopleSharing = new ArrayList<String>();
 	}
 	
 	public Item(String name, Boolean shared, Double price) {
 		_name = name;
 		_shared = shared;
 		_price = price;
-		ArrayList<Person> _peopleSharing = new ArrayList<Person>();
+		ArrayList<Integer> _peopleSharing = new ArrayList<Integer>();
 	}
 	
 	public Item(JSONObject item) {
-
-		try {
-			_id = item.getInt("id");
-			_name = item.getString("name");
-			_price = item.getDouble("price");
-			_shared = item.getBoolean("shared");
-			_numPeopleSharing = item.getInt("numSharing");
-			String list = item.getString("list");
-			int owner = item.getInt("owner");
-			ShoppingList sList = ShoppingList.getShoppingList(list);
-			if (sList == null) {
-				for (Friend f : Friend.allFriends) {
-					if (f.id == owner) {
-						sList = new ShoppingList(list, f.name);
-						break;
-					}
-				}		
-			}
-			if (sList == null) {
-				if (_name != null) {
-					Log.d("Item does not contain a list. Possibly corrupt...", _name);
-				}
-			}		
-			sList.addItem(this);
-			_list = sList;
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		
 		try {
 			_shareAccepted = item.getBoolean("shareAccepted");
 		} catch (JSONException e) {
 			_shareAccepted = false;
 		}
+
+		_peopleSharing = new ArrayList<Integer>();
+		_peopleInvitedToShare = new ArrayList<Integer>();
+		try {
+			_id = item.getInt("id");
+			_name = item.getString("name");
+			_price = item.getDouble("price");
+			_shared = item.getBoolean("shared");
+			JSONArray peopleSharing = item.getJSONArray("pplSharing");
+			for (int i = 0; i < peopleSharing.length(); i++) {
+				JSONObject p = peopleSharing.getJSONObject(i);
+				boolean isSharing = p.getBoolean("shareAccepting");
+				if (isSharing) {
+					_peopleSharing.add(p.getInt("user_id"));
+					_shareAccepted = true;
+				} else {
+					_peopleInvitedToShare.add(p.getInt("user_id"));
+				}			
+			}
+		
+			String list = item.getString("list");
+			int owner = item.getInt("owner");
+			ShoppingList sList = ShoppingList.getShoppingList(list);
+			if (sList == null) {
+				Friend f = Friend.getFriend(owner);
+				if (f != null) {
+					sList = new ShoppingList(list, f.name);
+					
+				}
+			}
+			if (sList == null) {
+				if (_name != null) {
+					Log.d("Item does not contain a list. Possibly corrupt...", _name);
+				}
+			}
+			_list = sList;		
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public String getName() {
@@ -84,8 +97,8 @@ public class Item {
 		this._shared = _shared;
 	}
 	
-	public double getNumPeopleSharing() {
-		return (double) _peopleSharing.size() + 1;
+	public int getNumPeopleSharing() {
+		return _peopleSharing.size() + 1;
 	}
 	
 	
@@ -98,7 +111,14 @@ public class Item {
 	}
 	
 	public ArrayList<String> getPeopleSharing() {
-		return _peopleSharing;
+		ArrayList<String> pplSharing = new ArrayList<String>();
+		for (Integer pId : _peopleSharing) {
+			Friend f = Friend.getFriend(pId);
+			if (f != null) {
+				pplSharing.add(f.name);
+			}
+		}
+		return pplSharing;
 	}
 	
 	@Override
