@@ -24,6 +24,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,7 +117,6 @@ public class Server {
 		c.execute(p);
 	}
 	
-	
 	public void getItems(Map p) {
 		class gItems extends JsonTask {
 			public gItems(String _path) {
@@ -141,16 +141,38 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
-				//a.onUserCreation();
+				if (data != null) {
+					Log.d("Json data", data.toString());
+					JSONArray items = null;
+					ArrayList<ShoppingList> lists = new ArrayList<ShoppingList>();
+					try {
+						items = (JSONArray) data.get("items");
+						for (int i = 0; i < items.length(); i++) {
+							JSONObject item = (JSONObject) items.get(i);
+							boolean listFound = false;
+							Item sItem = new Item(item);
+							
+							for (ShoppingList l : lists) {
+								if (l._name == sItem.getName()) {
+									l.addItem(sItem);
+								}
+							}
+							if (!listFound) {
+								ShoppingList newList = new ShoppingList(sItem.getName(),item.getString("owner"));
+								newList.addItem(sItem);
+								lists.add(newList);
+							}
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		gSharedItems c = new gSharedItems("/item/getSharedItems");
 		c.execute(p);
 		
 	}
-	
 	
 	public void getFriends(Map p) {
 		class gFriend extends JsonTask {
@@ -159,17 +181,49 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
-				//a.onUserCreation();
+				if (data != null) {
+					Log.d("Json data", data.toString());
+					JSONArray friends = null;
+					try {
+						friends = (JSONArray) data.get("friends");
+					} catch (JSONException e) {
+						//something happened!
+						e.printStackTrace();
+					}
+					
+					for (int i = 0; i < friends.length(); i++) {
+						JSONObject f = null;
+						try {
+							f = friends.getJSONObject(i);
+						} catch (JSONException e) {
+							//Oh noes!
+							e.printStackTrace();
+						}
+						if (f != null) {
+							try {
+								new Friend((String) f.get("name"), 
+										   (String) f.get("email"), 
+										    Integer.valueOf((String) f.get("id")), 
+										    Boolean.getBoolean((String) f.get("accepted")));
+							} catch (NumberFormatException e) {
+								//It done go wrong
+								e.printStackTrace();
+							} catch (JSONException e) {
+								//It be even more wrong
+								e.printStackTrace();
+							}
+						}
+						
+						
+					}
+				}
 			}
 		}
 		gFriend c = new gFriend("/user/getFriends");
 		c.execute(p);
 		
 	}
-	
-	
+		
 	public void requestFriend(Map p) {
 		class rFriend extends JsonTask {
 			public rFriend(String _path) {
@@ -177,9 +231,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
-				//a.onUserCreation();
+				if (data != null) {
+					Log.d("Json data", data.toString()); 
+				}
 			}
 		}
 		rFriend c = new rFriend("/user/makeFriendReq");
@@ -195,7 +249,7 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+					Log.d("Json data", data.toString()); 
 				//a.onUserCreation();
 			}
 		}
@@ -212,7 +266,7 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+					Log.d("Json data", data.toString());
 				//a.onUserCreation();
 			}
 		}
@@ -228,7 +282,7 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+					Log.d("Json data", data.toString());
 				//a.onUserCreation();
 			}
 		}
@@ -245,7 +299,7 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null)
-					Log.d("Json data", data.toString()); // needs to make shopping lists out of these items
+					Log.d("Json data", data.toString());
 				//a.onUserCreation();
 			}
 		}

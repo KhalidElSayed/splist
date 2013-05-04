@@ -69,7 +69,7 @@ public class ListActivity extends Activity implements View.OnClickListener {
 			}			
 		}
 		Timer t = new Timer(true);
-		t.scheduleAtFixedRate(new repeatTask(), 0, 3000);
+		t.scheduleAtFixedRate(new repeatTask(), 0, 30000);
 		
 		updateItemsList();
 	}
