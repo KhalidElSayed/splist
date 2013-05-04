@@ -220,7 +220,12 @@ public class FeedActivity extends Activity {
 					public void onClick(View v) {
 						Item item = FeedAdapter.itemsFriendsWantToSplit.get(childPosition);
 						if(!FeedAdapter.itemsIWillSplit.contains(item)){
+<<<<<<< HEAD
 							item._shareAccepted = true;
+=======
+							item._peopleSharing.add(MainActivity.user);
+							item._numPeopleSharing += 1;
+>>>>>>> small change
 							FeedAdapter.itemsIWillSplit.add(item);
 							FeedAdapter.itemsFriendsWantToSplit.remove(item);
 							exv.collapseGroup(groupPosition);  

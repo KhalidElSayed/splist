@@ -5,6 +5,7 @@
     android:orientation="vertical" >
 
 
+<<<<<<< HEAD
 <EditText
     android:id="@+id/friendEmail"
     android:layout_width="194dp"
@@ -17,6 +18,16 @@
 
     <requestFocus />
 </EditText>
+=======
+ 
+
+        <EditText
+            android:id="@+id/friendEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:ems="1" >
+>>>>>>> small change
 
 <ExpandableListView
     android:id="@+id/expandableListView2"
@@ -29,7 +40,17 @@
     android:layout_weight="0.79"
     android:padding="2dp" >
 
+<<<<<<< HEAD
 </ExpandableListView>
+=======
+        <Button
+            android:id="@+id/AddFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="7"
+            android:layout_gravity="left|center_vertical"
+            android:text="Add Friend" />
+>>>>>>> small change
 
 <Button
     android:id="@+id/AddFriend"
