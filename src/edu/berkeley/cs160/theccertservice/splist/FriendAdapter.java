@@ -14,29 +14,28 @@ import android.widget.TextView;
 public class FriendAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
-	static String[] parentList = { "Friend Requests", "Friends" };
-	static String[][] childList = { { "Apollo", "Chantre", "Ghirshman", "Huni" },
-			{ "Jack", "Carey", "Aline", "Fox" } };
 	
+	static String[] parentList = { "Friend Requests", "Friends" };
+	/*static String[][] childList = { { "Apollo", "Chantre", "Ghirshman", "Huni" },
+			{ "Jack", "Carey", "Aline", "Fox" } };
+	*/
 	static ArrayList<String> friendsRequest = new ArrayList<String>();
 	static ArrayList<String> friends = new ArrayList<String>();
-	
-	
 	
 	LayoutInflater inflater;
 
 	public FriendAdapter(Context context) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
-		friendsRequest.add("Apollo");
-		friendsRequest.add("Chantre");
-		friendsRequest.add("Ghirshman");
-		friendsRequest.add("Huni");
+		//friendsRequest.add("Apollo");
+		//friendsRequest.add("Chantre");
+		//friendsRequest.add("Ghirshman");
+		//friendsRequest.add("Huni");
 		
-		friends.add("Jack");
-		friends.add("Carey");
-		friends.add("Aline");
-		friends.add("Fox");
+		//friends.add("Jack");
+		//friends.add("Carey");
+		//friends.add("Aline");
+		//friends.add("Fox");
 
 	}
 

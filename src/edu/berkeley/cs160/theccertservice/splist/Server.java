@@ -225,7 +225,7 @@ public class Server {
 						//something happened!
 						e.printStackTrace();
 					}
-					
+					Friend.allFriends = new ArrayList<Friend>();
 					for (int i = 0; i < friends.length(); i++) {
 						JSONObject f = null;
 						try {
@@ -248,6 +248,31 @@ public class Server {
 								//It be even more wrong
 								e.printStackTrace();
 							}
+							ArrayList<String> friendsRequest = new ArrayList<String>();
+							ArrayList<String> myfriends = new ArrayList<String>();
+
+							for (Friend fr : Friend.allFriends) {
+								if (fr.haveAcceptedRequest) {
+									myfriends.add(fr.name);
+								} else {
+									if (fr.asker == "them"){
+										friendsRequest.add(fr.name);
+									}
+								}			
+							}
+							synchronized (FriendAdapter.friends) {
+								FriendAdapter.friends = myfriends;
+							}
+							synchronized (FriendAdapter.friendsRequest) {
+								FriendAdapter.friendsRequest = friendsRequest;
+							}
+							synchronized (FriendsActivity.exv) {
+								FriendsActivity.exv.collapseGroup(0);  
+								FriendsActivity.exv.expandGroup(0);
+								FriendsActivity.exv.collapseGroup(1);  
+								FriendsActivity.exv.expandGroup(1);
+							}
+							
 						}
 						
 						

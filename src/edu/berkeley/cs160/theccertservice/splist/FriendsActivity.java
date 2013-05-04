@@ -8,7 +8,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 
 public class FriendsActivity extends Activity {
 
-	ExpandableListView exv;
+	static ExpandableListView exv;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
