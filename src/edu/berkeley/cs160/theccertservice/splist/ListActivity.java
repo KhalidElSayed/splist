@@ -85,7 +85,9 @@ public class ListActivity extends Activity implements SensorEventListener {
 	public void showCreateListDialog(View v) {
 	    DialogFragment newFragment = new CreateListDialog();
 	    newFragment.show(getFragmentManager(), "createList");
+	    finishText();
 	}
+	
 	public void showDeleteListDialog(View v){
 		Dialog d = deleteDialog();
 		d.show();
@@ -135,13 +137,11 @@ public class ListActivity extends Activity implements SensorEventListener {
 	            public void onClick(View v) {
 	            	ListActivity parentAct = (ListActivity) getActivity();
 	                parentAct.onFinishCreateList(mEditText.getText().toString());
-	                finishText();
 	                done();
 	            }
 	        });
 			cancel.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
-					finishText();
 					done();
 				}
 			});
@@ -239,8 +239,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 			currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
 		}
 		if(currentItems == null){
-		    DialogFragment newFragment = new CreateListDialog();
-		    newFragment.show(getFragmentManager(), "createList");
+		    showCreateListDialog(null);
 			return;
 		}
 		ListView listview = (ListView) findViewById(R.id.item_list);
