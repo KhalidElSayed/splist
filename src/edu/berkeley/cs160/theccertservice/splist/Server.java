@@ -69,29 +69,31 @@ public class Server {
 					Log.d("Json data", data.toString());
 					String token = null;
 					String id = null;
-					JSONObject items = null;
+					String message = null;
 					try {
-						token = (String) data.get("token");
-						id = String.valueOf(data.get("id"));
-					} catch (JSONException e) {
-						// The login request failed so we can do something here if needed
-						e.printStackTrace();
+						message = data.getString("message");
+					} catch (JSONException e1) {
+						e1.printStackTrace();
 					}
-					if (token != null) {
+					if (message == "success") {
+						try {
+							token = (String) data.get("token");
+							id = String.valueOf(data.get("id"));
+						} catch (JSONException e) {
+							// The login request failed so we can do something here if needed
+							e.printStackTrace();
+						}
+						
 					    SharedPreferences.Editor editor = MainActivity.settings.edit();
 					    editor.putString("token", token);
 					    editor.putString("id", id);
 					    editor.commit();
 					    MainActivity.authToken = token;
 					    MainActivity.userId = id;
-					    //Process Initial Shopping Lists
-					    try {
-							items = data.getJSONObject("items");
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}				    
+					    
 					    a.afterLoginAttempt(true);
 					    return;
+						
 					}
 					a.afterLoginAttempt(false);
 				Log.d("Json data", "Request failed");					
@@ -366,9 +368,22 @@ public class Server {
 		}
 		dItem c = new dItem("/item/delete");
 		c.execute(p);
-		
 	}
 	
+	public void removeFriend(Map p) {
+		class dItem extends JsonTask {
+			public dItem(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONObject data) {
+				if (data != null)
+					Log.d("Json data", data.toString());
+			}
+		}
+		dItem c = new dItem("/user/removeFriend");
+		c.execute(p);
+	}
 	
 }
 

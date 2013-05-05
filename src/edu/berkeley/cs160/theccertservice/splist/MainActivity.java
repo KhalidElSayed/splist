@@ -30,6 +30,7 @@ public class MainActivity extends Activity{
 	static String userId = null;
 	static String authToken = null;
 
+	//http://agile-hamlet-9112.herokuapp.com
 	static Server server = new Server("http://agile-hamlet-9112.herokuapp.com");
 	
     /** Called when the activity is first created. */  
