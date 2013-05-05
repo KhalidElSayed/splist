@@ -120,6 +120,10 @@ public class FriendsActivity extends Activity {
 					data.put("auth_token",MainActivity.authToken);
 					data.put("email", FriendAdapter.friendsRequest.get(childPosition).email);
 					MainActivity.server.acceptFriend(data);
+					
+					FriendAdapter.friendsRequest.remove(FriendAdapter.friendsRequest.get(childPosition));
+					exv.collapseGroup(groupPosition);  
+					exv.expandGroup(groupPosition);
 				}
 				
 			});
@@ -130,7 +134,14 @@ public class FriendsActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					HashMap<String, String> data = new HashMap<String, String>();
+					data.put("auth_token",MainActivity.authToken);
+					data.put("id", String.valueOf(FriendAdapter.friendsRequest.get(childPosition).id));
+					MainActivity.server.removeFriend(data);
 					
+					FriendAdapter.friendsRequest.remove(FriendAdapter.friendsRequest.get(childPosition));
+					exv.collapseGroup(groupPosition);  
+					exv.expandGroup(groupPosition);
 				}
 				
 			});
