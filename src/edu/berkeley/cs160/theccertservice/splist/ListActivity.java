@@ -94,6 +94,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 	public void onFinishCreateList(String listName){
 		sharedLists.add(listName);
 		new ShoppingList(listName, "bob");
+		spinnerList.setSelection(sharedLists.size() - 1);
 		listsAdapter.notifyDataSetChanged();
 	}
 	
@@ -133,12 +134,14 @@ public class ListActivity extends Activity implements SensorEventListener {
 			create.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	ListActivity parentAct = (ListActivity) getActivity();
-	                parentAct.onFinishCreateList(mEditText.getText().toString());                
+	                parentAct.onFinishCreateList(mEditText.getText().toString());
+	                finishText();
 	                done();
 	            }
 	        });
 			cancel.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
+					finishText();
 					done();
 				}
 			});
@@ -226,8 +229,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     	costView.setText("", TextView.BufferType.EDITABLE);
     	
     	//unfocus from edittext
-    	InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-    	imm.hideSoftInputFromWindow(findViewById(android.R.id.content).getWindowToken(), 0);
+    	finishText();
     	
     	updateItemsList();
     }
@@ -312,5 +314,10 @@ public class ListActivity extends Activity implements SensorEventListener {
 				return;
 			}
 		}
+	}
+	
+	private void finishText(){
+    	InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+    	imm.hideSoftInputFromWindow(findViewById(android.R.id.content).getWindowToken(), 0);
 	}
 }
