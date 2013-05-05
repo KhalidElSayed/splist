@@ -1,19 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/requestInfo"
+        android:id="@+id/requestEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="17dp"
         android:text="TextView" />
 
     <Button
-        android:id="@+id/requestButton"
+        android:id="@+id/requestAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/requestEmail"
+        android:layout_below="@+id/requestEmail"
+        android:layout_marginTop="17dp"
         android:text="Accept" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:text="You got a request from:" />
+
+    <Button
+        android:id="@+id/requestReject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/requestAccept"
+        android:layout_alignBottom="@+id/requestAccept"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/requestAccept"
+        android:text="Reject" />
+
+</RelativeLayout>

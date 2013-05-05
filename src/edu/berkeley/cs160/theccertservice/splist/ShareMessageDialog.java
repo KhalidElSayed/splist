@@ -25,7 +25,7 @@ public class ShareMessageDialog extends DialogFragment {
 			done.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	ListActivity parentAct = (ListActivity) getActivity();
-	                parentAct.onFinishShareMessageDialog(mEditText.getText().toString());                
+	                parentAct.onFinishShareMessageDialog(mEditText.getText().toString());            
 	                done();
 	            }
 	        });

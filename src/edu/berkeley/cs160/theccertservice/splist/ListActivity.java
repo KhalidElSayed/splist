@@ -47,6 +47,8 @@ public class ListActivity extends Activity implements SensorEventListener {
     private Button shareButton;
     private long lastUpdate = System.currentTimeMillis();
     private SensorManager sensorManager;
+    private float last_x, last_y, last_z;
+    private final float SHAKE_THRESHOLD = 35;
     
 	/** Called when the activity is first created. */
 	@Override
@@ -273,19 +275,22 @@ public class ListActivity extends Activity implements SensorEventListener {
 	
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+		long t = System.currentTimeMillis();
+		long diffTime = t -lastUpdate;
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && diffTime > 100) {
+			lastUpdate = t;
 			float x = event.values[0];
 			float y = event.values[1];
 			float z = event.values[2];
-			float g = SensorManager.GRAVITY_EARTH;
-			float accelSqrt = (x * x + y * y + z * z) / (g * g);
-			long t = System.currentTimeMillis();
-			if (accelSqrt >= .0025) {
-				if (t -lastUpdate >= 200) {
-					lastUpdate = t;
+
+			float accelVal = Math.abs(x+y+z - last_x - last_y - last_z)
+                    / diffTime * 10000;
+			//Log.d("Sensor", "Accel was: " + String.valueOf(accelVal));
+			if (accelVal >= SHAKE_THRESHOLD) {
+				if (diffTime >= 200) {				
 					Toast.makeText(this, "Speak to add item!", Toast.LENGTH_SHORT).show();
 				}
-			}
+			}		
 		}
 	}
 
