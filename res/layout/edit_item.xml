@@ -59,18 +59,28 @@
     
 	<Button
 	    android:id="@+id/add_item"
-	    android:layout_width="145dp"
+	    android:layout_width="230dp"
 	    android:layout_height="40dp"
 	    android:layout_below="@+id/cost_title"
+	    android:layout_centerHorizontal="true"
 	    android:onClick="addItemToList"
 	    android:text="Save Item" />
 	
 	<Button
-	    android:id="@+id/cancel_item"
-	    android:layout_width="145dp"
+	    android:id="@+id/delete_item"
+	    android:layout_width="115dp"
 	    android:layout_height="40dp"
-        android:layout_alignBottom="@+id/add_item"
-        android:layout_toRightOf="@+id/add_item"
+        android:layout_below="@+id/add_item"
+        android:layout_alignLeft="@+id/add_item"
+	    android:onClick="done"
+	    android:text="Delete" />
+	
+	<Button
+	    android:id="@+id/cancel_item"
+	    android:layout_width="115dp"
+	    android:layout_height="40dp"
+        android:layout_alignBottom="@+id/delete_item"
+        android:layout_toRightOf="@+id/delete_item"
 	    android:onClick="done"
 	    android:text="Cancel" />
 </RelativeLayout>
