@@ -12,9 +12,9 @@ import android.widget.TextView;
 public class FeedAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
-	static String[] parentList = {"My Shared and Accepted Items", 
-								  "Friends' Shared and Accepted Items", 
-								  "Requests to Split" };
+	static String[] parentList = {"Shared Items Accepted by Friends", 
+								  "Friends' Items I'm Splitting", 
+								  "Items Friends Would Like to Split" };
 	static ArrayList<Item> itemsFriendsWillSplit = new ArrayList<Item>();
 	static ArrayList<Item> itemsIWillSplit = new ArrayList<Item>();
 	static ArrayList<Item> itemsFriendsWantToSplit = new ArrayList<Item>();
