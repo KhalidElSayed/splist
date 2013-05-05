@@ -27,7 +27,7 @@ public class CalcBillActivity extends ListActivity {
     ArrayAdapter<String> arrayAdapter;
     ArrayAdapter<String> adapter;
     ArrayList<String> listItems = new ArrayList<String>();
-    static ArrayList<String> sharedLists = ListActivity.getLists();
+    ArrayList<String> sharedLists;
     View header;
     View footer;
     
@@ -57,7 +57,7 @@ public class CalcBillActivity extends ListActivity {
 		
 		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 		
-		sharedLists = new ArrayList<String>();
+		sharedLists = ShoppingList.allListNames();;
 		for (Item i : FeedAdapter.itemsIWillSplit) {
 			sharedLists.add(i._list._name);
 		}
