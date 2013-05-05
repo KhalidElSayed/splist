@@ -75,7 +75,7 @@ public class Server {
 					} catch (JSONException e1) {
 						e1.printStackTrace();
 					}
-					if (message == "success") {
+					if (message.compareTo("success") == 0) {
 						try {
 							token = (String) data.get("token");
 							id = String.valueOf(data.get("id"));
@@ -228,6 +228,8 @@ public class Server {
 						e.printStackTrace();
 					}
 					Friend.allFriends = new ArrayList<Friend>();
+					ArrayList<Friend> friendsRequest = new ArrayList<Friend>();
+					ArrayList<Friend> myfriends = new ArrayList<Friend>();
 					for (int i = 0; i < friends.length(); i++) {
 						JSONObject f = null;
 						try {
@@ -238,47 +240,30 @@ public class Server {
 						}
 						if (f != null) {
 							try {
-								new Friend( f.getString("name"), 
-										    f.getString("email"), 
-										    Integer.valueOf((String) f.get("id")), 
-										    Boolean.getBoolean((String) f.get("accepted")),
-										    f.getString("asker"));
+								Friend fr = new Friend( f.getString("name"), 
+													    f.getString("email"), 
+													    f.getInt("id"), 
+													    f.getBoolean("accepted"),
+													    f.getString("asker"));
+								if (fr.haveAcceptedRequest) {
+									myfriends.add(fr);
+								} else {
+									if (fr.asker.compareTo("them") == 0){
+										friendsRequest.add(fr);
+									}
+								}	
 							} catch (NumberFormatException e) {
 								//It done go wrong
 								e.printStackTrace();
 							} catch (JSONException e) {
 								//It be even more wrong
 								e.printStackTrace();
-							}
-							ArrayList<Friend> friendsRequest = new ArrayList<Friend>();
-							ArrayList<Friend> myfriends = new ArrayList<Friend>();
-
-							for (Friend fr : Friend.allFriends) {
-								if (fr.haveAcceptedRequest) {
-									myfriends.add(fr);
-								} else {
-									if (fr.asker == "them"){
-										friendsRequest.add(fr);
-									}
-								}			
-							}
-							synchronized (FriendAdapter.friends) {
-								FriendAdapter.friends = myfriends;
-							}
-							synchronized (FriendAdapter.friendsRequest) {
-								FriendAdapter.friendsRequest = friendsRequest;
-							}
-							synchronized (FriendsActivity.exv) {
-								FriendsActivity.exv.collapseGroup(0);  
-								FriendsActivity.exv.expandGroup(0);
-								FriendsActivity.exv.collapseGroup(1);  
-								FriendsActivity.exv.expandGroup(1);
-							}
-							
-						}
-						
-						
+							}							
+						}	
 					}
+					FriendAdapter.friends = myfriends;
+					FriendAdapter.friendsRequest = friendsRequest;					
+					FriendsActivity.refreshEXV();
 				}
 			}
 		}
@@ -384,7 +369,6 @@ public class Server {
 		dItem c = new dItem("/user/removeFriend");
 		c.execute(p);
 	}
-	
 }
 
 

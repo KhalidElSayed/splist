@@ -245,31 +245,14 @@ public class ListActivity extends Activity implements SensorEventListener {
 	      @Override
 	      public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 	    	  Item item = (Item) parent.getItemAtPosition(position);
-	          showEditItemDialog(item, itemsAdapter);
+	          showEditItemDialog(item, itemsAdapter, currentItems);
 	          view.setAlpha(1);
 	      }
 	    });
-	    
-	    listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-					@Override
-					public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, long id) {
-				        final Item item = (Item) parent.getItemAtPosition(position);
-				        view.animate().setDuration(2000).alpha(0)
-				            .withEndAction(new Runnable() {
-				              @Override
-				              public void run() {
-				                currentItems.deleteItem(item);
-				                itemsAdapter.notifyDataSetChanged();
-				                view.setAlpha(1);
-				              }         
-				            });
-						return false;
-					}
-		});
 	}
 	
-	public void showEditItemDialog(Item item, ArrayAdapter adapter){
-	    DialogFragment newFragment = new EditItem(item, adapter);
+	public void showEditItemDialog(Item item, ArrayAdapter adapter, ShoppingList list){
+	    DialogFragment newFragment = new EditItem(item, adapter, list);
 	    newFragment.show(getFragmentManager(), "editItem");
 	}
 	
@@ -285,12 +268,14 @@ public class ListActivity extends Activity implements SensorEventListener {
 
 			float accelVal = Math.abs(x+y+z - last_x - last_y - last_z)
                     / diffTime * 10000;
-			//Log.d("Sensor", "Accel was: " + String.valueOf(accelVal));
 			if (accelVal >= SHAKE_THRESHOLD) {
 				if (diffTime >= 200) {				
 					Toast.makeText(this, "Speak to add item!", Toast.LENGTH_SHORT).show();
 				}
-			}		
+			}	
+			last_x = x;
+			last_y = y;
+			last_z = z;
 		}
 	}
 

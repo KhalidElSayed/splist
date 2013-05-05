@@ -87,6 +87,15 @@ public class FriendsActivity extends Activity {
 	    newFragment.show(getFragmentManager(), "createFeedDialog");
 	}
 	
+	public static void refreshEXV() {
+		if (exv != null) {
+			FriendsActivity.exv.collapseGroup(0);  
+			FriendsActivity.exv.expandGroup(0);
+			FriendsActivity.exv.collapseGroup(1);  
+			FriendsActivity.exv.expandGroup(1);
+		}
+	}
+	
 	public class CreateFeedDialog extends DialogFragment {
 		
 		int groupPosition;

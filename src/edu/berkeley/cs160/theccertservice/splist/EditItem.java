@@ -24,14 +24,16 @@ public class EditItem extends DialogFragment {
 	private boolean isChecked;
 	private Item item;
 	private ArrayAdapter itemsAdapter;
+	private ShoppingList currentItems;
 	
-	public EditItem(Item item, ArrayAdapter itemsAdapter){
+	public EditItem(Item item, ArrayAdapter itemsAdapter, ShoppingList list){
 		this.msgString = item.getName();
 		this.cost = item.getPrice();
 		this.isChecked = item.getShared();
 		this.isOldItem = true;
 		this.item = item;
 		this.itemsAdapter = itemsAdapter;
+		this.currentItems = list;
 	}
 	
 	public void shareMessage() {
@@ -47,6 +49,7 @@ public class EditItem extends DialogFragment {
 		checkView = (CheckBox) view.findViewById(R.id.checkbox_share);
 		Button add = (Button) view.findViewById(R.id.add_item);
 		Button cancel = (Button) view.findViewById(R.id.cancel_item);
+		Button delete = (Button) view.findViewById(R.id.delete_item);
 		
 		if(isOldItem){
 			setValues();
@@ -69,6 +72,13 @@ public class EditItem extends DialogFragment {
                 done();
             }
         });
+		delete.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+				currentItems.deleteItem(item);
+				itemsAdapter.notifyDataSetChanged();
+				done();
+			}
+		});
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				done();
