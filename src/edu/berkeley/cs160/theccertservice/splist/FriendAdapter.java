@@ -25,29 +25,16 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 	LayoutInflater inflater;
 
 	public FriendAdapter(Context context) {
-		// TODO Auto-generated constructor stub
 		this.context = context;
-		//friendsRequest.add("Apollo");
-		//friendsRequest.add("Chantre");
-		//friendsRequest.add("Ghirshman");
-		//friendsRequest.add("Huni");
-		
-		//friends.add("Jack");
-		//friends.add("Carey");
-		//friends.add("Aline");
-		//friends.add("Fox");
-
 	}
 
 	@Override
 	public Object getChild(int arg0, int arg1) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public long getChildId(int arg0, int arg1) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -76,13 +63,10 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 			tv.setTextSize(16);
 			return tv;
 		}
-
-
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		// TODO Auto-generated method stub
 		if(groupPosition==0){
 			return friendsRequest.size();
 		}else{
@@ -92,13 +76,11 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		// TODO Auto-generated method stub
 		return groupPosition;
 	}
 
 	@Override
 	public int getGroupCount() {
-		// TODO Auto-generated method stub
 		return parentList.length;
 	}
 
@@ -111,7 +93,6 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean arg1, View arg2,
 			ViewGroup arg3) {
-		// TODO Auto-generated method stub
 		TextView tv = new TextView(context);
 		tv.setText(parentList[groupPosition]);
 		tv.setPadding(50, 10, 10, 10);
@@ -122,13 +103,11 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isChildSelectable(int arg0, int arg1) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

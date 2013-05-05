@@ -285,12 +285,14 @@ public class ListActivity extends Activity implements SensorEventListener {
 
 			float accelVal = Math.abs(x+y+z - last_x - last_y - last_z)
                     / diffTime * 10000;
-			//Log.d("Sensor", "Accel was: " + String.valueOf(accelVal));
 			if (accelVal >= SHAKE_THRESHOLD) {
 				if (diffTime >= 200) {				
 					Toast.makeText(this, "Speak to add item!", Toast.LENGTH_SHORT).show();
 				}
-			}		
+			}	
+			last_x = x;
+			last_y = y;
+			last_z = z;
 		}
 	}
 
