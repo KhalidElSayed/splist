@@ -250,15 +250,15 @@ public class Server {
 								//It be even more wrong
 								e.printStackTrace();
 							}
-							ArrayList<String> friendsRequest = new ArrayList<String>();
-							ArrayList<String> myfriends = new ArrayList<String>();
+							ArrayList<Friend> friendsRequest = new ArrayList<Friend>();
+							ArrayList<Friend> myfriends = new ArrayList<Friend>();
 
 							for (Friend fr : Friend.allFriends) {
 								if (fr.haveAcceptedRequest) {
-									myfriends.add(fr.name);
+									myfriends.add(fr);
 								} else {
 									if (fr.asker == "them"){
-										friendsRequest.add(fr.name);
+										friendsRequest.add(fr);
 									}
 								}			
 							}

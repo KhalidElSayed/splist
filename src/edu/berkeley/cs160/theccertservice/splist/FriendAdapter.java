@@ -19,8 +19,8 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 	/*static String[][] childList = { { "Apollo", "Chantre", "Ghirshman", "Huni" },
 			{ "Jack", "Carey", "Aline", "Fox" } };
 	*/
-	static ArrayList<String> friendsRequest = new ArrayList<String>();
-	static ArrayList<String> friends = new ArrayList<String>();
+	static ArrayList<Friend> friendsRequest = new ArrayList<Friend>();
+	static ArrayList<Friend> friends = new ArrayList<Friend>();
 	
 	LayoutInflater inflater;
 
@@ -65,13 +65,13 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 		    // tv.setText("hello");
 		     //return v;
 			TextView tv = new TextView(context);
-			tv.setText("You got a friend request from " + '"'+ friendsRequest.get(childPosition)+ '"');
+			tv.setText("You got a friend request from " + '"'+ friendsRequest.get(childPosition).name+ '"');
 			tv.setPadding(80, 10, 10, 10);
 			tv.setTextSize(16);
 			return tv;
 		}else{
 			TextView tv = new TextView(context);
-			tv.setText(friends.get(childPosition));
+			tv.setText(friends.get(childPosition).name);
 			tv.setPadding(80, 10, 10, 10);
 			tv.setTextSize(16);
 			return tv;
