@@ -30,6 +30,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.graphics.PorterDuff;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -223,6 +224,10 @@ public class ListActivity extends Activity implements SensorEventListener {
     	nameView.setText("", TextView.BufferType.EDITABLE);
     	checkView.setChecked(false);
     	costView.setText("", TextView.BufferType.EDITABLE);
+    	
+    	//unfocus from edittext
+    	InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+    	imm.hideSoftInputFromWindow(findViewById(android.R.id.content).getWindowToken(), 0);
     	
     	updateItemsList();
     }
