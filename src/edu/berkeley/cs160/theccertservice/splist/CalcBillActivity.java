@@ -77,38 +77,6 @@ public class CalcBillActivity extends ListActivity {
 	}
 	
 	
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater=getMenuInflater();
-	    inflater.inflate(R.menu.activity_main, menu);
-	    return super.onCreateOptionsMenu(menu);
-
-	}
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch(item.getItemId())
-	    {
-	    case R.id.logout:
-	    	//MainActivity.authToken = null;
-	    	HashMap<String, String> data = new HashMap<String, String>();
-			data.put("auth_token", MainActivity.authToken);
-	    	MainActivity.server.logout(data);
-	    	
-	    	
-	    	SharedPreferences.Editor editor = MainActivity.settings.edit();
-            editor.putString("token", null);
-            editor.commit();
-            MainActivity.authToken = null;
-            
-	    	Intent intent = new Intent(CalcBillActivity.this, MainActivity.class);
-	    	startActivity(intent);
-	    	return true;
-	       
-    	default:
-            return super.onOptionsItemSelected(item);
-
-	    }
-
-	}
 	
 	public Double calculateOwed(ShoppingList lst) {
 		double owed = 0.0;
