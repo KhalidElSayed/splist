@@ -95,7 +95,7 @@ public class MainActivity extends Activity{
 			Intent intent = new Intent(MainActivity.this, TabHostActivity.class);
 			startActivity(intent);
 		} else {
-			noMatch.setText("Inccorect username OR password!");
+			noMatch.setText("Incorrect username OR password!");
 			noMatch.setTextColor(Color.RED);
 		}
 	}
