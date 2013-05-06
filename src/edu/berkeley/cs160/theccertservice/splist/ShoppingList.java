@@ -3,19 +3,31 @@ package edu.berkeley.cs160.theccertservice.splist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.util.Log;
+
 public class ShoppingList {
 	
 	String _name;
 	String _owner;
 	ArrayList<Item> _items;
 	static HashMap<String, ShoppingList> hm = new HashMap<String, ShoppingList>();
+	static HashMap<String, ShoppingList> hmShared = new HashMap<String, ShoppingList>();
 	
-	public ShoppingList(String name, String owner) {
+	public ShoppingList(String name, int owner_id) {
 		_name = name;
-		_owner = owner;
 		_items = new ArrayList<Item>();
-		hm.put(name, this);
-		
+		if (owner_id == MainActivity.userId) {
+			hm.put(name, this);
+			_owner = MainActivity.userName;
+		} else {
+			hmShared.put(name, this);
+			Friend f = Friend.getFriend(owner_id);
+			if (f != null) {
+				_owner = f.name;
+			} else {
+				Log.e("ShoppingList", "Friend ID could not be found in Friends.");
+			}
+		}	
 	}
 	
 	public void setOwner(String _owner) {

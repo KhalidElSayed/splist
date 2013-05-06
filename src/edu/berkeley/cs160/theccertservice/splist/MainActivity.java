@@ -27,8 +27,10 @@ public class MainActivity extends Activity{
 	private TextView noMatch;
 
 	static SharedPreferences settings;
-	static String userId = null;
-	static String authToken = null;
+	static int userId;
+	static String userName;
+	static String authToken;
+	static boolean firstUpdate;
 
 	//http://agile-hamlet-9112.herokuapp.com
 	static Server server = new Server("http://agile-hamlet-9112.herokuapp.com");
@@ -51,9 +53,12 @@ public class MainActivity extends Activity{
         noMatch = (TextView)findViewById(R.id.noMatch);
         
         settings = getSharedPreferences(SETTING_INFO, 0);
-        MainActivity.authToken = settings.getString("token", null);
-        MainActivity.userId = settings.getString("id", null);
         
+        //settings.edit().remove("id").commit(); If you ever need to clear the user data...
+        //settings.edit().remove("token").commit();
+        MainActivity.authToken = settings.getString("token", null);
+        MainActivity.userId = settings.getInt("id", -1);
+        firstUpdate = true;
         if(MainActivity.authToken != null)
         {
             //Go directly to main activity
