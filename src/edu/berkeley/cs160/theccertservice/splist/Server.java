@@ -131,6 +131,7 @@ public class Server {
 				if (data != null) {
 					Log.d("Json data getItems", data.toString());
 					JSONArray items = null;
+					ShoppingList.hm = new HashMap<String, ShoppingList>();
 					ArrayList<ShoppingList> lists = new ArrayList<ShoppingList>();
 					ArrayList<Item> itemsFriendsWillSplit = new ArrayList<Item>();
 					try {
@@ -153,8 +154,8 @@ public class Server {
 						FeedAdapter.itemsFriendsWillSplit = itemsFriendsWillSplit;
 					}
 					if (MainActivity.firstUpdate && ListActivity.mainListActivity != null) {
-						ListActivity.mainListActivity.updateItemsList();
 						ListActivity.mainListActivity.updateListNames();
+						ListActivity.mainListActivity.updateItemsList();
 						MainActivity.firstUpdate = false;
 					}
 				}
