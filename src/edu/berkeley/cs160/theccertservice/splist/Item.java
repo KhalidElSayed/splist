@@ -61,18 +61,10 @@ public class Item {
 		
 			String list = item.getString("list");
 			int owner = item.getInt("owner");
+
 			ShoppingList sList = ShoppingList.getShoppingList(list);
 			if (sList == null) {
-				Friend f = Friend.getFriend(owner);
-				if (f != null) {
-					sList = new ShoppingList(list, f.name);
-					
-				}
-			}
-			if (sList == null) {
-				if (_name != null) {
-					Log.d("Item does not contain a list. Possibly corrupt...", _name);
-				}
+				sList = new ShoppingList(list, owner);
 			}
 			_list = sList;		
 		} catch (JSONException e) {

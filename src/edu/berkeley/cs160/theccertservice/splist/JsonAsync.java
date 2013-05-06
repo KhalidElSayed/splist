@@ -32,12 +32,13 @@ class JsonTask extends AsyncTask<Map, Void, JSONObject> {
 
 	@Override
 	protected JSONObject doInBackground(Map... arg0) {
-		HttpResponse resp = this.makeRequest(arg0[0] ,this.path);
-		if (resp != null) {
-			return processResp(resp);
+		if (arg0.length != 0) {
+			HttpResponse resp = this.makeRequest(arg0[0] ,this.path);
+			if (resp != null) {
+				return processResp(resp);
+			}
 		}
 		return null;
-		
 	}
 	
 	private JSONObject getJsonObjectFromMap(Map params) throws JSONException {

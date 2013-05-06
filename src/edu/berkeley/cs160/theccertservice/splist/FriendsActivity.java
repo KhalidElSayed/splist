@@ -36,8 +36,6 @@ public class FriendsActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
 				HashMap<String, String> data = new HashMap<String, String>();
 				data.put("auth_token",MainActivity.authToken);
 				data.put("email",friendEmail.getText().toString());
@@ -61,14 +59,7 @@ public class FriendsActivity extends Activity {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
-				// TODO Auto-generated method stub
 				if(groupPosition==0){
-					//String name = FriendAdapter.friendsRequest.get(childPosition);
-					//if(!FriendAdapter.friends.contains(name)){
-						//FriendAdapter.friendsRequest.remove(name);
-						//FriendAdapter.friends.add(name);
-						
-					//}
 					showFeedDialog(groupPosition, childPosition);
 					exv.collapseGroup(groupPosition);  
 					exv.expandGroup(groupPosition);
@@ -124,7 +115,6 @@ public class FriendsActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					HashMap<String, String> data = new HashMap<String, String>();
 					data.put("auth_token",MainActivity.authToken);
 					data.put("email", FriendAdapter.friendsRequest.get(childPosition).email);
@@ -136,13 +126,11 @@ public class FriendsActivity extends Activity {
 				}
 				
 			});
-			
-			
+					
 			requestReject.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					HashMap<String, String> data = new HashMap<String, String>();
 					data.put("auth_token",MainActivity.authToken);
 					data.put("id", String.valueOf(FriendAdapter.friendsRequest.get(childPosition).id));
@@ -151,10 +139,7 @@ public class FriendsActivity extends Activity {
 					done();
 					exv.collapseGroup(groupPosition);  
 					exv.expandGroup(groupPosition);
-				}
-				
-				
-				
+				}			
 			});
 	
 			return view;

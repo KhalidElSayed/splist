@@ -50,6 +50,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     private SensorManager sensorManager;
     private float last_x, last_y, last_z;
     private final float SHAKE_THRESHOLD = 35;
+    static ListActivity mainListActivity = null;
     
 	/** Called when the activity is first created. */
 	@Override
@@ -64,6 +65,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 		listsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		spinnerList.setAdapter(listsAdapter);
 		spinnerList.setOnItemSelectedListener(new ChooseListListener());
+		mainListActivity = this;
 		
 		final class repeatTask extends TimerTask{
 
@@ -72,7 +74,8 @@ public class ListActivity extends Activity implements SensorEventListener {
 				HashMap<String, String> data = new HashMap<String, String>();
 				data.put("auth_token", MainActivity.authToken);
 				MainActivity.server.getSharedItems(data);
-				MainActivity.server.getFriends(data);			
+				MainActivity.server.getFriends(data);
+				MainActivity.server.getItems(data);
 			}			
 		}
 		Timer t = new Timer(true);
@@ -93,7 +96,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 	
 	public void onFinishCreateList(String listName){
 		sharedLists.add(listName);
-		new ShoppingList(listName, "bob");
+		new ShoppingList(listName, MainActivity.userId);
 		spinnerList.setSelection(sharedLists.size() - 1);
 		listsAdapter.notifyDataSetChanged();
 	}
@@ -209,7 +212,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     	
     	HashMap<String,String> data = new HashMap<String, String>();
     	data.put("auth_token", MainActivity.authToken);
-    	data.put("owner", MainActivity.userId);
+    	data.put("owner", String.valueOf(MainActivity.userId));
     	data.put("name", itemName);
     	data.put("description", "");
     	data.put("price", itemCost.toString());
@@ -234,9 +237,13 @@ public class ListActivity extends Activity implements SensorEventListener {
     	updateItemsList();
     }
     
-	private void updateItemsList() {
+	public void updateItemsList() {
 		if(spinnerList.getSelectedItem() != null){
 			currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
+		} else {
+			if (ShoppingList.hm.keySet().size() > 0) {
+				currentItems = ShoppingList.hm.get(ShoppingList.hm.keySet().toArray()[0]);
+			}
 		}
 		if(currentItems == null){
 		    DialogFragment newFragment = new CreateListDialog();
@@ -319,5 +326,9 @@ public class ListActivity extends Activity implements SensorEventListener {
 	private void finishText(){
     	InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     	imm.hideSoftInputFromWindow(findViewById(android.R.id.content).getWindowToken(), 0);
+	}
+	
+	public void updateListNames(){
+		sharedLists = ShoppingList.allListNames();
 	}
 }

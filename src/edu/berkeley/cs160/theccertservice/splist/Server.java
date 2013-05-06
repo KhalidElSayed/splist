@@ -68,7 +68,8 @@ public class Server {
 				if (data != null)
 					Log.d("Json data", data.toString());
 					String token = null;
-					String id = null;
+					int id = -1;
+					String name = null;
 					String message = null;
 					try {
 						message = data.getString("message");
@@ -78,7 +79,8 @@ public class Server {
 					if (message.compareTo("success") == 0) {
 						try {
 							token = (String) data.get("token");
-							id = String.valueOf(data.get("id"));
+							id = data.getInt("id");
+							name = data.getString("name");
 						} catch (JSONException e) {
 							// The login request failed so we can do something here if needed
 							e.printStackTrace();
@@ -86,10 +88,11 @@ public class Server {
 						
 					    SharedPreferences.Editor editor = MainActivity.settings.edit();
 					    editor.putString("token", token);
-					    editor.putString("id", id);
+					    editor.putInt("id", id);
 					    editor.commit();
 					    MainActivity.authToken = token;
 					    MainActivity.userId = id;
+					    MainActivity.userName = name;
 					    
 					    a.afterLoginAttempt(true);
 					    return;
@@ -112,7 +115,6 @@ public class Server {
 			public void onPostExecute(JSONObject data) {
 				if (data != null)
 					Log.d("Json data", data.toString());
-				//a.onUserCreation();
 			}
 		}
 		AcctLogout c = new AcctLogout("/tokens/delete");
@@ -126,10 +128,11 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data getItems", data.toString());
 					JSONArray items = null;
 					ArrayList<ShoppingList> lists = new ArrayList<ShoppingList>();
+					ArrayList<Item> itemsFriendsWillSplit = new ArrayList<Item>();
 					try {
 						items = (JSONArray) data.get("items");
 						for (int i = 0; i < items.length(); i++) {
@@ -138,26 +141,27 @@ public class Server {
 							sItem._list.addItem(sItem);
 							if (!lists.contains(sItem._list))
 								lists.add(sItem._list);
+							if (sItem._shareAccepted) {
+								itemsFriendsWillSplit.add(sItem);
+							}
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
 	
-					ArrayList<Item> itemsFriendsWillSplit = new ArrayList<Item>();
-					for (ShoppingList l: lists) {
-						for (Item i : l.getItems()) {
-							if (i._shareAccepted) {
-								itemsFriendsWillSplit.add(i);
-							}
-						}
-					}
 					synchronized (FeedAdapter.itemsIWillSplit) {
 						FeedAdapter.itemsFriendsWillSplit = itemsFriendsWillSplit;
 					}
+					if (MainActivity.firstUpdate && ListActivity.mainListActivity != null) {
+						ListActivity.mainListActivity.updateItemsList();
+						ListActivity.mainListActivity.updateListNames();
+						MainActivity.firstUpdate = false;
+					}
+				}
 			}
 		}
 		gItems c = new gItems("/item/getItems");
-		c.execute();
+		c.execute(p);
 		
 	}
 	
@@ -171,30 +175,22 @@ public class Server {
 				if (data != null) {
 					Log.d("Json data getSharedItems", data.toString());
 					JSONArray items = null;
-					ArrayList<ShoppingList> lists = new ArrayList<ShoppingList>();
+					ArrayList<Item> itemsIWillSplit = new ArrayList<Item>();
+					ArrayList<Item> itemsFriendsWantToSplit = new ArrayList<Item>();
 					try {
 						items = (JSONArray) data.get("items");
 						for (int i = 0; i < items.length(); i++) {
 							JSONObject item = (JSONObject) items.get(i);
 							Item sItem = new Item(item);
-							sItem._list.addItem(sItem);
-							if (!lists.contains(sItem._list))
-								lists.add(sItem._list);
+							
+							if (sItem._shareAccepted) {
+								itemsIWillSplit.add(sItem);
+							} else {
+								itemsFriendsWantToSplit.add(sItem);
+							}
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
-					}
-	
-					ArrayList<Item> itemsIWillSplit = new ArrayList<Item>();
-					ArrayList<Item> itemsFriendsWantToSplit = new ArrayList<Item>();
-					for (ShoppingList l: lists) {
-						for (Item i : l.getItems()) {
-							if (i._shareAccepted) {
-								itemsIWillSplit.add(i);
-							} else {
-								itemsFriendsWantToSplit.add(i);
-							}
-						}
 					}
 					
 					synchronized (FeedAdapter.itemsIWillSplit) {
