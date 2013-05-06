@@ -13,6 +13,9 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,6 +31,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -88,7 +92,9 @@ public class ListActivity extends Activity implements SensorEventListener {
 	public void showCreateListDialog(View v) {
 	    DialogFragment newFragment = new CreateListDialog();
 	    newFragment.show(getFragmentManager(), "createList");
+	    finishText();
 	}
+	
 	public void showDeleteListDialog(View v){
 		Dialog d = deleteDialog();
 		d.show();
@@ -138,13 +144,11 @@ public class ListActivity extends Activity implements SensorEventListener {
 	            public void onClick(View v) {
 	            	ListActivity parentAct = (ListActivity) getActivity();
 	                parentAct.onFinishCreateList(mEditText.getText().toString());
-	                finishText();
 	                done();
 	            }
 	        });
 			cancel.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
-					finishText();
 					done();
 				}
 			});
@@ -246,8 +250,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 			}
 		}
 		if(currentItems == null){
-		    DialogFragment newFragment = new CreateListDialog();
-		    newFragment.show(getFragmentManager(), "createList");
+		    showCreateListDialog(null);
 			return;
 		}
 		ListView listview = (ListView) findViewById(R.id.item_list);
@@ -330,5 +333,38 @@ public class ListActivity extends Activity implements SensorEventListener {
 	
 	public void updateListNames(){
 		sharedLists = ShoppingList.allListNames();
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater=getMenuInflater();
+	    inflater.inflate(R.menu.activity_main, menu);
+	    return super.onCreateOptionsMenu(menu);
+
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch(item.getItemId())
+	    {
+	    case R.id.logout:
+	    	//MainActivity.authToken = null;
+	    	HashMap<String, String> data = new HashMap<String, String>();
+			data.put("auth_token", MainActivity.authToken);
+	    	MainActivity.server.logout(data);
+	    	
+	    	
+	    	SharedPreferences.Editor editor = MainActivity.settings.edit();
+            editor.putString("token", null);
+            editor.commit();
+            MainActivity.authToken = null;
+            
+	    	Intent intent = new Intent(ListActivity.this, MainActivity.class);
+	    	startActivity(intent);
+	    	return true;
+	       
+    	default:
+            return super.onOptionsItemSelected(item);
+
+	    }
+
 	}
 }

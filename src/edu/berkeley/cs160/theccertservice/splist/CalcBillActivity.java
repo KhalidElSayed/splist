@@ -2,12 +2,18 @@ package edu.berkeley.cs160.theccertservice.splist;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.berkeley.cs160.theccertservice.splist.PickUpActivity.ChooseListListener;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -69,6 +75,8 @@ public class CalcBillActivity extends ListActivity {
 		currentList.setOnItemSelectedListener(new ChooseListListener());
 
 	}
+	
+	
 	
 	public Double calculateOwed(ShoppingList lst) {
 		double owed = 0.0;
