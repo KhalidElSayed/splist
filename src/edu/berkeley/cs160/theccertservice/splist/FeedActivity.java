@@ -1,6 +1,7 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.berkeley.cs160.theccertservice.splist.ListActivity.CreateListDialog;
 import android.app.Activity;
@@ -13,6 +14,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -63,6 +67,41 @@ public class FeedActivity extends Activity {
 		
 		displayFeeds();
 		
+	}
+	
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater=getMenuInflater();
+	    inflater.inflate(R.menu.activity_main, menu);
+	    return super.onCreateOptionsMenu(menu);
+
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch(item.getItemId())
+	    {
+	    case R.id.logout:
+	    	//MainActivity.authToken = null;
+	    	HashMap<String, String> data = new HashMap<String, String>();
+			data.put("auth_token", MainActivity.authToken);
+	    	MainActivity.server.logout(data);
+	    	
+	    	
+	    	SharedPreferences.Editor editor = MainActivity.settings.edit();
+            editor.putString("token", null);
+            editor.commit();
+            MainActivity.authToken = null;
+            
+	    	Intent intent = new Intent(FeedActivity.this, MainActivity.class);
+	    	startActivity(intent);
+	    	return true;
+	       
+    	default:
+            return super.onOptionsItemSelected(item);
+
+	    }
+
 	}
 	
 	private void displayFeeds(){

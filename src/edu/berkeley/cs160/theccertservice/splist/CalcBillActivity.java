@@ -2,12 +2,18 @@ package edu.berkeley.cs160.theccertservice.splist;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.berkeley.cs160.theccertservice.splist.PickUpActivity.ChooseListListener;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -67,6 +73,40 @@ public class CalcBillActivity extends ListActivity {
 		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
 		currentList.setAdapter(arrayAdapter);
 		currentList.setOnItemSelectedListener(new ChooseListListener());
+
+	}
+	
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater=getMenuInflater();
+	    inflater.inflate(R.menu.activity_main, menu);
+	    return super.onCreateOptionsMenu(menu);
+
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch(item.getItemId())
+	    {
+	    case R.id.logout:
+	    	//MainActivity.authToken = null;
+	    	HashMap<String, String> data = new HashMap<String, String>();
+			data.put("auth_token", MainActivity.authToken);
+	    	MainActivity.server.logout(data);
+	    	
+	    	
+	    	SharedPreferences.Editor editor = MainActivity.settings.edit();
+            editor.putString("token", null);
+            editor.commit();
+            MainActivity.authToken = null;
+            
+	    	Intent intent = new Intent(CalcBillActivity.this, MainActivity.class);
+	    	startActivity(intent);
+	    	return true;
+	       
+    	default:
+            return super.onOptionsItemSelected(item);
+
+	    }
 
 	}
 	
