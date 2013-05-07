@@ -44,6 +44,7 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		
 		switch (groupPosition) {
 			case 0: tv.setText(itemsFriendsWillSplit.get(childPosition).toString());
+			
 					break;
 			case 1: tv.setText(itemsIWillSplit.get(childPosition).toString());
 					break;
@@ -53,6 +54,7 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		
 		tv.setPadding(80, 10, 10, 10);
 		tv.setTextSize(16);
+		tv.setTextColor(Color.WHITE);
 		return tv;
 	}
 
