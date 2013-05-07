@@ -29,6 +29,7 @@ public class Item {
 		_name = name;
 		_shared = shared;
 		_price = price;
+		_id = -1;
 		ArrayList<Integer> _peopleSharing = new ArrayList<Integer>();
 	}
 	

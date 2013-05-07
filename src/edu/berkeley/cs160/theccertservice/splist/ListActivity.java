@@ -126,6 +126,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     			sharedLists.remove(chosenList);
     			//need to remove list from real list
     			listsAdapter.notifyDataSetChanged();
+    			updateItemsList();
     		}
         });
     	builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -213,7 +214,6 @@ public class ListActivity extends Activity implements SensorEventListener {
     	
     	Item newItem = new Item(name, isShared, itemCost);
     	currentItems.addItem(newItem);
-    	System.out.println("Number of Items: " + itemsArray.size());
     	itemsAdapter.notifyDataSetChanged();
     	
     	EditText nameView = (EditText) findViewById(R.id.item);

@@ -39,9 +39,11 @@ public class ShoppingList {
 	}
 	
 	public void addItem(Item item) {
-		for (Item i : _items) {
-			if (item._id == i._id) {
-				return;
+		if(item._id != -1){
+			for (Item i : _items) {
+				if (item._id == i._id) {
+					return;
+				}
 			}
 		}
 		_items.add(item);	
