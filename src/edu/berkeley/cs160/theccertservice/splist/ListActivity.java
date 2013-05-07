@@ -111,8 +111,9 @@ public class ListActivity extends Activity implements SensorEventListener {
 	
 	public void onFinishCreateList(String listName){
 		sharedLists.add(listName);
+		listsAdapter.notifyDataSetChanged();
 		currentItems = new ShoppingList(listName, MainActivity.userId);
-		spinnerList.setSelection(sharedLists.size() - 1);
+		spinnerList.setSelection(sharedLists.indexOf(listName));
 		updateItemsList();
 	}
 	
@@ -123,8 +124,10 @@ public class ListActivity extends Activity implements SensorEventListener {
     		public void onClick(DialogInterface dialog, int which) {
     			String chosenList = spinnerList.getSelectedItem().toString();
     			sharedLists.remove(chosenList);
-    			//need to remove list from real list
     			listsAdapter.notifyDataSetChanged();
+    			//need to remove list from real list
+    			currentItems.deleteList();
+    			updateItemsList();
     		}
         });
     	builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -212,6 +215,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     	
     	Item newItem = new Item(name, isShared, itemCost);
     	currentItems.addItem(newItem);
+    	itemsAdapter.notifyDataSetChanged();
     	
     	EditText nameView = (EditText) findViewById(R.id.item);
     	CheckBox checkView = (CheckBox) findViewById(R.id.checkbox_share);
@@ -224,8 +228,6 @@ public class ListActivity extends Activity implements SensorEventListener {
     	
     	//unfocus from edittext
     	finishText();
-    	
-    	updateItemsList();
     }
     
     public void addItemToList(View v){
@@ -253,12 +255,11 @@ public class ListActivity extends Activity implements SensorEventListener {
 	public void updateItemsList() {
 		if(spinnerList.getSelectedItem() != null){
 			currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
-		} else {
-			if (ShoppingList.hm.keySet().size() > 0) {
-				currentItems = ShoppingList.hm.get(ShoppingList.hm.keySet().toArray()[0]);
-				spinnerList.setSelection(sharedLists.indexOf(currentItems._name));			
-			}
+		} else if (ShoppingList.hm.keySet().size() > 0){
+			currentItems = ShoppingList.hm.get(ShoppingList.hm.keySet().toArray()[0]);
+            spinnerList.setSelection(sharedLists.indexOf(currentItems._name));
 		}
+		
 		ListView listview = (ListView) findViewById(R.id.item_list);
 		
 		if (currentItems != null) {

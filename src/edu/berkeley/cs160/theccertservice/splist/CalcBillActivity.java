@@ -142,7 +142,7 @@ public class CalcBillActivity extends ListActivity {
 			chosenList = ((Spinner) parent).getSelectedItem().toString();
     		ShoppingList curList = ShoppingList.getSharedShoppingList(chosenList); // list of shared items for that shopping list
     		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
-			MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
+			MoneyOwed.setText(calculateOwed(curList));
 
 		}
 		

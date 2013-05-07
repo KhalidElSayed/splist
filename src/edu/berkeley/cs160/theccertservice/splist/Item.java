@@ -30,6 +30,7 @@ public class Item {
 		_shared = shared;
 		_price = price;
 		_shareAccepted = false;
+		_id = -1;
 		ArrayList<Integer> _peopleSharing = new ArrayList<Integer>();
 	}
 	
