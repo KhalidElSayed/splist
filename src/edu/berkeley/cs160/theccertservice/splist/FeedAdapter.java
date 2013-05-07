@@ -92,7 +92,7 @@ public class FeedAdapter extends BaseExpandableListAdapter {
 		tv.setText(parentList[groupPosition]);
 		tv.setPadding(50, 10, 10, 10);
 		tv.setTextSize(20);
-		//tv.setTextColor(Color.CYAN);
+		tv.setTextColor(Color.WHITE);
 		return tv;
 	}
 
