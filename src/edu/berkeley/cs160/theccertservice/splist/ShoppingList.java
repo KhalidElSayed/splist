@@ -39,7 +39,12 @@ public class ShoppingList {
 	}
 	
 	public void addItem(Item item) {
-		_items.add(item);
+		for (Item i : _items) {
+			if (item._id == i._id) {
+				return;
+			}
+		}
+		_items.add(item);	
 	}
 	
 	public Item deleteItem(int pos) {		
@@ -70,8 +75,15 @@ public class ShoppingList {
 		return hm.get(name);
 	}
 	
+	public static ShoppingList getSharedShoppingList(String name) {
+		return hmShared.get(name);
+	}
+	
 	public static ArrayList<String> allListNames(){
-		ArrayList<String> list = new ArrayList(hm.keySet());
-		return list;
+		return new ArrayList<String>(hm.keySet());
+	}
+	
+	public static ArrayList<String> allSharedListNames(){
+		return new ArrayList<String>(hmShared.keySet());
 	}
 }

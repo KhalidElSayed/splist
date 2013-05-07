@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 class JsonTask extends AsyncTask<Map, Void, JSONObject> {
 	
@@ -52,16 +53,21 @@ class JsonTask extends AsyncTask<Map, Void, JSONObject> {
 			String key = (String)pairs.getKey();
 
 			//If there is a subMap then iterate over that
-			if (pairs.getValue().getClass() == HashMap.class) {
-				Map m = (Map)pairs.getValue();
-				Iterator iter2 = m.entrySet().iterator();
-				while (iter2.hasNext()) {
-					Map.Entry pairs2 = (Map.Entry)iter2.next();
-					data.put((String)pairs2.getKey(), (String)pairs2.getValue());
-					holder.put(key, data);
+			if (pairs != null && pairs.getValue() != null) {
+				if (pairs.getValue().getClass() == HashMap.class) {
+					Map m = (Map)pairs.getValue();
+					Iterator iter2 = m.entrySet().iterator();
+					while (iter2.hasNext()) {
+						Map.Entry pairs2 = (Map.Entry)iter2.next();
+						data.put((String)pairs2.getKey(), (String)pairs2.getValue());
+						holder.put(key, data);
+					}
+				} else {
+					holder.put(key, (String)pairs.getValue());
 				}
 			} else {
-				holder.put(key, (String)pairs.getValue());
+				Log.e("JSONAsync", "A Pair or value was empty");
+				throw new JSONException("A Pair or value was empty");
 			}
 		}
 		return holder;
@@ -80,8 +86,7 @@ class JsonTask extends AsyncTask<Map, Void, JSONObject> {
 		try {
 			holder = getJsonObjectFromMap(params);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 
 		//passes the results to a string builder/entity
@@ -89,7 +94,7 @@ class JsonTask extends AsyncTask<Map, Void, JSONObject> {
 		try {
 			se = new StringEntity(holder.toString());
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			return null;
 		}
 
 		//sets the post request as the resulting string
@@ -104,39 +109,39 @@ class JsonTask extends AsyncTask<Map, Void, JSONObject> {
 		try {
 			return httpclient.execute(httpost);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
-		
-		return null;
-
 	}
 	private JSONObject processResp (HttpResponse resp) {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new InputStreamReader(resp.getEntity().getContent(), "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			return null;
 		} catch (IllegalStateException e) {
-			e.printStackTrace();
+			return null;
 		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
 		String json = null;
 		try {
 			json = reader.readLine();
 		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		JSONTokener tokener = new JSONTokener(json);
+		//Log.d("JSONASync", "json contained: " + json);
 		JSONObject finalResult = null;
-		try {
-			finalResult = new JSONObject(tokener);
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if (json.length() > 0 && json.charAt(0) == '{') {
+			JSONTokener tokener = new JSONTokener(json);
+			try {
+				finalResult = new JSONObject(tokener);
+			} catch (JSONException e) {
+				return null;
+			}
+		} else {
+			Log.e("JSONAsync", "Got back non-JSON data: " + json);
 		}
 		return finalResult;
 	}

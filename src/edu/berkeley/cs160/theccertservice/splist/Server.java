@@ -129,9 +129,10 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
-					Log.d("Json data getItems", data.toString());
+					//Log.d("Json data getItems", data.toString());
 					JSONArray items = null;
-					ShoppingList.hm = new HashMap<String, ShoppingList>();
+					if (MainActivity.firstUpdate)
+						ShoppingList.hm = new HashMap<String, ShoppingList>();
 					ArrayList<ShoppingList> lists = new ArrayList<ShoppingList>();
 					ArrayList<Item> itemsFriendsWillSplit = new ArrayList<Item>();
 					try {
@@ -183,7 +184,7 @@ public class Server {
 						for (int i = 0; i < items.length(); i++) {
 							JSONObject item = (JSONObject) items.get(i);
 							Item sItem = new Item(item);
-							
+							sItem._list.addItem(sItem);
 							if (sItem._shareAccepted) {
 								itemsIWillSplit.add(sItem);
 							} else {
@@ -199,6 +200,9 @@ public class Server {
 					}
 					synchronized (FeedAdapter.itemsFriendsWantToSplit) {
 						FeedAdapter.itemsFriendsWantToSplit = itemsFriendsWantToSplit;
+					}
+					if (CalcBillActivity.mainCalcBillAct != null) {
+						CalcBillActivity.mainCalcBillAct.updateListNames();
 					}
 				}
 			}
@@ -364,6 +368,21 @@ public class Server {
 			}
 		}
 		dItem c = new dItem("/user/removeFriend");
+		c.execute(p);
+	}
+	
+	public void acceptShare(Map p) {
+		class dItem extends JsonTask {
+			public dItem(String _path) {
+				super(SERVER + _path);
+			}
+			@Override
+			public void onPostExecute(JSONObject data) {
+				if (data != null)
+					Log.d("Json data", data.toString());
+			}
+		}
+		dItem c = new dItem("/item/acceptShare");
 		c.execute(p);
 	}
 }

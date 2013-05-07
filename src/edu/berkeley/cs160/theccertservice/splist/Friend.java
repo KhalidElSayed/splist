@@ -23,7 +23,7 @@ public class Friend {
 		Friend.allFriends.remove(f);
 	}
 	
-	public String friendsAsJSONArrayString() {
+	public static String friendsAsJSONArrayString() {
 		String result = "[";
 		boolean start = true;
 		for (Friend f : Friend.allFriends) {

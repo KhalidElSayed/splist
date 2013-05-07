@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
-
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -16,7 +16,9 @@
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.MainActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,42 +28,58 @@
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.TabHostActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.SignUpActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.ListActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.FeedActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.FriendsActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.PickUpActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:name="edu.berkeley.cs160.theccertservice.splist.ShareListActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:theme="@android:style/Theme.Holo"
             android:name="edu.berkeley.cs160.theccertservice.splist.CalcBillActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" 
+        	android:configChanges="orientation|keyboardHidden" >
         </activity>
     </application>
 

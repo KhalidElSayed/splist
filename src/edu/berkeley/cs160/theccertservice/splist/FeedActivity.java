@@ -263,6 +263,12 @@ public class FeedActivity extends Activity {
 							item._shareAccepted = true;
 							FeedAdapter.itemsIWillSplit.add(item);
 							FeedAdapter.itemsFriendsWantToSplit.remove(item);
+							
+							HashMap<String, String> data = new HashMap<String, String>();
+							data.put("auth_token", MainActivity.authToken);
+							data.put("item", String.valueOf(item._id));
+							MainActivity.server.acceptShare(data);
+							
 							exv.collapseGroup(groupPosition);  
 							exv.expandGroup(groupPosition);
 							exv.collapseGroup(groupPosition-1);  

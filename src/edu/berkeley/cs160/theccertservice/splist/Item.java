@@ -47,17 +47,6 @@ public class Item {
 			_name = item.getString("name");
 			_price = item.getDouble("price");
 			_shared = item.getBoolean("shared");
-			JSONArray peopleSharing = item.getJSONArray("pplSharing");
-			for (int i = 0; i < peopleSharing.length(); i++) {
-				JSONObject p = peopleSharing.getJSONObject(i);
-				boolean isSharing = p.getBoolean("shareAccepting");
-				if (isSharing) {
-					_peopleSharing.add(p.getInt("user_id"));
-					_shareAccepted = true;
-				} else {
-					_peopleInvitedToShare.add(p.getInt("user_id"));
-				}			
-			}
 		
 			String list = item.getString("list");
 			int owner = item.getInt("owner");
@@ -69,6 +58,23 @@ public class Item {
 			_list = sList;		
 		} catch (JSONException e) {
 			e.printStackTrace();
+		}
+		JSONArray peopleSharing;
+		try {
+			peopleSharing = item.getJSONArray("pplSharing");
+		
+		for (int i = 0; i < peopleSharing.length(); i++) {
+			JSONObject p = peopleSharing.getJSONObject(i);
+			boolean isSharing = p.getBoolean("accepted");
+			if (isSharing) {
+				_peopleSharing.add(p.getInt("user_id"));
+				_shareAccepted = true;
+			} else {
+				_peopleInvitedToShare.add(p.getInt("user_id"));
+			}			
+		}
+		} catch (JSONException e) {
+			
 		}
 		
 	}

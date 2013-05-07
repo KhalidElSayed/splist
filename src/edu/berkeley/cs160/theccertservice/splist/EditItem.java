@@ -61,7 +61,7 @@ public class EditItem extends DialogFragment {
             	msgString = mEditText.getText().toString();
             	String costInput = costEdit.getText().toString();
             	if (costInput == null || costInput.isEmpty()){
-            		cost = 0.0;
+            		cost = 0.00;
             	}else{
             		cost = Double.parseDouble(costInput);
             	}

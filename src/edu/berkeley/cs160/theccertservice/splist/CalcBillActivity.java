@@ -38,42 +38,53 @@ public class CalcBillActivity extends ListActivity {
     View footer;
     
     String chosenList = "";
+    public static ListActivity mainCalcBillAct = null;
     
-    // NEED TO IMPLEMENT HOW TO SET THE CURRENT USER.
-    private Person currentUser;
-	
+    public void updateListNames() {
+    	if (mainCalcBillAct != null) {
+    		
+    		sharedLists = ShoppingList.allSharedListNames();
+    		ArrayList<String> sharedListsToCalc = new ArrayList<String>();
+    		for (String l : sharedLists) {
+    			boolean hasAnAcceptedItem = false;
+    			ArrayList<Item> items = ShoppingList.getSharedShoppingList(l)._items;
+    			for (Item i : items) {
+    				if (i._shareAccepted) {
+    					hasAnAcceptedItem = true;
+    				}
+    			}
+    			if (hasAnAcceptedItem) {
+    				sharedListsToCalc.add(l);
+    			}
+    		}
+    		sharedLists = sharedListsToCalc;
+    		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
+    		currentList = (Spinner) header.findViewById(R.id.spinner1);
+    		currentList.setAdapter(arrayAdapter);
+    		currentList.setOnItemSelectedListener(new ChooseListListener());
+    	}
+    }
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calcbill);
+		mainCalcBillAct = this;
 		
 	    header = getLayoutInflater().inflate(R.layout.calcbill_header, null);
 	    footer = getLayoutInflater().inflate(R.layout.calcbill_footer, null);
 	    ListView listView = (ListView) findViewById(R.id.listView1);
 	    listView.addHeaderView(header);
 	    listView.addFooterView(footer);
-
-	    
+    
 	    adapter=new ArrayAdapter<String>(this,
 	    		android.R.layout.simple_list_item_1, listItems);
 	    listView.setAdapter(adapter);
 		
-		
 		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 		
-		sharedLists = ShoppingList.allListNames();;
-		for (Item i : FeedAdapter.itemsIWillSplit) {
-			sharedLists.add(i._list._name);
-		}
-		
-		currentList = (Spinner) header.findViewById(R.id.spinner1);
-
-		arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
-		currentList.setAdapter(arrayAdapter);
-		currentList.setOnItemSelectedListener(new ChooseListListener());
-
+		updateListNames();
 	}
 	
 	
@@ -82,18 +93,19 @@ public class CalcBillActivity extends ListActivity {
 		double owed = 0.0;
 		
 		listItems.clear();
-		
-		for (Item i : lst.getItems()) {
-			if (i._shareAccepted) {
-				String itemName = i.getName();
-				double itemPrice = i.getPrice();
-				double numPplSharing = i.getNumPeopleSharing();
-				double priceFrac = roundTwoDecimalPlaces(itemPrice / numPplSharing);
-				String priceFracStr = Double.toString(priceFrac);
-				owed = owed + priceFrac;
-				String nameAndPrice = itemName + " costs " + priceFracStr;
-				listItems.add(nameAndPrice);
-				adapter.notifyDataSetChanged();
+		if (lst != null) {
+			for (Item i : lst.getItems()) {
+				if (i._shareAccepted) {
+					String itemName = i.getName();
+					double itemPrice = i.getPrice();
+					double numPplSharing = i.getNumPeopleSharing();
+					double priceFrac = roundTwoDecimalPlaces(itemPrice / numPplSharing);
+					String priceFracStr = Double.toString(priceFrac);
+					owed = owed + priceFrac;
+					String nameAndPrice = itemName + " costs " + priceFracStr;
+					listItems.add(nameAndPrice);
+					adapter.notifyDataSetChanged();
+				}
 			}
 		}
 		return owed;
@@ -111,7 +123,7 @@ public class CalcBillActivity extends ListActivity {
 	    	        Toast.makeText(this, "Please select a list.", Toast.LENGTH_LONG).show();
 	    		} else {
 	    			// how curList is obtained possibly needs to be changed
-		    		ShoppingList curList = ShoppingList.getShoppingList(chosenList); // list of shared items for that shopping list
+		    		ShoppingList curList = ShoppingList.getSharedShoppingList(chosenList); // list of shared items for that shopping list
 		    		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 					MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
 	    		}
@@ -124,7 +136,7 @@ public class CalcBillActivity extends ListActivity {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			chosenList = ((Spinner) parent).getSelectedItem().toString();
-    		ShoppingList curList = ShoppingList.getShoppingList(chosenList); // list of shared items for that shopping list
+    		ShoppingList curList = ShoppingList.getSharedShoppingList(chosenList); // list of shared items for that shopping list
     		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 			MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
 

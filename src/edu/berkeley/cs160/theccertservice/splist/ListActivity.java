@@ -55,6 +55,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     private float last_x, last_y, last_z;
     private final float SHAKE_THRESHOLD = 35;
     static ListActivity mainListActivity = null;
+    static Timer t;
     
 	/** Called when the activity is first created. */
 	@Override
@@ -82,10 +83,10 @@ public class ListActivity extends Activity implements SensorEventListener {
 				MainActivity.server.getItems(data);
 			}			
 		}
-		Timer t = new Timer(true);
+		t = new Timer();
 		t.scheduleAtFixedRate(new repeatTask(), 0, 30000);
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		
+
 		updateItemsList();
 	}
 	
@@ -102,9 +103,9 @@ public class ListActivity extends Activity implements SensorEventListener {
 	
 	public void onFinishCreateList(String listName){
 		sharedLists.add(listName);
-		new ShoppingList(listName, MainActivity.userId);
+		currentItems = new ShoppingList(listName, MainActivity.userId);
 		spinnerList.setSelection(sharedLists.size() - 1);
-		listsAdapter.notifyDataSetChanged();
+		updateItemsList();
 	}
 	
 	public Dialog deleteDialog(){
@@ -222,6 +223,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     	data.put("price", itemCost.toString());
     	data.put("quantity", "1");
     	data.put("shared", isChecked.toString());
+    	data.put("shareFriends", Friend.friendsAsJSONArrayString());
     	data.put("list", currentItems._name);
     	MainActivity.server.addItem(data);
     	
@@ -247,25 +249,26 @@ public class ListActivity extends Activity implements SensorEventListener {
 		} else {
 			if (ShoppingList.hm.keySet().size() > 0) {
 				currentItems = ShoppingList.hm.get(ShoppingList.hm.keySet().toArray()[0]);
+				spinnerList.setSelection(sharedLists.indexOf(currentItems._name));
+				
 			}
 		}
-		if(currentItems == null){
-		    showCreateListDialog(null);
-			return;
-		}
 		ListView listview = (ListView) findViewById(R.id.item_list);
-		itemsArray = currentItems.getItems();
-		itemsAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, itemsArray);
-		listview.setAdapter(itemsAdapter);
-
-	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	      @Override
-	      public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-	    	  Item item = (Item) parent.getItemAtPosition(position);
-	          showEditItemDialog(item, itemsAdapter, currentItems);
-	          view.setAlpha(1);
-	      }
-	    });
+		
+		if (currentItems != null) {
+			itemsArray = currentItems.getItems();
+			itemsAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, itemsArray);
+			listview.setAdapter(itemsAdapter);
+			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		        @Override
+		        public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+		            Item item = (Item) parent.getItemAtPosition(position);
+		            showEditItemDialog(item, itemsAdapter, currentItems);
+		            view.setAlpha(1);
+		        }
+			});
+			
+		}
 	}
 	
 	public void showEditItemDialog(Item item, ArrayAdapter adapter, ShoppingList list){
@@ -312,7 +315,18 @@ public class ListActivity extends Activity implements SensorEventListener {
 				return;
 			}
 		}
-		
+		final class repeatTask extends TimerTask{
+
+			@Override
+			public void run() {
+				HashMap<String, String> data = new HashMap<String, String>();
+				data.put("auth_token", MainActivity.authToken);
+				MainActivity.server.getSharedItems(data);
+				MainActivity.server.getFriends(data);
+				MainActivity.server.getItems(data);
+			}			
+		}
+		t.scheduleAtFixedRate(new repeatTask(), 0, 30000);
 	}
 	
 	@Override
@@ -324,6 +338,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 				return;
 			}
 		}
+		t.cancel();
 	}
 	
 	private void finishText(){
@@ -333,6 +348,9 @@ public class ListActivity extends Activity implements SensorEventListener {
 	
 	public void updateListNames(){
 		sharedLists = ShoppingList.allListNames();
+		listsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sharedLists);
+		spinnerList.setAdapter(listsAdapter);
+		spinnerList.setOnItemSelectedListener(new ChooseListListener());
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
