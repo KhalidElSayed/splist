@@ -117,7 +117,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 		updateItemsList();
 	}
 	
-	public Dialog deleteDialog(){
+	public Dialog deleteDialog() {
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Are you sure you want to delete this list?");
     	builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {

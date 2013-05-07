@@ -49,8 +49,13 @@ public class ShoppingList {
 		_items.add(item);	
 	}
 	
-	public Item deleteItem(int pos) {		
-		return _items.remove(pos);
+	public Item deleteItem(int pos) {
+		Item i = _items.remove(pos);
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("auth_token", MainActivity.authToken);
+		data.put("id", String.valueOf(i._id));
+		MainActivity.server.deleteItem(data);	
+		return i;
 	}
 
 	public boolean deleteItem(Item item){
@@ -74,9 +79,10 @@ public class ShoppingList {
 	}
 	
 	public void deleteList(){
-		_items.removeAll(getItems());
+		for (int i = _items.size() - 1; i >= 0 ; i--) {
+			deleteItem(i);
+		}
 		hm.remove(_name);
-		hmShared.remove(_name);
 	}
 	
 	public static ShoppingList getShoppingList(String name) {
