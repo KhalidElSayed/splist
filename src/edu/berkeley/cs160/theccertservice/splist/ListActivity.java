@@ -256,8 +256,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 		} else {
 			if (ShoppingList.hm.keySet().size() > 0) {
 				currentItems = ShoppingList.hm.get(ShoppingList.hm.keySet().toArray()[0]);
-				spinnerList.setSelection(sharedLists.indexOf(currentItems._name));
-				
+				spinnerList.setSelection(sharedLists.indexOf(currentItems._name));			
 			}
 		}
 		ListView listview = (ListView) findViewById(R.id.item_list);

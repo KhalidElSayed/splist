@@ -97,6 +97,8 @@ public class MainActivity extends Activity{
 	
 	public void afterLoginAttempt(boolean success) {
 		if (success) {
+			firstUpdate = true;
+			
 			Intent intent = new Intent(MainActivity.this, TabHostActivity.class);
 			startActivity(intent);
 		} else {
