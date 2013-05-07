@@ -319,6 +319,20 @@ public class Server {
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
 					Log.d("Json data", data.toString());
+					int id = -1;
+					String list = null;
+					String name = null;
+					String price = null;
+					boolean shared = false;
+					try {
+						id = data.getInt("id");
+						name = data.getString("name");
+						price = data.getString("price");
+						list = data.getString("list");
+						shared = data.getBoolean("shared");
+					} catch (JSONException e) {
+						Log.d("Json data parsing", "Failed...");
+					}
 				}
 			}
 		}
