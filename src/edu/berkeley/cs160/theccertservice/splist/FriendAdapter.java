@@ -55,12 +55,14 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 			tv.setText("You got a friend request from " + '"'+ friendsRequest.get(childPosition).name+ '"');
 			tv.setPadding(80, 10, 10, 10);
 			tv.setTextSize(16);
+			tv.setTextColor(Color.WHITE);
 			return tv;
 		}else{
 			TextView tv = new TextView(context);
 			tv.setText(friends.get(childPosition).name);
 			tv.setPadding(80, 10, 10, 10);
 			tv.setTextSize(16);
+			tv.setTextColor(Color.WHITE);
 			return tv;
 		}
 	}
