@@ -124,8 +124,9 @@ public class ListActivity extends Activity implements SensorEventListener {
     		public void onClick(DialogInterface dialog, int which) {
     			String chosenList = spinnerList.getSelectedItem().toString();
     			sharedLists.remove(chosenList);
-    			//need to remove list from real list
     			listsAdapter.notifyDataSetChanged();
+    			//need to remove list from real list
+    			currentItems.deleteList();
     			updateItemsList();
     		}
         });

@@ -73,6 +73,12 @@ public class ShoppingList {
 		return _items;
 	}
 	
+	public void deleteList(){
+		_items.removeAll(getItems());
+		hm.remove(_name);
+		hmShared.remove(_name);
+	}
+	
 	public static ShoppingList getShoppingList(String name) {
 		return hm.get(name);
 	}
