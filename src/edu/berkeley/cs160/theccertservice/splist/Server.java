@@ -330,6 +330,13 @@ public class Server {
 						price = data.getString("price");
 						list = data.getString("list");
 						shared = data.getBoolean("shared");
+						for (Item i : ShoppingList.getShoppingList(list)._items) {
+							if (i._shared == shared && i._name == name &&
+									i._price.toString() == price && i._id == -1) {
+								i._id = id;
+								break;
+							}
+						}
 					} catch (JSONException e) {
 						Log.d("Json data parsing", "Failed...");
 					}
