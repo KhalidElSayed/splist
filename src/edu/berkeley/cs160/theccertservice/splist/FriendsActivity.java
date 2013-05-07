@@ -158,10 +158,15 @@ public class FriendsActivity extends Activity {
 					data.put("auth_token",MainActivity.authToken);
 					data.put("email", FriendAdapter.friendsRequest.get(childPosition).email);
 					MainActivity.server.acceptFriend(data);
-					FriendAdapter.friendsRequest.remove(FriendAdapter.friendsRequest.get(childPosition));
-					done();
+					Friend f = FriendAdapter.friendsRequest.get(childPosition);
+					FriendAdapter.friendsRequest.remove(f);
+					FriendAdapter.friends.add(f);
+					
 					exv.collapseGroup(groupPosition);  
 					exv.expandGroup(groupPosition);
+					exv.collapseGroup(groupPosition+1);  
+					exv.expandGroup(groupPosition+1);
+					done();
 				}
 				
 			});
