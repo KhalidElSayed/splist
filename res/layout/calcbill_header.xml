@@ -21,33 +21,23 @@
         android:text="@string/list_title" />
 
     <TextView
-        android:id="@+id/dollarSign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="@string/$"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/money_owed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/dollarSign"
-        android:layout_alignBottom="@+id/dollarSign"
-        android:layout_toRightOf="@+id/dollarSign"
-        android:text="@string/zero"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/spinner1"
         android:text="@string/amount_owed"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/money_owed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="@string/zero"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

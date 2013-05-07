@@ -54,8 +54,8 @@ public class MainActivity extends Activity{
         
         settings = getSharedPreferences(SETTING_INFO, 0);
         
-        //settings.edit().remove("id").commit(); //If you ever need to clear the user data...
-        //settings.edit().remove("token").commit();
+//        settings.edit().remove("id").commit(); //If you ever need to clear the user data...
+//        settings.edit().remove("token").commit();
         MainActivity.authToken = settings.getString("token", null);
         MainActivity.userId = settings.getInt("id", -1);
         firstUpdate = true;

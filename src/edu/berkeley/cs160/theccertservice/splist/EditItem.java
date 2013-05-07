@@ -3,10 +3,12 @@ package edu.berkeley.cs160.theccertservice.splist;
 import java.util.ArrayList;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,8 +27,9 @@ public class EditItem extends DialogFragment {
 	private Item item;
 	private ArrayAdapter itemsAdapter;
 	private ShoppingList currentItems;
+	private Context context;
 	
-	public EditItem(Item item, ArrayAdapter itemsAdapter, ShoppingList list){
+	public EditItem(Item item, ArrayAdapter itemsAdapter, ShoppingList list, Context context){
 		this.msgString = item.getName();
 		this.cost = item.getPrice();
 		this.isChecked = item.getShared();
@@ -34,6 +37,7 @@ public class EditItem extends DialogFragment {
 		this.item = item;
 		this.itemsAdapter = itemsAdapter;
 		this.currentItems = list;
+		this.context = context;
 	}
 	
 	public void shareMessage() {
@@ -90,6 +94,8 @@ public class EditItem extends DialogFragment {
 	}
 	
 	public void done() {
+		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
 		this.dismiss();
 	}
 	

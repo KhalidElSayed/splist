@@ -104,6 +104,14 @@ public class FriendsActivity extends Activity {
 					exv.collapseGroup(groupPosition+1);  
 					exv.expandGroup(groupPosition+1);
 				}
+				if(groupPosition ==1){
+					
+					showFeedDialog2(groupPosition, childPosition);
+					//exv.collapseGroup(groupPosition);  
+					//exv.expandGroup(groupPosition);
+
+				}
+				
 				return false;
 			}
 			
@@ -115,6 +123,13 @@ public class FriendsActivity extends Activity {
 	    DialogFragment newFragment = new CreateFeedDialog(groupPosition, childPosition);
 	    newFragment.show(getFragmentManager(), "createFeedDialog");
 	}
+	
+	public void showFeedDialog2(int groupPosition, int childPosition) {
+	    DialogFragment newFragment1 = new CreateFeedDialog2(groupPosition, childPosition);
+	    newFragment1.show(getFragmentManager(), "createFeedDialog");
+	}
+	
+
 	
 	public static void refreshEXV() {
 		if (exv != null) {
@@ -187,6 +202,68 @@ public class FriendsActivity extends Activity {
 	
 			return view;
 		}
+		
+		public void done() {
+			this.dismiss();
+		}
+	}
+	
+	
+	public class CreateFeedDialog2 extends DialogFragment {
+		
+		int groupPosition;
+		int childPosition;
+		TextView friend_name;
+		TextView friend_email;
+		Button friend_delete;
+		Button friend_cancel;
+		
+		public CreateFeedDialog2(int groupPosition, int childPosition) {
+			// Empty constructor required for DialogFragment
+			this.groupPosition = groupPosition;
+			this.childPosition = childPosition;
+		}
+		
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View view = inflater.inflate(R.layout.delete_friend, container);
+			friend_name = (TextView) view.findViewById(R.id.friend_name);
+			friend_name.setText(FriendAdapter.friends.get(childPosition).name);
+			
+			//System.out.print("hello I am here");
+			
+			friend_email = (TextView) view.findViewById(R.id.friend_email);
+			friend_email.setText(FriendAdapter.friends.get(childPosition).email);
+
+			
+			friend_delete = (Button) view.findViewById(R.id.friend_delete);
+			friend_delete.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					HashMap<String, String> data = new HashMap<String, String>();
+					data.put("auth_token",MainActivity.authToken);
+					data.put("friend_id", String.valueOf(FriendAdapter.friends.get(childPosition).id));
+					MainActivity.server.removeFriend(data);	
+					FriendAdapter.friends.remove(FriendAdapter.friends.get(childPosition));
+					done();
+					exv.collapseGroup(groupPosition);  
+					exv.expandGroup(groupPosition);
+				}			
+			});
+	
+			friend_cancel = (Button) view.findViewById(R.id.friend_cancel);
+			friend_cancel.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					done();
+				}
+			});
+			
+			return view;
+		}
+		//
+
 		
 		public void done() {
 			this.dismiss();
