@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bagels30"
+    android:background="@drawable/bagels60"
     android:orientation="vertical" >
 
     <ExpandableListView
@@ -12,10 +12,6 @@
         android:padding="2dp" >
     </ExpandableListView>
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bagels30" />
+
 
 </LinearLayout>
