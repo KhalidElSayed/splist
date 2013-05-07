@@ -14,7 +14,8 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/AddFriend"
         android:ems="10"
-        android:hint="Friend&apos;s E-mail" >
+        android:hint="Friend&apos;s E-mail"
+        android:textColorHint="#FFFFFF" >
 
         <requestFocus />
     </EditText>

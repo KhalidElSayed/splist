@@ -3,6 +3,7 @@ package edu.berkeley.cs160.theccertservice.splist;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.text.NumberFormat;
 
 import edu.berkeley.cs160.theccertservice.splist.PickUpActivity.ChooseListListener;
 
@@ -89,7 +90,7 @@ public class CalcBillActivity extends ListActivity {
 	
 	
 	
-	public Double calculateOwed(ShoppingList lst) {
+	public String calculateOwed(ShoppingList lst) {
 		double owed = 0.0;
 		
 		listItems.clear();
@@ -108,7 +109,10 @@ public class CalcBillActivity extends ListActivity {
 				}
 			}
 		}
-		return owed;
+		double money = 100.1;
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		String moneyString = formatter.format(owed);
+		return moneyString;
 	}
 	
 	public double roundTwoDecimalPlaces(double d) {
