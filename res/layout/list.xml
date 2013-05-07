@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/new_list_button"
+        android:textColor="#FFFFFFFF"
         android:text="@string/list_title" />
 
     <Spinner
@@ -52,6 +53,7 @@
         android:layout_toRightOf="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
         android:layout_marginLeft="210dp"
+        android:textColor="#FFFFFFFF"
         android:layout_marginTop="40dp"
         android:text="@string/share_checkbox" />
 
@@ -63,7 +65,8 @@
         android:layout_marginLeft="30dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Item Name" />
+        android:textColorHint="#FFFFFFFF"
+        android:hint="Item Name?" />
 
     <CheckBox
         android:id="@+id/checkbox_share"
@@ -81,6 +84,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="35dp"
         android:text="Cost:" />
+    
     <EditText
         android:id="@+id/item_cost"
         android:layout_width="100dp"
@@ -89,7 +93,8 @@
         android:layout_toRightOf="@+id/cost_title"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:hint="Cost" />
+        android:textColorHint="#FFFFFFFF"
+        android:hint="Cost?" />
 	<Button
 	    android:id="@+id/add_item"
 	    android:layout_width="120dp"
