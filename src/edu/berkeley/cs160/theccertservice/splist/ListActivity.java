@@ -1,7 +1,10 @@
 package edu.berkeley.cs160.theccertservice.splist;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,6 +36,8 @@ import android.widget.TextView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -53,7 +59,9 @@ public class ListActivity extends Activity implements SensorEventListener {
     private long lastUpdate = System.currentTimeMillis();
     private SensorManager sensorManager;
     private float last_x, last_y, last_z;
-    private final float SHAKE_THRESHOLD = 35;
+    private final float SHAKE_THRESHOLD = 1600;
+    private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
+    
     static ListActivity mainListActivity = null;
     static Timer t;
     
@@ -185,16 +193,40 @@ public class ListActivity extends Activity implements SensorEventListener {
 	    newFragment.show(getFragmentManager(), "shareMessage");
 	}
 	
-    public void onFinishShareMessageDialog(String inputText) {
-    	currentItems = ShoppingList.getShoppingList(spinnerList.getSelectedItem().toString());
-    	for (Item item : currentItems._items) {
-    		if (item._shared && !FeedAdapter.itemsFriendsWillSplit.contains(item))
-    			FeedAdapter.itemsFriendsWillSplit.add(item);
-    	}
-    	
+    public void onFinishShareMessageDialog(String inputText) {    	
         Toast.makeText(this, "Message Sent!", Toast.LENGTH_SHORT).show();
     }
     
+    public void addItem(String name, Double itemCost, Boolean isShared) {
+    	HashMap<String,String> data = new HashMap<String, String>();
+    	data.put("auth_token", MainActivity.authToken);
+    	data.put("owner", String.valueOf(MainActivity.userId));
+    	data.put("name", name);
+    	data.put("description", "");
+    	data.put("price", itemCost.toString());
+    	data.put("quantity", "1");
+    	data.put("shared", isShared.toString());
+    	data.put("shareFriends", Friend.friendsAsJSONArrayString());
+    	data.put("list", currentItems._name);
+    	MainActivity.server.addItem(data);
+    	
+    	Item newItem = new Item(name, isShared, itemCost);
+    	currentItems.addItem(newItem);
+    	
+    	EditText nameView = (EditText) findViewById(R.id.item);
+    	CheckBox checkView = (CheckBox) findViewById(R.id.checkbox_share);
+    	EditText costView = (EditText) findViewById(R.id.item_cost);
+    	
+    	//clear edit texts and checkbox
+    	nameView.setText("", TextView.BufferType.EDITABLE);
+    	checkView.setChecked(false);
+    	costView.setText("", TextView.BufferType.EDITABLE);
+    	
+    	//unfocus from edittext
+    	finishText();
+    	
+    	updateItemsList();
+    }
     
     public void addItemToList(View v){
     	if(currentItems == null){
@@ -215,32 +247,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     		itemCost = Double.parseDouble(costInput);
     	}
     	
-    	HashMap<String,String> data = new HashMap<String, String>();
-    	data.put("auth_token", MainActivity.authToken);
-    	data.put("owner", String.valueOf(MainActivity.userId));
-    	data.put("name", itemName);
-    	data.put("description", "");
-    	data.put("price", itemCost.toString());
-    	data.put("quantity", "1");
-    	data.put("shared", isChecked.toString());
-    	data.put("shareFriends", Friend.friendsAsJSONArrayString());
-    	data.put("list", currentItems._name);
-    	MainActivity.server.addItem(data);
-    	
-    	Item newItem = new Item(itemName, isChecked, itemCost);
-    	currentItems.addItem(newItem);
-    	
-    	
-    	
-    	//clear edit texts and checkbox
-    	nameView.setText("", TextView.BufferType.EDITABLE);
-    	checkView.setChecked(false);
-    	costView.setText("", TextView.BufferType.EDITABLE);
-    	
-    	//unfocus from edittext
-    	finishText();
-    	
-    	updateItemsList();
+    	addItem(itemName, itemCost, isChecked.booleanValue());
     }
     
 	public void updateItemsList() {
@@ -279,7 +286,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		long t = System.currentTimeMillis();
-		long diffTime = t -lastUpdate;
+		long diffTime = t - lastUpdate;
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && diffTime > 100) {
 			lastUpdate = t;
 			float x = event.values[0];
@@ -289,9 +296,13 @@ public class ListActivity extends Activity implements SensorEventListener {
 			float accelVal = Math.abs(x+y+z - last_x - last_y - last_z)
                     / diffTime * 10000;
 			if (accelVal >= SHAKE_THRESHOLD) {
-				if (diffTime >= 200) {				
-					Toast.makeText(this, "Speak to add item!", Toast.LENGTH_SHORT).show();
-				}
+				Log.d("Shake it", "X: " + String.valueOf(x).substring(0, 3) +
+						          " Y: " + String.valueOf(y).substring(0, 3) +
+						          " Z: " + String.valueOf(z).substring(0, 3) +
+						          " accelVal: " + String.valueOf(accelVal).substring(0, 5));
+								
+				speak();
+
 			}	
 			last_x = x;
 			last_y = y;
@@ -304,15 +315,43 @@ public class ListActivity extends Activity implements SensorEventListener {
 
 	}
 	
+	public boolean checkVoiceRecognition() {
+		// Check if voice recognition is present
+		PackageManager pm = getPackageManager();
+		List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(
+				RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+		if (activities.size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public void speak() {
+
+		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass()
+				.getPackage().getName());
+
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+				RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+
+		int noOfMatches = 0;
+		intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+		startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		for (Sensor s : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
-			if (s.getType() == Sensor.TYPE_ACCELEROMETER) {
-				sensorManager.registerListener(this, 
-						sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-						SensorManager.SENSOR_DELAY_NORMAL);
-				return;
+		if (checkVoiceRecognition()) {
+			for (Sensor s : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
+				if (s.getType() == Sensor.TYPE_ACCELEROMETER) {
+					sensorManager.registerListener(this, 
+							sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+							SensorManager.SENSOR_DELAY_NORMAL);
+					return;
+				}
 			}
 		}
 		final class repeatTask extends TimerTask{
@@ -383,6 +422,48 @@ public class ListActivity extends Activity implements SensorEventListener {
             return super.onOptionsItemSelected(item);
 
 	    }
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
 
+			if (resultCode == RESULT_OK) {
+
+				ArrayList<String> text1 = data
+						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+				String str = text1.get(0);
+				List<String> text = Arrays.asList(str.split("((Add|add)\\s|\\s(too?|two|2|Too?|Two)\\s)"));
+				if (text.size() == 3 && text.get(0).length() == 0) {
+					String itemName = text.get(1);
+					String listName = text.get(2);
+					if (ShoppingList.hm.containsKey(listName) || ShoppingList.hm.containsKey(listName.toLowerCase())) {
+						currentItems = ShoppingList.getShoppingList(listName);
+						spinnerList.setSelection(sharedLists.indexOf(currentItems._name));
+					} else {
+						onFinishCreateList(listName);
+					}
+					addItem(itemName, 0.00, false);
+					showToastMessage("Added " + itemName + " to " + listName + ".");
+				} else {
+					showToastMessage(text1.toString());
+				}
+			
+			} else if (resultCode == RecognizerIntent.RESULT_AUDIO_ERROR) {
+				showToastMessage("Audio Error");
+			} else if (resultCode == RecognizerIntent.RESULT_CLIENT_ERROR) {
+				showToastMessage("Client Error");
+			} else if (resultCode == RecognizerIntent.RESULT_NETWORK_ERROR) {
+				showToastMessage("Network Error");
+			} else if (resultCode == RecognizerIntent.RESULT_NO_MATCH) {
+				showToastMessage("No Match");
+			} else if (resultCode == RecognizerIntent.RESULT_SERVER_ERROR) {
+				showToastMessage("Server Error");
+			}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	void showToastMessage(String message) {
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 }

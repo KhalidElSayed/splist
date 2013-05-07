@@ -49,8 +49,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data", data.toString());
+				}
 				a.onUserCreation();
 			}
 		}
@@ -65,8 +66,8 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
-					Log.d("Json data", data.toString());
+				if (data != null) {
+					//Log.d("Json data", data.toString());
 					String token = null;
 					int id = -1;
 					String name = null;
@@ -98,7 +99,8 @@ public class Server {
 					    return;
 						
 					}
-					a.afterLoginAttempt(false);
+				}
+				a.afterLoginAttempt(false);
 				Log.d("Json data", "Request failed");					
 			}
 		}
@@ -113,8 +115,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data", data.toString());
+				}
 			}
 		}
 		AcctLogout c = new AcctLogout("/tokens/delete");
@@ -175,7 +178,7 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
-					Log.d("Json data getSharedItems", data.toString());
+					//Log.d("Json data getSharedItems", data.toString());
 					JSONArray items = null;
 					ArrayList<Item> itemsIWillSplit = new ArrayList<Item>();
 					ArrayList<Item> itemsFriendsWantToSplit = new ArrayList<Item>();
@@ -314,9 +317,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data", data.toString());
-				//a.onUserCreation();
+				}
 			}
 		}
 		aItem c = new aItem("/item/add");
@@ -330,9 +333,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data", data.toString());
-				//a.onUserCreation();
+				}
 			}
 		}
 		eItem c = new eItem("/item/edit");
@@ -347,9 +350,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data", data.toString());
-				//a.onUserCreation();
+				}
 			}
 		}
 		dItem c = new dItem("/item/delete");
@@ -363,8 +366,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data", data.toString());
+				}
 			}
 		}
 		dItem c = new dItem("/user/removeFriend");
@@ -378,8 +382,9 @@ public class Server {
 			}
 			@Override
 			public void onPostExecute(JSONObject data) {
-				if (data != null)
+				if (data != null) {
 					Log.d("Json data", data.toString());
+				}
 			}
 		}
 		dItem c = new dItem("/item/acceptShare");
