@@ -44,10 +44,9 @@ public class FriendsActivity extends Activity {
 				HashMap<String, String> data = new HashMap<String, String>();
 				data.put("auth_token",MainActivity.authToken);
 				data.put("email",friendEmail.getText().toString());
-				MainActivity.server.requestFriend(data);
+				MainActivity.server.requestFriend(data, v);
 				friendEmail.setText("");
-				Toast.makeText(v.getContext(),"Your friend request has been sent",Toast.LENGTH_SHORT).show();
-
+				
 			}
 		});
 	}

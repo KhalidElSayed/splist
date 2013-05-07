@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 public class Server {
@@ -276,7 +277,7 @@ public class Server {
 		
 	}
 		
-	public void requestFriend(Map p) {
+	public void requestFriend(Map p, final View v) {
 		class rFriend extends JsonTask {
 			public rFriend(String _path) {
 				super(SERVER + _path);
@@ -285,6 +286,20 @@ public class Server {
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
 					Log.d("Json data", data.toString()); 
+					try {
+						String message = data.getString("status");
+						
+						if (message.contains("success")) {
+							Toast.makeText(v.getContext(),"Your friend request has been sent sucessfully!",
+									Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(v.getContext(), "Friend Request Failed. " + message + ".", Toast.LENGTH_SHORT).show();
+						}
+					} catch (JSONException e) {
+						
+					}
+				} else {
+					Toast.makeText(v.getContext(),"Not Connected to the Interwebz",Toast.LENGTH_SHORT).show();
 				}
 			}
 		}
@@ -319,6 +334,27 @@ public class Server {
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
 					Log.d("Json data", data.toString());
+					int id = -1;
+					String list = null;
+					String name = null;
+					String price = null;
+					boolean shared = false;
+					try {
+						id = data.getInt("id");
+						name = data.getString("name");
+						price = data.getString("price");
+						list = data.getString("list");
+						shared = data.getBoolean("shared");
+						for (Item i : ShoppingList.getShoppingList(list)._items) {
+							if (i._shared == shared && i._name == name &&
+									i._price.toString() == price && i._id == -1) {
+								i._id = id;
+								break;
+							}
+						}
+					} catch (JSONException e) {
+						Log.d("Json data parsing", "Failed...");
+					}
 				}
 			}
 		}

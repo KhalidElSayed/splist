@@ -92,7 +92,7 @@ public class CalcBillActivity extends ListActivity {
 	
 	public String calculateOwed(ShoppingList lst) {
 		double owed = 0.0;
-		
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 		listItems.clear();
 		if (lst != null) {
 			for (Item i : lst.getItems()) {
@@ -101,7 +101,7 @@ public class CalcBillActivity extends ListActivity {
 					double itemPrice = i.getPrice();
 					double numPplSharing = i.getNumPeopleSharing();
 					double priceFrac = roundTwoDecimalPlaces(itemPrice / numPplSharing);
-					String priceFracStr = Double.toString(priceFrac);
+					String priceFracStr = formatter.format(priceFrac);
 					owed = owed + priceFrac;
 					String nameAndPrice = itemName + " costs " + priceFracStr;
 					listItems.add(nameAndPrice);
@@ -109,8 +109,6 @@ public class CalcBillActivity extends ListActivity {
 				}
 			}
 		}
-		double money = 100.1;
-		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 		String moneyString = formatter.format(owed);
 		return moneyString;
 	}
@@ -129,7 +127,7 @@ public class CalcBillActivity extends ListActivity {
 	    			// how curList is obtained possibly needs to be changed
 		    		ShoppingList curList = ShoppingList.getSharedShoppingList(chosenList); // list of shared items for that shopping list
 		    		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
-					MoneyOwed.setText(String.valueOf(calculateOwed(curList)));
+					MoneyOwed.setText(calculateOwed(curList));
 	    		}
 	    		break;
 	    }
