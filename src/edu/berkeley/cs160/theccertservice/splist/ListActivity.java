@@ -115,6 +115,10 @@ public class ListActivity extends Activity implements SensorEventListener {
 	}
 	
 	public void onFinishCreateList(String listName){
+		if(listName.replaceAll("\\s","") == ""){
+			showToastMessage("Invalid List Name: List name must contain characters");
+			return;
+		}
 		sharedLists.add(listName);
 		listsAdapter.notifyDataSetChanged();
 		currentItems = new ShoppingList(listName, MainActivity.userId);
