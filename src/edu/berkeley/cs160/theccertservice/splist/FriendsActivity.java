@@ -244,7 +244,7 @@ public class FriendsActivity extends Activity {
 				public void onClick(View v) {
 					HashMap<String, String> data = new HashMap<String, String>();
 					data.put("auth_token",MainActivity.authToken);
-					data.put("id", String.valueOf(FriendAdapter.friends.get(childPosition).id));
+					data.put("friend_id", String.valueOf(FriendAdapter.friends.get(childPosition).id));
 					MainActivity.server.removeFriend(data);	
 					FriendAdapter.friends.remove(FriendAdapter.friends.get(childPosition));
 					done();
