@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -101,15 +102,23 @@ public class ListActivity extends Activity implements SensorEventListener {
 	public void showCreateListDialog(View v) {
 	    DialogFragment newFragment = new CreateListDialog();
 	    newFragment.show(getFragmentManager(), "createList");
-	    finishText();
 	}
 	
 	public void showDeleteListDialog(View v){
-		Dialog d = deleteDialog();
-		d.show();
+		if(sharedLists.size() > 0){
+			Dialog d = deleteDialog();
+			d.show();
+		} else {
+			showToastMessage("There are no lists to delete");
+		}
+		finishText();
 	}
 	
 	public void onFinishCreateList(String listName){
+		if(listName.replaceAll("\\s","") == ""){
+			showToastMessage("Invalid List Name: List name must contain characters");
+			return;
+		}
 		sharedLists.add(listName);
 		listsAdapter.notifyDataSetChanged();
 		currentItems = new ShoppingList(listName, MainActivity.userId);
@@ -170,6 +179,8 @@ public class ListActivity extends Activity implements SensorEventListener {
 		}
 		
 		public void done() {
+			InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
 			this.dismiss();
 		}
 	}
@@ -190,15 +201,6 @@ public class ListActivity extends Activity implements SensorEventListener {
 	public static ArrayList<String> getLists(){
 		return sharedLists;
 	}
-	
-	public void showShareMessageDialog(View view) {
-	    DialogFragment newFragment = new ShareMessageDialog();
-	    newFragment.show(getFragmentManager(), "shareMessage");
-	}
-	
-    public void onFinishShareMessageDialog(String inputText) {    	
-        Toast.makeText(this, "Message Sent!", Toast.LENGTH_SHORT).show();
-    }
     
     public void addItem(String name, Double itemCost, Boolean isShared) {
     	HashMap<String,String> data = new HashMap<String, String>();
@@ -248,8 +250,15 @@ public class ListActivity extends Activity implements SensorEventListener {
     	}else{
     		itemCost = Double.parseDouble(costInput);
     	}
-    	
-    	addItem(itemName, itemCost, isChecked.booleanValue());
+    	if(itemName.replaceAll("\\s","") == ""){
+    		showToastMessage("Invalid Item Name: Name must contain characters");
+    		finishText();
+    	} else if(spinnerList.getSelectedItem() == null) {
+    		showToastMessage("No Lists Selected: Please create a list first");
+    		finishText();
+    	} else {
+    		addItem(itemName, itemCost, isChecked.booleanValue());
+    	}
     }
     
 	public void updateItemsList() {
@@ -279,7 +288,8 @@ public class ListActivity extends Activity implements SensorEventListener {
 	}
 	
 	public void showEditItemDialog(Item item, ArrayAdapter adapter, ShoppingList list){
-	    DialogFragment newFragment = new EditItem(item, adapter, list);
+		Context context = getApplicationContext();
+	    DialogFragment newFragment = new EditItem(item, adapter, list, context);
 	    newFragment.show(getFragmentManager(), "editItem");
 	}
 	
