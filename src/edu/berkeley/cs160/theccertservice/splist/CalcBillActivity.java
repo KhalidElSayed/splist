@@ -117,7 +117,7 @@ public class CalcBillActivity extends ListActivity {
         DecimalFormat twoPlaces = new DecimalFormat("##.##");
         return Double.valueOf(twoPlaces.format(d));
 	}
-/*
+
 	public void onClick(View view) {
 	    switch (view.getId()) {
 	    	case R.id.calculate:
@@ -132,7 +132,7 @@ public class CalcBillActivity extends ListActivity {
 	    		break;
 	    }
 	}
-*/	
+	
 	public class ChooseListListener extends Activity implements OnItemSelectedListener {
 		
 		@Override
