@@ -69,15 +69,6 @@
         android:text="# of people sharing: " />
 
     <Button
-        android:id="@+id/feedSend"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="20dp"
-        android:text="Share" />
-
-    <Button
         android:id="@+id/feedCancel"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -94,5 +85,15 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/feedSend"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_margin="19dp"
+        android:layout_toLeftOf="@+id/feedCancel"
+        android:background="#8000d4ff"
+        android:text="Share" />
 
 </RelativeLayout>

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/orangesmaller50"
     android:orientation="vertical" >   
     
     <ImageView
@@ -20,6 +21,7 @@
 	    android:layout_width="40dp"
 	    android:layout_height="40dp"
 	    android:onClick="showCreateListDialog"
+	   	android:background="#8000d4ff"
 	    android:text="+" />
 	
     <TextView
@@ -44,6 +46,7 @@
         android:layout_below="@+id/new_list_button"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/items_title" />
 
     <TextView
@@ -103,6 +106,7 @@
 	    android:layout_toRightOf="@+id/item_cost"
 	    android:layout_marginLeft="35dp"
 	    android:onClick="addItemToList"
+	    android:background="#8000d4ff"
 	    android:text="Add Item" />
 
     <ListView
