@@ -14,12 +14,6 @@
         android:layout_alignParentTop="true" 
         android:src="@drawable/orangesmaller50"/>
 
-    <Spinner
-        android:id="@+id/lists"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/textView1"/>
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -118,15 +112,6 @@
 	    android:text="+" />
 
 	<TextView
-	    android:id="@+id/textView2"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/lists"
-	    android:layout_toLeftOf="@+id/item_cost"
-	    android:fontFamily="	"
-	    android:text="@string/items_title" />
-
-	<TextView
 	    android:id="@+id/textView1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
@@ -136,5 +121,22 @@
 	    android:fontFamily="sans-serif-light"
 	    android:text="@string/list_title"
 	    android:textColor="#FFFFFFFF" />
+
+	<Spinner
+	    android:id="@+id/lists"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/item_cost"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignTop="@+id/new_list_button" />
+
+	<TextView
+	    android:id="@+id/textView2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:layout_below="@+id/lists"
+	    android:layout_toLeftOf="@+id/lists"
+	    android:text="@string/items_title" />
 
 </RelativeLayout>

@@ -15,7 +15,7 @@ public class FriendAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
 	
-	static String[] parentList = { "Friend Requests", "Friends" };
+	static String[] parentList = { " Friend Requests", " Friends" };
 	/*static String[][] childList = { { "Apollo", "Chantre", "Ghirshman", "Huni" },
 			{ "Jack", "Carey", "Aline", "Fox" } };
 	*/
