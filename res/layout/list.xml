@@ -2,8 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
+    android:background="@drawable/orangesmaller50"
+    android:orientation="vertical" >   
+=======
     android:orientation="vertical"
     android:focusableInTouchMode="true" >   
+>>>>>>> 46d682ab3dd31c1b4f6901ac45644aaf63db4a19
     
     <ImageView
         android:id="@+id/imageView1"
@@ -19,6 +24,7 @@
 	    android:layout_width="40dp"
 	    android:layout_height="40dp"
 	    android:onClick="showCreateListDialog"
+	   	android:background="#8000d4ff"
 	    android:text="+" />
 	
     <TextView
@@ -43,6 +49,7 @@
         android:layout_below="@+id/new_list_button"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/items_title" />
 
     <TextView
@@ -102,6 +109,7 @@
 	    android:layout_toRightOf="@+id/item_cost"
 	    android:layout_marginLeft="35dp"
 	    android:onClick="addItemToList"
+	    android:background="#8000d4ff"
 	    android:text="Add Item" />
 
     <ListView
@@ -114,20 +122,14 @@
 
     </ListView>
     
-	<Button
-	    android:id="@+id/share_with_others"
-	    android:layout_width="210dp"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:onClick="showShareMessageDialog"
-	    android:text="@string/share_title" />
+
 	<Button
 	    android:id="@+id/delete_list"
-	    android:layout_width="150dp"
+	    android:layout_width="300dp"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
 	    android:onClick="showDeleteListDialog"
-	    android:layout_toRightOf="@+id/share_with_others"
 	    android:text="Delete List" />
 
 </RelativeLayout>
