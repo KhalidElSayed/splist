@@ -393,6 +393,7 @@ public class Server {
 		}
 		dItem c = new dItem("/item/delete");
 		c.execute(p);
+		//
 	}
 	
 	public void removeFriend(Map p) {
