@@ -114,20 +114,14 @@
 
     </ListView>
     
-	<Button
-	    android:id="@+id/share_with_others"
-	    android:layout_width="210dp"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:onClick="showShareMessageDialog"
-	    android:text="@string/share_title" />
+
 	<Button
 	    android:id="@+id/delete_list"
-	    android:layout_width="150dp"
+	    android:layout_width="300dp"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
 	    android:onClick="showDeleteListDialog"
-	    android:layout_toRightOf="@+id/share_with_others"
 	    android:text="Delete List" />
 
 </RelativeLayout>

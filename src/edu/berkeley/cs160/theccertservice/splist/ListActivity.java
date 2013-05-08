@@ -201,15 +201,6 @@ public class ListActivity extends Activity implements SensorEventListener {
 	public static ArrayList<String> getLists(){
 		return sharedLists;
 	}
-	
-	public void showShareMessageDialog(View view) {
-	    DialogFragment newFragment = new ShareMessageDialog();
-	    newFragment.show(getFragmentManager(), "shareMessage");
-	}
-	
-    public void onFinishShareMessageDialog(String inputText) {    	
-        Toast.makeText(this, "Message Sent!", Toast.LENGTH_SHORT).show();
-    }
     
     public void addItem(String name, Double itemCost, Boolean isShared) {
     	HashMap<String,String> data = new HashMap<String, String>();
