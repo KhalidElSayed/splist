@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:background="#8000d4ff"
         android:text="Add Friend" />
 
 

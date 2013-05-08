@@ -11,17 +11,6 @@
         android:layout_toRightOf="@+id/textView1" />
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="19dp"
-		android:fontFamily="sans-serif-light"
-        android:text="@string/list_title" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,5 +30,16 @@
         android:layout_toRightOf="@+id/textView2"
         android:text="@string/zero"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/list_title" />
 
 </RelativeLayout>

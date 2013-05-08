@@ -80,17 +80,6 @@
         android:text="No Account? "
         android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/signUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView4"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_centerHorizontal="true"
-        android:text="Sign Up"
-        android:textColor="#EE8833"
-        android:textStyle="bold" />
-
     <Button
         android:id="@+id/logIn"
         android:layout_width="wrap_content"
@@ -100,5 +89,15 @@
         android:layout_alignRight="@+id/username"
         android:background="#EE8833"
         android:text="Log In" />
+
+    <TextView
+        android:id="@+id/signUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/TextView01"
+        android:layout_below="@+id/textView4"
+        android:text="Sign Up"
+        android:textColor="#EE8833"
+        android:textStyle="bold" />
 
 </RelativeLayout>
