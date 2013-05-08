@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-	android:background="@drawable/tp60"> 
+	android:background="@drawable/tp601"> 
     android:orientation="vertical" >
 
     <EditText
@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/AddFriend"
         android:ems="10"
-        android:hint="Friend&apos;s E-mail"
+        android:hint="Enter Friend&apos;s E-mail"
         android:textColorHint="#FFFFFF" >
 
         <requestFocus />
@@ -38,8 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
         android:background="#8000d4ff"
+        android:textSize="20dp"
+        android:fontFamily=""
         android:text="Add Friend" />
-
 
 </RelativeLayout>

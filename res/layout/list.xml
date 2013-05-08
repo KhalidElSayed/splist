@@ -13,41 +13,12 @@
         android:scaleType="center"
         android:layout_alignParentTop="true" 
         android:src="@drawable/orangesmaller50"/>
-    
-
-
-	<Button
-	    android:id="@+id/new_list_button"
-	    android:layout_width="40dp"
-	    android:layout_height="40dp"
-	    android:onClick="showCreateListDialog"
-	   	android:background="#8000d4ff"
-	    android:text="+" />
-	
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/new_list_button"
-        android:textColor="#FFFFFFFF"
-        android:text="@string/list_title" />
 
     <Spinner
         android:id="@+id/lists"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/textView1"/>
-    
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_list_button"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/items_title" />
 
     <TextView
         android:id="@+id/textView3"
@@ -101,7 +72,7 @@
 	<Button
 	    android:id="@+id/add_item"
 	    android:layout_width="120dp"
-	    android:layout_height="40dp"
+	    android:layout_height="35dp"
 	    android:layout_alignBottom="@+id/item_cost"
 	    android:layout_toRightOf="@+id/item_cost"
 	    android:layout_marginLeft="35dp"
@@ -134,5 +105,36 @@
 	    android:onClick="showDeleteListDialog"
 	    android:layout_toRightOf="@+id/share_with_others"
 	    android:text="Delete List" />
+
+	<Button
+	    android:id="@+id/new_list_button"
+	    android:layout_width="30dp"
+	    android:layout_height="30dp"
+	    android:layout_alignBaseline="@+id/textView1"
+	    android:layout_alignBottom="@+id/textView1"
+	    android:layout_alignLeft="@+id/textView2"
+	    android:background="#8000d4ff"
+	    android:onClick="showCreateListDialog"
+	    android:text="+" />
+
+	<TextView
+	    android:id="@+id/textView2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/lists"
+	    android:layout_toLeftOf="@+id/item_cost"
+	    android:fontFamily="	"
+	    android:text="@string/items_title" />
+
+	<TextView
+	    android:id="@+id/textView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginTop="21dp"
+	    android:layout_toLeftOf="@+id/textView3"
+	    android:fontFamily="sans-serif-light"
+	    android:text="@string/list_title"
+	    android:textColor="#FFFFFFFF" />
 
 </RelativeLayout>
