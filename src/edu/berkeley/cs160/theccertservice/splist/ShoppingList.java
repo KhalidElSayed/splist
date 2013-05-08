@@ -41,7 +41,7 @@ public class ShoppingList {
 	public void addItem(Item item) {
 		if(item._id != -1){
 			for (Item i : _items) {
-				if (item._id == i._id) {
+				if (item._id == i._id || i._id == -1) {
 					return;
 				}
 			}

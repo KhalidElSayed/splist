@@ -127,6 +127,7 @@ public class ListActivity extends Activity implements SensorEventListener {
     			listsAdapter.notifyDataSetChanged();
     			//need to remove list from real list
     			currentItems.deleteList();
+    			updateListNames();
     			updateItemsList();
     		}
         });
@@ -433,7 +434,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 				ArrayList<String> text1 = data
 						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 				String str = text1.get(0);
-				List<String> text = Arrays.asList(str.split("((Add|add)\\s|\\s(too?|two|2|Too?|Two)\\s)"));
+				List<String> text = Arrays.asList(str.split("((Add|add|had|Had)\\s|\\s(too?|two|2|Too?|Two)\\s)"));
 				if (text.size() == 3 && text.get(0).length() == 0) {
 					String itemName = text.get(1);
 					String listName = text.get(2);
@@ -446,7 +447,7 @@ public class ListActivity extends Activity implements SensorEventListener {
 					addItem(itemName, 0.00, false);
 					showToastMessage("Added " + itemName + " to " + listName + ".");
 				} else {
-					showToastMessage(text1.toString());
+					showToastMessage("Please try again.\nSay: 'Add (item) to (list).'");
 				}
 			
 			} else if (resultCode == RecognizerIntent.RESULT_AUDIO_ERROR) {
@@ -464,6 +465,6 @@ public class ListActivity extends Activity implements SensorEventListener {
 	}
 	
 	void showToastMessage(String message) {
-		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 	}
 }

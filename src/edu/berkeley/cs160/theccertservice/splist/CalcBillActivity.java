@@ -43,7 +43,10 @@ public class CalcBillActivity extends ListActivity {
     
     public void updateListNames() {
     	if (mainCalcBillAct != null) {
-    		
+    		ShoppingList prevList = null;
+    		if (currentList != null) {
+    			prevList = ShoppingList.getSharedShoppingList(currentList.getSelectedItem().toString());
+    		}
     		sharedLists = ShoppingList.allSharedListNames();
     		ArrayList<String> sharedListsToCalc = new ArrayList<String>();
     		for (String l : sharedLists) {
@@ -63,6 +66,9 @@ public class CalcBillActivity extends ListActivity {
     		currentList = (Spinner) header.findViewById(R.id.spinner1);
     		currentList.setAdapter(arrayAdapter);
     		currentList.setOnItemSelectedListener(new ChooseListListener());
+    		if (prevList != null) {
+    			currentList.setSelection(sharedLists.indexOf(prevList));
+    		}
     	}
     }
 
@@ -99,7 +105,7 @@ public class CalcBillActivity extends ListActivity {
 				if (i._shareAccepted) {
 					String itemName = i.getName();
 					double itemPrice = i.getPrice();
-					double numPplSharing = i.getNumPeopleSharing();
+					double numPplSharing = i.getNumPeopleSharing() + 1.0;
 					double priceFrac = roundTwoDecimalPlaces(itemPrice / numPplSharing);
 					String priceFracStr = formatter.format(priceFrac);
 					owed = owed + priceFrac;
@@ -117,22 +123,7 @@ public class CalcBillActivity extends ListActivity {
         DecimalFormat twoPlaces = new DecimalFormat("##.##");
         return Double.valueOf(twoPlaces.format(d));
 	}
-/*
-	public void onClick(View view) {
-	    switch (view.getId()) {
-	    	case R.id.calculate:
-	    		if (chosenList.isEmpty()) {
-	    	        Toast.makeText(this, "Please select a list.", Toast.LENGTH_LONG).show();
-	    		} else {
-	    			// how curList is obtained possibly needs to be changed
-		    		ShoppingList curList = ShoppingList.getSharedShoppingList(chosenList); // list of shared items for that shopping list
-		    		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
-					MoneyOwed.setText(calculateOwed(curList));
-	    		}
-	    		break;
-	    }
-	}
-*/	
+
 	public class ChooseListListener extends Activity implements OnItemSelectedListener {
 		
 		@Override

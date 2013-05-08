@@ -52,8 +52,13 @@ public class Item {
 		
 			String list = item.getString("list");
 			int owner = item.getInt("owner");
-
-			ShoppingList sList = ShoppingList.getShoppingList(list);
+			
+			ShoppingList sList = null;
+			if (_shared && owner != MainActivity.userId) {
+				sList = ShoppingList.getSharedShoppingList(list);
+			} else {
+				sList = ShoppingList.getShoppingList(list);
+			}
 			if (sList == null) {
 				sList = new ShoppingList(list, owner);
 			}
