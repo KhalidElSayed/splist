@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,15 +38,17 @@ public class CalcBillActivity extends ListActivity {
     ArrayList<String> sharedLists;
     View header;
     View footer;
+    ShoppingList prevList = null;
     
     String chosenList = "";
     public static ListActivity mainCalcBillAct = null;
-    
+
     public void updateListNames() {
     	if (mainCalcBillAct != null) {
-    		ShoppingList prevList = null;
-    		if (currentList != null) {
+    		if (currentList != null && currentList.getSelectedItem() != null) {
     			prevList = ShoppingList.getSharedShoppingList(currentList.getSelectedItem().toString());
+    		} else {
+    			Log.d("Why","Now?");
     		}
     		sharedLists = ShoppingList.allSharedListNames();
     		ArrayList<String> sharedListsToCalc = new ArrayList<String>();
@@ -132,7 +135,7 @@ public class CalcBillActivity extends ListActivity {
     		ShoppingList curList = ShoppingList.getSharedShoppingList(chosenList); // list of shared items for that shopping list
     		MoneyOwed = (TextView) header.findViewById(R.id.money_owed);
 			MoneyOwed.setText(calculateOwed(curList));
-
+			prevList = curList;
 		}
 		
 		@Override

@@ -179,7 +179,7 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
-					//Log.d("Json data getSharedItems", data.toString());
+					Log.d("Json data getSharedItems", data.toString());
 					JSONArray items = null;
 					ArrayList<Item> itemsIWillSplit = new ArrayList<Item>();
 					ArrayList<Item> itemsFriendsWantToSplit = new ArrayList<Item>();
@@ -224,7 +224,7 @@ public class Server {
 			@Override
 			public void onPostExecute(JSONObject data) {
 				if (data != null) {
-					Log.d("Json data", data.toString());
+					//Log.d("Json data", data.toString());
 					JSONArray friends = null;
 					try {
 						friends = (JSONArray) data.get("friends");

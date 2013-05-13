@@ -16,6 +16,11 @@ public class Friend {
 		this.id = id;
 		this.haveAcceptedRequest = haveAcceptedRequest;
 		this.asker = asker;
+		for (ShoppingList l : ShoppingList.hmShared.values()) {
+			if (l._owner == null && l.getItems().get(0)._owner_id == id) {
+				l._owner = name;
+			}
+		}
 		Friend.allFriends.add(this);
 	}
 	

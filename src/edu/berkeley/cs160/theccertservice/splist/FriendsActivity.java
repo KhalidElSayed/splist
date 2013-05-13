@@ -199,6 +199,7 @@ public class FriendsActivity extends Activity {
 					exv.expandGroup(groupPosition);
 				}			
 			});
+			getDialog().setTitle(FriendAdapter.friends.get(childPosition).name);
 	
 			return view;
 		}
@@ -239,7 +240,7 @@ public class FriendsActivity extends Activity {
 			
 			friend_delete = (Button) view.findViewById(R.id.friend_delete);
 			friend_delete.setOnClickListener(new View.OnClickListener() {
-
+			
 				@Override
 				public void onClick(View v) {
 					HashMap<String, String> data = new HashMap<String, String>();
@@ -259,7 +260,7 @@ public class FriendsActivity extends Activity {
 					done();
 				}
 			});
-			
+			getDialog().setTitle(FriendAdapter.friends.get(childPosition).name);
 			return view;
 		}
 		//

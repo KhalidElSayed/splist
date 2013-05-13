@@ -294,14 +294,13 @@ public class ListActivity extends Activity implements SensorEventListener {
 			float y = event.values[1];
 			float z = event.values[2];
 
-			float accelVal = Math.abs(x+y+z - last_x - last_y - last_z)
-                    / diffTime * 10000;
+			float accelVal = Math.abs(x - last_x + y - last_y + z - last_z)
+                    					     / diffTime * 10000;
 			if (accelVal >= SHAKE_THRESHOLD) {
 				Log.d("Shake it", "X: " + String.valueOf(x).substring(0, 3) +
 						          " Y: " + String.valueOf(y).substring(0, 3) +
 						          " Z: " + String.valueOf(z).substring(0, 3) +
-						          " accelVal: " + String.valueOf(accelVal).substring(0, 5));
-								
+						          " accelVal: " + String.valueOf(accelVal).substring(0, 5));								
 				speak();
 
 			}	
@@ -431,10 +430,10 @@ public class ListActivity extends Activity implements SensorEventListener {
 
 			if (resultCode == RESULT_OK) {
 
-				ArrayList<String> text1 = data
-						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+				ArrayList<String> text1 = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 				String str = text1.get(0);
 				List<String> text = Arrays.asList(str.split("((Add|add|had|Had)\\s|\\s(too?|two|2|Too?|Two)\\s)"));
+				
 				if (text.size() == 3 && text.get(0).length() == 0) {
 					String itemName = text.get(1);
 					String listName = text.get(2);

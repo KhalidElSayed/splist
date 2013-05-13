@@ -90,7 +90,11 @@ public class ShoppingList {
 	}
 	
 	public static ShoppingList getSharedShoppingList(String name) {
-		return hmShared.get(name);
+		ShoppingList l = null;
+		synchronized (hmShared) {
+			l = hmShared.get(name);
+		}
+		return l;
 	}
 	
 	public static ArrayList<String> allListNames(){

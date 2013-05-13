@@ -18,6 +18,7 @@ public class Item {
 	ArrayList<Integer> _peopleInvitedToShare;
 	Double _price;
 	ShoppingList _list;
+	int _owner_id;
 	
 	public Item(String name) {
 		_name = name;
@@ -31,6 +32,7 @@ public class Item {
 		_price = price;
 		_shareAccepted = false;
 		_id = -1;
+		_owner_id = MainActivity.userId;
 		ArrayList<Integer> _peopleSharing = new ArrayList<Integer>();
 	}
 	
@@ -52,6 +54,7 @@ public class Item {
 		
 			String list = item.getString("list");
 			int owner = item.getInt("owner");
+			_owner_id = owner;
 			
 			ShoppingList sList = null;
 			if (_shared && owner != MainActivity.userId) {

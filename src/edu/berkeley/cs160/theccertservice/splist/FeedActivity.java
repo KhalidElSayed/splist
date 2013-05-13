@@ -165,6 +165,7 @@ public class FeedActivity extends Activity {
 				Bundle savedInstanceState) {
 			View view=null;
 			if (groupPosition == 0) {
+				getDialog().setTitle(FeedAdapter.itemsFriendsWillSplit.get(childPosition).toString());
 				view = inflater.inflate(R.layout.create_feed_pick_up, container);
 				feedItemP = (TextView) view.findViewById(R.id.feedItemP);
 				feedItemP.setText(FeedAdapter.itemsFriendsWillSplit.get(childPosition).toString());	
@@ -200,6 +201,7 @@ public class FeedActivity extends Activity {
 				});
 			}
 			if (groupPosition == 1) {
+				getDialog().setTitle(FeedAdapter.itemsIWillSplit.get(childPosition).toString());
 				view = inflater.inflate(R.layout.create_feed_wait, container);
 				feedItemW = (TextView) view.findViewById(R.id.feedItemW);
 				feedItemW.setText(FeedAdapter.itemsIWillSplit.get(childPosition).toString());
@@ -230,6 +232,7 @@ public class FeedActivity extends Activity {
 				
 			}
 			if (groupPosition == 2) {
+				getDialog().setTitle(FeedAdapter.itemsFriendsWantToSplit.get(childPosition).toString());
 				view = inflater.inflate(R.layout.create_feed, container);
 				feedName = (TextView) view.findViewById(R.id.feedName);
 				feedName.setText(FeedAdapter.itemsFriendsWantToSplit.get(childPosition)._list
